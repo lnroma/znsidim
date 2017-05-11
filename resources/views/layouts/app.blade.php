@@ -57,13 +57,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/users') }}">
-                            <span class="glyphicon glyphicon-user"></span>
-                            Пользователи
-                            <span class="badge">{{$user_count}}</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ url('/events') }}">
                             <span class="glyphicon glyphicon-bell"></span>
                             Журнал
@@ -71,12 +64,19 @@
                         </a>
                     </li>
                 @endif
+                <li>
+                    <a href="{{ url('/users') }}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Пользователи
+                        <span class="badge">{{$user_count}}</span>
+                    </a>
+                </li>
                 <?php /**
                  * <li><a href="{{ url('/find') }}"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
                  */ ?>
                 <li>
                     <a href="{{ url('/blogs') }}">
-                        <span class="glyphicon glyphicon-boock"></span> Блоги <span class="badge">{{$blog_count}}</span>
+                        <span class="glyphicon glyphicon-book"></span> Блоги <span class="badge">{{$blog_count}}</span>
                     </a>
                 </li>
                 <?php /**

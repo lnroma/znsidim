@@ -216,6 +216,7 @@ return [
 //        'HTML'=> \Illuminate\Html\HtmlFacade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'UserHelper' => App\Helpers\User::class,
     ],
 
 ];
