@@ -22,7 +22,7 @@ class RecentBlogs extends AbstractWidget
     public function run()
     {
         //
-        $blogs = Blogs::all()->take(5);
+        $blogs = Blogs::all()->sortByDesc('id')->take(5);
         return view("widgets.recent_blogs", [
             'blogs' => $blogs,
             'config' => $this->config,

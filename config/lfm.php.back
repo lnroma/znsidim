@@ -1,5 +1,4 @@
 <?php
-
 return [
     /*
     |--------------------------------------------------------------------------
@@ -15,7 +14,7 @@ return [
     'middlewares' => ['web','auth'],
 
     // The url to this package. Change it if necessary.
-    'prefix' => 'laravel-filemanager',
+    'prefix' => 'filemanager',
 
     /*
     |--------------------------------------------------------------------------
@@ -30,9 +29,9 @@ return [
 
     // Flexibla way to customize client folders accessibility
     // Ex: The private folder of user will be named as the user id.
-    'user_field' => function() {
-        return auth()->user()->id;
-    },
+//    'user_field' => function() {
+//        return auth()->user()->id;
+//    },
 
     /*
     |--------------------------------------------------------------------------

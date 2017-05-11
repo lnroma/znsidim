@@ -22,7 +22,7 @@ class IndexController extends Controller
         }
         /** @var \Illuminate\Database\Query\Builder $blogs */
         $blogs = DB::table('user_blogs');
-        $blogs = $blogs->where('user_id', '=', Auth::user()->id)->paginate(10);
+        $blogs = $blogs->orderBy('id', 'desc')->where('user_id', '=', Auth::user()->id)->paginate(10);
         return view('blogs/myblogs')->with('blogs', $blogs);
     }
 
@@ -89,7 +89,7 @@ class IndexController extends Controller
 
     public function listBlogs()
     {
-        $blogs = DB::table('user_blogs')->paginate(10);
+        $blogs = DB::table('user_blogs')->orderBy('id', 'desc')->paginate(10);
         return view('blogs/blogs')->with('blogs', $blogs);
     }
 }
