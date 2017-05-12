@@ -7,7 +7,7 @@
     </div>
     <div class="panel-footer">
         <div class="btn-group" role="group" arial-label="Управление">
-            <a href="/blogs/read/{{$_blog->id}}" class="btn btn-info">Комментировать</a>
+            <a href="/blogs/read/{{$_blog->id}}" class="btn btn-info">Комментировать <span class="badge">{{ $_blog->comments->count() }}</span></a>
         </div>
     </div>
 </div>

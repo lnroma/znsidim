@@ -10,12 +10,7 @@
                 </div>
                 <div class="panel-body">
                     <?php foreach ($users->getCollection() as $item): ?>
-                    <img src="<?php echo $item->avatar ?>" height="50px" width="50px" class="img-circle">
-                    <a href="/user/show/<?php echo $item->name ?>"><?php echo $item->name ?></a><br/>
-                    <div class="btn-group" role="group" arial-label="Управление">
-                        <a href="/message/send/{{$item->name}}" class="btn btn-info">Написать</a>
-                    </div>
-                    <hr/>
+                        @include('users.view.list')
                     <?php endforeach; ?>
                     <?php echo $users->render() ?>
                 </div>

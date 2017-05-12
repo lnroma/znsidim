@@ -21,8 +21,7 @@ class IndexController extends Controller
             head('Location:/');
         }
         /** @var \Illuminate\Database\Query\Builder $blogs */
-        $blogs = DB::table('user_blogs');
-        $blogs = $blogs->orderBy('id', 'desc')->where('user_id', '=', Auth::user()->id)->paginate(10);
+        $blogs = Blogs::orderBy('id', 'desc')->where('user_id', '=', Auth::user()->id)->paginate(5);
         return view('blogs/myblogs')->with('blogs', $blogs);
     }
 
@@ -60,8 +59,9 @@ class IndexController extends Controller
             $blogsComment->user_id = Auth::user()->id;
         }
 
+        $comment = str_replace('script', 'hui', $request->get('comment'));
         $blogsComment->name = $request->get('name', 'Аноним');
-        $blogsComment->comment = $request->get('comment');
+        $blogsComment->comment = $comment;
         $blogsComment->user_blogs_id = $request->get('blog_id');
         $blogsComment->is_enabled = true;
         $blogsComment->is_delete = false;
@@ -76,7 +76,7 @@ class IndexController extends Controller
             $userNotifi->notify(
                 new UserEvents(
                     array(
-                        'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение.',
+                        'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
                         'title' => 'Новое сообщение в блоге',
                         'link' => '/blogs/read/' . $blog->id,
                     )
@@ -89,7 +89,7 @@ class IndexController extends Controller
 
     public function listBlogs()
     {
-        $blogs = DB::table('user_blogs')->orderBy('id', 'desc')->paginate(10);
+        $blogs = Blogs::orderBy('id', 'desc')->paginate(5);
         return view('blogs/blogs')->with('blogs', $blogs);
     }
 }

@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/map', function () {
+    return view('pages.map');
+});
+
 Route::auth();
 /**
  * message rout
