@@ -1,2 +1,3 @@
 User-agent: *
-Disallow:
+Disallow:/users$
+sitemap: http://sidimvprobke.com/sitemap.xml
