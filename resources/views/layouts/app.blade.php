@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="964ad5f0ab4b6e32" />
+    <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00" />
     <title>Скучно в пробке, заходи новости, статьи, блоги, чаты...</title>
 
     <!-- Fonts -->
