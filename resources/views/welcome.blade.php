@@ -5,12 +5,6 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             {!! Breadcrumbs::render('home') !!}
-            <div class="panel panel-default">
-                <div class="panel-heading">Привет!</div>
-                <div class="panel-body">
-                    Сдесь ты найдёшь своё! Новости блоги, дтп, обсуждение автомобилей.
-                </div>
-            </div>
             @widget("recentBlogs")
             <div class="panel panel-default">
                 <div class="panel-heading">Часто задоваемые вопросы</div>

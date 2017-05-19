@@ -21,7 +21,7 @@
             <img alt="Image" src="{{ $_blog->main_image }}">
         </a>
         @endif
-        {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 25) !!}
+        {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
         <a href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
     </div>
 

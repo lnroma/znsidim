@@ -41,8 +41,8 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                Sidimvprobke.com
+            <a class="navbar-brand"  href="{{ url('/') }}">
+                <img src="/img/avatar.jpeg" width="100px" height="100px" border="0" class="img-circle">
             </a>
         </div>
 
