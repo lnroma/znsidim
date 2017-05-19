@@ -55,6 +55,8 @@ Route::get('blogs', 'Blogs\IndexController@listBlogs')->name('blogs');
 Route::get('blogs/read/{idBlog}', 'Blogs\IndexController@read')->name('blogs/read/{idBlog}');
 Route::post('myblogs', 'Blogs\IndexController@post');
 Route::post('blogs/comment', 'Blogs\IndexController@comment');
+Route::get('blogs/like/{idBlog}/{csrf}', 'Blogs\IndexController@like');
+Route::get('blogs/dislike/{idBlog}/{csrf}', 'Blogs\IndexController@dislike');
 /**
  * events router
  */

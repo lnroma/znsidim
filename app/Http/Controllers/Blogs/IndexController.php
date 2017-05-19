@@ -7,9 +7,11 @@ use App\Models\Blogs;
 use App\Models\Blogs\Comment;
 use App\Notifications\UserEvents;
 use App\User;
+use DaveJamesMiller\Breadcrumbs\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IndexController extends Controller
@@ -27,13 +29,26 @@ class IndexController extends Controller
 
     public function post(Request $request)
     {
-        $blogs = new Blogs();
-        $blogs->name = $request->get('name');
-        $blogs->content = $request->get('comment');
-        $blogs->is_enable = true;
-        $blogs->user_id = Auth::user()->id;
-        $blogs->save();
+        try {
+            $blogs = new Blogs();
+            $blogs->name = $request->get('name');
+            $blogs->content = $request->get('comment');
+            $blogs->is_enable = true;
+            $blogs->user_id = Auth::user()->id;
 
+            // upload main image
+            if (Input::file('main_image') && Input::file('main_image')->isValid()) {
+                $destinationPath = 'uploads';
+                $extensions = Input::file('main_image')->getClientOriginalExtension();
+                $fileName = rand(1000, 10000) . '.' . $extensions;
+                Input::file('main_image')->move($destinationPath, $fileName);
+                $blogs->main_image = '/' . $destinationPath . '/' . $fileName;
+            }
+
+            $blogs->save();
+        } catch (Exception $exception) {
+            var_dump($exception);die;
+        }
         return redirect('/myblogs');
     }
 
@@ -91,5 +106,42 @@ class IndexController extends Controller
     {
         $blogs = Blogs::orderBy('id', 'desc')->paginate(5);
         return view('blogs/blogs')->with('blogs', $blogs);
+    }
+
+    public function like($idBlog, $csrf, Request $request)
+    {
+        $token = $request->session()->getToken();
+
+        if($token != $csrf) {
+            return redirect(url()->previous())->with('errors', 'Защита от ботов!');
+        }
+
+        $this->saveLikeDislike($idBlog, 'like');
+        return redirect(url()->previous() . '#blog_' . $idBlog)->with('message', 'Лайк добавлен');
+    }
+
+    public function dislike($idBlog, $csrf, Request $request)
+    {
+        $token = $request->session()->getToken();
+
+        if($token != $csrf) {
+            return redirect(url()->previous())->with('errors', 'Защита от ботов!');
+        }
+
+        $this->saveLikeDislike($idBlog, 'dislike');
+        return redirect(url()->previous() . '#blog_' . $idBlog)->with('message', 'Лайк добавлен');
+    }
+
+    /**
+     * save like or dislike state
+     * @param $id
+     * @param $likeOrDislike string 'like' or 'dislike'
+     */
+    protected function saveLikeDislike($id, $likeOrDislike)
+    {
+        $blogs = Blogs::find($id);
+        $blogs->{$likeOrDislike}++;
+        $blogs->save();
+        return true;
     }
 }
