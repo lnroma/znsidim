@@ -155,6 +155,7 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -217,6 +218,8 @@ return [
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'UserHelper' => App\Helpers\User::class,
+        'MessageHelper' => App\Helpers\Messages::class,
+        'Capcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];

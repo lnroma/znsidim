@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="yandex-verification" content="964ad5f0ab4b6e32" />
-    <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00" />
+    <meta name="yandex-verification" content="964ad5f0ab4b6e32"/>
+    <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00"/>
     <title>Скучно в пробке, заходи новости, статьи, блоги, чаты...</title>
 
     <!-- Fonts -->
@@ -30,95 +30,41 @@
     </style>
 </head>
 <body id="app-layout">
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <div class="badge">{{ $common_count }}</div>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <!-- Branding Image -->
-            <a class="navbar-brand"  href="{{ url('/') }}">
-                <img src="/img/avatar.jpeg" width="100px" height="100px" border="0" class="img-circle">
-            </a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="btn-group btn-group-justified" role="group">
                 @if (!Auth::guest())
-                    <li>
-                        <a href="{{ url('/message') }}">
-                            <span class="glyphicon glyphicon-envelope"></span>
-                            Почта
-                            <span class="badge">{{$mail_count}}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/events') }}">
-                            <span class="glyphicon glyphicon-bell"></span>
-                            Журнал
-                            <span class="badge">{{$events_count}}</span>
-                        </a>
-                    </li>
+                    <a href="{{ url('/message') }}" class="btn  btn-primary">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <span class="badge">{{$mail_count}}</span>
+                    </a>
+                    <a href="{{ url('/events') }}" class="btn  btn-primary">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        <span class="badge">{{$events_count}}</span>
+                    </a>
                 @endif
-                <li>
-                    <a href="{{ url('/users') }}">
-                        <span class="glyphicon glyphicon-user"></span>
-                        Пользователи
-                        <span class="badge">{{$user_count}}</span>
-                    </a>
-                </li>
-                <?php /**
-                 * <li><a href="{{ url('/find') }}"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
-                 */ ?>
-                <li>
-                    <a href="{{ url('/blogs') }}">
-                        <span class="glyphicon glyphicon-book"></span> Блоги <span class="badge">{{$blog_count}}</span>
-                    </a>
-                </li>
-                <?php /**
-                <li><a href="{{ url('/chats') }}"><span class="glyphicon glyphicon-list"></span> Чаты</a></li>
-                <li>
-                <a href="{{ url('/files') }}">
-                <span class="glyphicon glyphicon-file"></span>
-                Файлы
-                <span class="badge">{{$files_count}}</span>
+                <a href="{{ url('/users') }}" class="btn  btn-primary">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="badge">{{$user_count}}</span>
                 </a>
-                </li>
-                 *                  **/  ?>
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
-                @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">Вход</a></li>
-                    <li><a href="{{ url('/register') }}">Регистрация</a></li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/myblogs') }}"><i class="fa fa-btn fa-home"></i>Мой блог</a></li>
-                            <li><a href="{{ url('/home') }}"><i class="fa fa-btn fa-home"></i>Моя страница</a></li>
-                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Выход</a></li>
-                        </ul>
-                    </li>
-                @endif
-            </ul>
+                <a href="{{ url('/blogs') }}" class="btn  btn-primary">
+                    <span class="glyphicon glyphicon-book"></span> <span class="badge">{{$blog_count}}</span>
+                </a>
+                    @if (Auth::guest())
+                        <a href="{{ url('/login') }}" class="btn  btn-primary">Вход</a>
+                        <a href="{{ url('/register') }}" class="btn  btn-primary">Регистрация</a>
+                    @else
+                        <a href="{{ url('/myblogs') }}" class="btn  btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ url('/home') }}" class="btn  btn-primary"><i class="fa fa-btn fa-home"></i></a>
+                        <a href="{{ url('/logout') }}" class="btn  btn-primary"><i class="fa fa-btn fa-sign-out"></i></a>
+                    @endif
+            </div>
+            @yield('content')
         </div>
     </div>
-</nav>
-
-@yield('content')
-@include('layouts.snipets.footer')
+</div>
+@include('layouts.snipets.metrika')
 
 <!-- JavaScripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"

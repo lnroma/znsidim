@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blogs;
 
+use App\Helpers\Messages;
 use App\Http\Controllers\Controller;
 use App\Models\Blogs;
 use App\Models\Blogs\Comment;
@@ -30,7 +31,17 @@ class IndexController extends Controller
     public function post(Request $request)
     {
         try {
-            $blogs = new Blogs();
+
+            if($request->get('blog_id')) {
+                $blogs = Blogs::find($request->get('blog_id'));
+                if(!$this->_checkPermisionEdit($blogs)) {
+                    Messages::addError('Не хватает прав!');
+                    return redirect(url()->previous());
+                }
+            } else {
+                $blogs = new Blogs();
+            }
+
             $blogs->name = $request->get('name');
             $blogs->content = $request->get('comment');
             $blogs->is_enable = true;
@@ -47,7 +58,7 @@ class IndexController extends Controller
 
             $blogs->save();
         } catch (Exception $exception) {
-            var_dump($exception);die;
+            return redirect(url()->previous())->with('error', 'Произошла ошибка при сохранение формы');
         }
         return redirect('/myblogs');
     }
@@ -62,6 +73,22 @@ class IndexController extends Controller
             throw new NotFoundHttpException('Такой записи нет');
         }
         return view('blogs/show')->with('blog', $blog);
+    }
+
+    /**
+     * edit action
+     * @param $idBlog
+     * @return $this
+     */
+    public function edit($idBlog)
+    {
+        $blog = Blogs::find($idBlog);
+        if (!$this->_checkPermisionEdit($blog)) {
+            Messages::addError('Не хватает прав!');
+            return redirect(url()->previous());
+        }
+
+        return view('blogs/editblog')->with('blog', $blog);
     }
 
     public function comment(Request $request)
@@ -144,4 +171,22 @@ class IndexController extends Controller
         $blogs->save();
         return true;
     }
+
+    /**
+     * check permision edit
+     * @param $blog
+     * @return bool
+     */
+    protected function _checkPermisionEdit(Blogs $blog)
+    {
+        if(
+            (!Auth::guest() && $blog->user_id == Auth::user()->id)
+            || (!Auth::guest() && Auth::user()->role == 'superadmin')
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
