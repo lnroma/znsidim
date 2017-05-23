@@ -70,3 +70,7 @@ Route::get('events', 'Notification\IndexController@index');
  */
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@post');
+/**
+ * seo modul routers
+ */
+Route::post('/seo/save', 'Seo\IndexController@save');

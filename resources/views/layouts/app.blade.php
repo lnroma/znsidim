@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="964ad5f0ab4b6e32"/>
     <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00"/>
-    <title>Скучно в пробке, заходи новости, статьи, блоги, чаты...</title>
-
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $description }}" />
+    <meta name="keywords" content="{{ $keywords }}">
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
           integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -61,6 +62,16 @@
                     @endif
             </div>
             @yield('content')
+            @if(!Auth::guest() && Auth::user()->role == 'superadmin')
+                <form method="post" action="/seo/save">
+                    {{ csrf_field() }}
+                    <input type="text" name="url" value="{{ $_SERVER['REQUEST_URI'] }}"></br>
+                    <input type="text" name="title" value="{{ $title }}"><br>
+                    <textarea name="description" style="width: 100%">{{ $description }}</textarea><br/>
+                    <textarea name="keywords" style="width: 100%">{{ $keywords }}</textarea><br/>
+                    <input type="submit" name="ok">
+                </form>
+            @endif
         </div>
     </div>
 </div>

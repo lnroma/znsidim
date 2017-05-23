@@ -26,7 +26,7 @@
     </div>
 
     <div class="panel-footer">
-        <span class="glyphicon glyphicon-user"></span>{!!UserHelper::getLinkById($_blog->user_id)   !!} |
+        <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!} |
         <span class="glyphicon glyphicon-comment"></span>
         <span class="badge">{{ $_blog->comments->count() }}</span> |
         <span class="glyphicon-eye-open glyphicon"></span>
@@ -37,12 +37,5 @@
         <a href="/blogs/dislike/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-default"><span
                     class="glyphicon glyphicon-thumbs-down"></span></a>
         <span class="badge">{{ $_blog->dislike }}</span>
-        @if(
-            (!Auth::guest() && Auth::user()->id == $_blog->user_id)
-            || (!Auth::guest() && Auth::user()->role == 'superadmin')
-            )
-            <a href="/blogs/edit/{{ $_blog->id }}" class="btn btn-default"><span
-                        class="glyphicon glyphicon-pencil"></span></a>
-        @endif
     </div>
 </div>
