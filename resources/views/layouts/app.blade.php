@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="964ad5f0ab4b6e32"/>
     <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00"/>
-    <title>Скучно в пробке, заходи новости, статьи, блоги, чаты...</title>
+    <title>Сайт канала ютуба #пробкиобайти заходи общайся и ищи новые знакомства!</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
