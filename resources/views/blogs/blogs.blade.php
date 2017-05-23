@@ -6,7 +6,6 @@
     <div class="panel panel-default">
         <div class="panel-heading">Блоги</div>
         <div class="panel-body">
-            <a href="/myblogs" style="margin:5px; " class="btn btn-success">Написать</a>
             @if($blogs->count() > 0)
                 @foreach($blogs as $_blog)
                     @include('blogs.element.blog', array('_blog' => $_blog))

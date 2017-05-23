@@ -17,4 +17,9 @@ class User {
         return '<a href="/user/show/' . $user->name . '"> ' . $user->name . '</a>';
     }
 
+    public static function getUserById($id)
+    {
+        return UserModel::find($id);
+    }
+
 }
