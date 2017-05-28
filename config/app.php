@@ -78,8 +78,8 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
-
+    'fallback_locale' => 'ru',
+    'locale' => 'ru',
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -166,6 +166,8 @@ return [
         Illuminate\Notifications\NotificationServiceProvider::class,
 //        \Illuminate\Html\HtmlServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        Riari\Forum\ForumServiceProvider::class,
+        Riari\Forum\Frontend\ForumFrontendServiceProvider::class,
     ],
 
     /*

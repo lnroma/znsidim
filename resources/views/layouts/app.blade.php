@@ -8,7 +8,7 @@
     <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00"/>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <title>{{ $title }}</title>
-    <meta name="description" content="{{ $description }}" />
+    <meta name="description" content="{{ $description }}"/>
     <meta name="keywords" content="{{ $keywords }}">
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
@@ -50,19 +50,22 @@
                     <span class="glyphicon glyphicon-user"></span>
                     <span class="badge">{{$user_count}}</span>
                 </a>
-                <a href="{{ url('/blogs') }}" class="btn  btn-primary">
-                    <span class="glyphicon glyphicon-book"></span> <span class="badge">{{$blog_count}}</span>
-                </a>
-                    @if (Auth::guest())
-                        <a href="{{ url('/login') }}" class="btn  btn-primary">Вход</a>
-                        <a href="{{ url('/register') }}" class="btn  btn-primary">Регистрация</a>
-                    @else
-                        <a href="{{ url('/myblogs') }}" class="btn  btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="{{ url('/home') }}" class="btn  btn-primary"><i class="fa fa-btn fa-home"></i></a>
-                        <a href="{{ url('/logout') }}" class="btn  btn-primary"><i class="fa fa-btn fa-sign-out"></i></a>
-                    @endif
+                @if (Auth::guest())
+                    <a href="{{ url('/login') }}" class="btn  btn-primary">Вход</a>
+                    <a href="{{ url('/register') }}" class="btn  btn-primary">Регистрация</a>
+                @else
+                    <a href="{{ url('/myblogs') }}" class="btn  btn-primary"><span
+                                class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="{{ url('/home') }}" class="btn  btn-primary"><i class="fa fa-btn fa-home"></i></a>
+                    <a href="{{ url('/logout') }}" class="btn  btn-primary"><i class="fa fa-btn fa-sign-out"></i></a>
+                @endif
+            </div>
+            <div class="panel-footer">
+                <a href="/forum" class="btn btn-default"><span class="glyphicon glyphicon-megafon"></span>Форум</a>
+                <a href="/blogs" class="btn btn-default"><span class="glyphicon glyphicon-book"></span>Блоги<span class="badge">{{$blog_count}}</span></a>
             </div>
             @yield('content')
+            @include('layouts.snipets.metrika')
             @if(!Auth::guest() && Auth::user()->role == 'superadmin')
                 <form method="post" action="/seo/save">
                     {{ csrf_field() }}
@@ -76,7 +79,6 @@
         </div>
     </div>
 </div>
-@include('layouts.snipets.metrika')
 
 <!-- JavaScripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"
