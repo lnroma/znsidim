@@ -1,3 +1,4 @@
+<script src="http://mt-data.ru/279464.js" type="text/javascript"></script>
 <!-- Yandex.Metrika informer -->
 <a href="https://metrika.yandex.ru/stat/?id=44603926&amp;from=informer"
    target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/44603926/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"

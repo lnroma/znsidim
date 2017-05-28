@@ -11,7 +11,7 @@ class Users extends Controller
     public function index()
     {
         /** @var \Illuminate\Pagination\LengthAwarePaginator $catalog */
-        $users = DB::table('users')->paginate(30);
+        $users = User::orderBy('id', 'desc')->paginate(30);
 
         return view('users.users')
             ->with('users', $users);
