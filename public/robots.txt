@@ -1,3 +1,4 @@
 User-agent: *
 Disallow:/users$
-sitemap: http://sidimvprobke.com/sitemap.xmlё
+Disallow:/myblogs$
+sitemap: http://sidimvprobke.com/sitemap.xml
