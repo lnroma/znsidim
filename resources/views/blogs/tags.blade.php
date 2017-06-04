@@ -8,7 +8,7 @@
         <div class="panel-body">
             <div class="row">
                 @if($tags->count() > 0)
-                    {{ $i=0 }}
+                    <?php $i=0 ?>
                     @foreach($tags as $_tag)
                         @if($i%3 == 0)
                             </div><div class="row">
@@ -21,7 +21,7 @@
                             </p>
                         </div>
                         {{ $_tag->name }}
-                        {{ $i++ }}
+                        <?php $i++ ?>
                     @endforeach
                 @else
                     Тегов нет
