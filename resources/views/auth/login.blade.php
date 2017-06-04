@@ -63,7 +63,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-btn fa-sign-in"></i> Вход
                         </button>
-
+                        <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-warning">Авторизоваться через G+</a>
                         <a class="btn btn-link" href="{{ url('/password/reset') }}">Забыли пароль?</a>
                     </div>
                 </div>

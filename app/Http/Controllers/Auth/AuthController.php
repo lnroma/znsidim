@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Messages;
 use App\User;
+use Exception;
+use Google_Client;
+use Google_Service_Oauth2;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -72,4 +78,52 @@ class AuthController extends Controller
         ]);
     }
 
+    public function googleCallback()
+    {
+        if(!isset($_GET['code'])) {
+            http_redirect('/');
+        }
+
+        try {
+            $googleClient = new Google_Client();
+            $clientJson = base_path('storage/config/') . 'client_id.json';
+            $googleClient->setAuthConfig($clientJson);
+            $googleClient->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
+            $googleClient->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
+            $googleClient->setRedirectUri('http://localhost:8000/googleCallbak');
+
+            $token = $googleClient->fetchAccessTokenWithAuthCode($_GET['code']);
+            $googleClient->setAccessToken($token);
+            $userGoogle = new Google_Service_Oauth2($googleClient);
+            $userGoogle = $userGoogle->userinfo->get();
+
+            $user = User::where('auth_token', '=', $userGoogle->id)->first();
+
+            if (!$user) {
+                $nick = explode('@', $userGoogle->getEmail(), 2);
+                $nick = $nick[0];
+
+                if (!User::where('name', '=', $nick)) {
+                    $nick = $nick . rand(1, 1000);
+                }
+
+                $user = new User();
+                $user->name = $nick;
+                $user->email = $userGoogle->getEmail();
+                $user->auth_token = $userGoogle->getId();
+                $user->save();
+
+                Messages::addSuccess('Вы успешно зарегистрированны!');
+                Auth::login($user);
+            } else {
+                Messages::addSuccess('Вы залогинились!');
+                Auth::login($user);
+            }
+
+        } catch (Exception $exception) {
+            Messages::addError('Ошибка авторизации, попробуйте снова!');
+        }
+
+        return redirect('/');
+    }
 }

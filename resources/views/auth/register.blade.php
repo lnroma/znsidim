@@ -4,9 +4,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">Регистрация</div>
         <div class="panel-body">
+
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                 {{ csrf_field() }}
-
+                {{--<div class="form-group">--}}
+                {{--</div>--}}
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Логин</label>
 
@@ -83,6 +85,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-btn fa-user"></i> Зарегистрироваться
                         </button>
+                        <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-warning">Авторизоваться через G+</a>
                     </div>
                 </div>
             </form>

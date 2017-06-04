@@ -70,6 +70,8 @@ Route::get('events', 'Notification\IndexController@index');
  */
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@post');
+
+Route::get('/googleCallbak', 'Auth\AuthController@googleCallback')->name('google');
 /**
  * seo modul routers
  */
