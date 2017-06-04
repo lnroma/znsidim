@@ -76,3 +76,9 @@ Route::get('/googleCallbak', 'Auth\AuthController@googleCallback')->name('google
  * seo modul routers
  */
 Route::post('/seo/save', 'Seo\IndexController@save');
+/**
+ * blogs tags
+ */
+Route::get('/tags', 'Blogs\Tags\IndexController@index');
+Route::post('/tags', 'Blogs\Tags\IndexController@post');
+Route::get('/tags/{url_key}', 'Blogs\Tags\IndexController@tags');

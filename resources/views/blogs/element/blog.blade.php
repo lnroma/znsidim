@@ -17,9 +17,9 @@
 
     <div class="panel-body">
         @if($_blog->main_image)
-        <a href="#" class="thumbnail">
-            <img alt="Image" src="{{ $_blog->main_image }}">
-        </a>
+            <a href="#" class="thumbnail">
+                <img alt="Image" src="{{ $_blog->main_image }}">
+            </a>
         @endif
         {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
         <a href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
@@ -37,5 +37,16 @@
         <a href="/blogs/dislike/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-default"><span
                     class="glyphicon glyphicon-thumbs-down"></span></a>
         <span class="badge">{{ $_blog->dislike }}</span>
+        @if(
+                    (!Auth::guest() && Auth::user()->id == $_blog->user_id)
+                    || (!Auth::guest() && Auth::user()->role == 'superadmin')
+                )
+            <a href="/blogs/edit/{{ $_blog->id }}" class="btn btn-default"><span
+                        class="glyphicon glyphicon-pencil"></span></a>
+        @endif
+        Теги:
+        @foreach($_blog->tags as $_tag)
+            <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
+        @endforeach
     </div>
 </div>
