@@ -90,7 +90,7 @@ class AuthController extends Controller
             $googleClient->setAuthConfig($clientJson);
             $googleClient->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
             $googleClient->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
-            $googleClient->setRedirectUri('http://localhost:8000/googleCallbak');
+            $googleClient->setRedirectUri('http://sidimvprobke.com/googleCallbak');
 
             $token = $googleClient->fetchAccessTokenWithAuthCode($_GET['code']);
             $googleClient->setAccessToken($token);
