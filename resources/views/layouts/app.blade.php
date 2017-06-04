@@ -53,6 +53,7 @@
                 @if (Auth::guest())
                     <a href="{{ url('/login') }}" class="btn  btn-primary">Вход</a>
                     <a href="{{ url('/register') }}" class="btn  btn-primary">Регистрация</a>
+                    <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-warning">Google+</a>
                 @else
                     <a href="{{ url('/myblogs') }}" class="btn  btn-primary"><span
                                 class="glyphicon glyphicon-pencil"></span></a>

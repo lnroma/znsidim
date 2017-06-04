@@ -221,6 +221,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'UserHelper' => App\Helpers\User::class,
         'MessageHelper' => App\Helpers\Messages::class,
+        'GoogleHelper' => App\Helpers\Google::class,
         'Capcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
