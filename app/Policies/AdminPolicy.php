@@ -18,7 +18,6 @@ class AdminPolicy
      */
     public function __construct()
     {
-        die('123');
         //
     }
 
@@ -28,19 +27,16 @@ class AdminPolicy
 
     public function admin()
     {
-        die('324');
     }
 
 
     public function before()
     {
-        die('123');
         return true;
     }
 
     public function administrate()
     {
         return true;
-        die('234');
     }
 }

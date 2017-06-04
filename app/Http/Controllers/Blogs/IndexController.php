@@ -6,6 +6,8 @@ use App\Helpers\Messages;
 use App\Http\Controllers\Controller;
 use App\Models\Blogs;
 use App\Models\Blogs\Comment;
+use App\Models\Blogs\Tags;
+use App\Models\Tags2Blogs;
 use App\Notifications\UserEvents;
 use App\User;
 use DaveJamesMiller\Breadcrumbs\Exception;
@@ -45,7 +47,11 @@ class IndexController extends Controller
             $blogs->name = $request->get('name');
             $blogs->content = $request->get('comment');
             $blogs->is_enable = true;
-            $blogs->user_id = Auth::user()->id;
+
+            // если есть уже id автора не перезаписываем
+            if(!$blogs->user_id) {
+                $blogs->user_id = Auth::user()->id;
+            }
 
             // upload main image
             if (Input::file('main_image') && Input::file('main_image')->isValid()) {
@@ -57,6 +63,15 @@ class IndexController extends Controller
             }
 
             $blogs->save();
+
+            $tags2blogs = new Tags2Blogs();
+            // clear all tags and adding new
+            $tags2blogs->clearAll($blogs->id);
+            foreach ($request->get('tags') as $_tag) {
+                $tags2blogs = new Tags2Blogs();
+                $tags2blogs->addFollow($blogs->id, $_tag);
+            }
+
         } catch (Exception $exception) {
             return redirect(url()->previous())->with('error', 'Произошла ошибка при сохранение формы');
         }
@@ -83,12 +98,16 @@ class IndexController extends Controller
     public function edit($idBlog)
     {
         $blog = Blogs::find($idBlog);
+        $tags = Tags::all();
+
         if (!$this->_checkPermisionEdit($blog)) {
             Messages::addError('Не хватает прав!');
             return redirect(url()->previous());
         }
 
-        return view('blogs/editblog')->with('blog', $blog);
+        return view('blogs/editblog')
+            ->with('blog', $blog)
+            ->with('tags', $tags);
     }
 
     public function comment(Request $request)

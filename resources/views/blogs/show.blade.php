@@ -32,6 +32,10 @@
                     <a href="/blogs/edit/{{ $blog->id }}" class="btn btn-default"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
                 @endif
+                Теги:
+                @foreach($blog->tags as $_tag)
+                    <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
+                @endforeach
             </div>
             {{--</div>--}}
             <h3>Ваши комментарии</h3>

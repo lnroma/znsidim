@@ -63,6 +63,7 @@
             <div class="panel-footer">
                 <a href="/forum" class="btn btn-default"><span class="glyphicon glyphicon-megafon"></span>Форум</a>
                 <a href="/blogs" class="btn btn-default"><span class="glyphicon glyphicon-book"></span>Блоги<span class="badge">{{$blog_count}}</span></a>
+                <a href="/tags" class="btn btn-default">Теги</a>
             </div>
             @yield('content')
             @include('layouts.snipets.metrika')

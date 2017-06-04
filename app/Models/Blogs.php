@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Blogs\Tags;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Blogs\Comment;
 class Blogs extends Model
@@ -15,4 +16,10 @@ class Blogs extends Model
     {
         return $this->hasMany(Comment::class, 'user_blogs_id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tags::class, 'blog_tags_user_blogs', 'blog_ids', 'tag_ids');
+    }
+
 }
