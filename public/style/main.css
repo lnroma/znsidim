@@ -64,6 +64,9 @@
     margin-left:2px;
 }
 .panel.comment-left>.panel-heading:before{
-    border-right-color:#ddd;
+   border-right-color:#ddd;
     border-width:8px;
+}
+.container {
+   width:100%!important;
 }

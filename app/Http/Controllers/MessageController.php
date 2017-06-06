@@ -88,7 +88,6 @@ class MessageController extends Controller
         }
         $user = User::where('name', $login)
             ->first();
-
         $messages = array();
 
         if(!$user) {
@@ -98,7 +97,7 @@ class MessageController extends Controller
         $this->middleware('auth');
         Talk::setAuthUserId(Auth::user()->id);
 
-        $conversations = Talk::getMessagesByUserId($user->id, 0, 1);
+        $conversations = Talk::getMessagesByUserId($user->id);
 
         if($conversations) {
             /** @var Collection $messages */

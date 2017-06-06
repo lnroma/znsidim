@@ -159,11 +159,13 @@ class IndexController extends Controller
         $token = $request->session()->getToken();
 
         if($token != $csrf) {
-            return redirect(url()->previous())->with('errors', 'Защита от ботов!');
-        }
+	    Messages::addError('Защита от батов!');
+            return redirect(url()->previous()); 
+       }
 
         $this->saveLikeDislike($idBlog, 'like');
-        return redirect(url()->previous() . '#blog_' . $idBlog)->with('message', 'Лайк добавлен');
+	Messages::addSuccess('Лайк поставлен!');
+        return redirect(url()->previous() . '#blog_' . $idBlog);
     }
 
     public function dislike($idBlog, $csrf, Request $request)
@@ -171,11 +173,13 @@ class IndexController extends Controller
         $token = $request->session()->getToken();
 
         if($token != $csrf) {
-            return redirect(url()->previous())->with('errors', 'Защита от ботов!');
+            Messages::addError('Защита от ботов!');
+            return redirect(url()->previous());
         }
 
+	Messages::addSuccess('Дизлайк поставлен!');
         $this->saveLikeDislike($idBlog, 'dislike');
-        return redirect(url()->previous() . '#blog_' . $idBlog)->with('message', 'Лайк добавлен');
+        return redirect(url()->previous() . '#blog_' . $idBlog);
     }
 
     /**
