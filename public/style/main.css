@@ -89,3 +89,8 @@
 .btn.btn-default .badge {
     background: #2e6da4;
 }
+
+body {
+    max-width: 1000px;
+    margin:auto;
+}
