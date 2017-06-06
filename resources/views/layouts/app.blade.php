@@ -32,39 +32,39 @@
     </style>
 </head>
 <body id="app-layout">
-<div class="container">
+{{--<div class="container">--}}
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="btn-group btn-group-justified" role="group">
                 @if (!Auth::guest())
-                    <a href="{{ url('/message') }}" class="btn  btn-primary">
+                    <a href="{{ url('/message') }}" class="btn  btn-nav">
                         <span class="glyphicon glyphicon-envelope"></span>
                         <span class="badge">{{$mail_count}}</span>
                     </a>
-                    <a href="{{ url('/events') }}" class="btn  btn-primary">
+                    <a href="{{ url('/events') }}" class="btn  btn-nav">
                         <span class="glyphicon glyphicon-bell"></span>
                         <span class="badge">{{$events_count}}</span>
                     </a>
                 @endif
-                <a href="{{ url('/users') }}" class="btn  btn-primary">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span class="badge">{{$user_count}}</span>
-                </a>
                 @if (Auth::guest())
-                    <a href="{{ url('/login') }}" class="btn  btn-primary">Вход</a>
-                    <a href="{{ url('/register') }}" class="btn  btn-primary">Регистрация</a>
-                    <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-warning">Google+</a>
+                    <a href="{{ url('/login') }}" class="btn  btn-nav">Вход</a>
+                    <a href="{{ url('/register') }}" class="btn  btn-nav">Регистрация</a>
+                    <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-nav">Google+</a>
                 @else
-                    <a href="{{ url('/myblogs') }}" class="btn  btn-primary"><span
+                    <a href="{{ url('/myblogs') }}" class="btn  btn-nav"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
-                    <a href="{{ url('/home') }}" class="btn  btn-primary"><i class="fa fa-btn fa-home"></i></a>
-                    <a href="{{ url('/logout') }}" class="btn  btn-primary"><i class="fa fa-btn fa-sign-out"></i></a>
+                    <a href="{{ url('/home') }}" class="btn  btn-nav"><i class="fa fa-btn fa-home"></i></a>
+                    <a href="{{ url('/logout') }}" class="btn  btn-nav"><i class="fa fa-btn fa-sign-out"></i></a>
                 @endif
             </div>
             <div class="panel-footer">
                 <a href="/forum" class="btn btn-default"><span class="glyphicon glyphicon-megafon"></span>Форум</a>
                 <a href="/blogs" class="btn btn-default"><span class="glyphicon glyphicon-book"></span>Блоги<span class="badge">{{$blog_count}}</span></a>
                 <a href="/tags" class="btn btn-default">Теги</a>
+                <a href="{{ url('/users') }}" class="btn  btn-default">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="badge">{{$user_count}}</span>
+                </a>
             </div>
             @yield('content')
             @include('layouts.snipets.metrika')
@@ -80,7 +80,7 @@
             @endif
         </div>
     </div>
-</div>
+{{--</div>--}}
 
 <!-- JavaScripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"

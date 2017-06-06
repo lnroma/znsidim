@@ -33,7 +33,6 @@
                         <th class="col-md-2">{{ trans_choice('forum::threads.thread', 2) }}</th>
                         <th class="col-md-2">{{ trans_choice('forum::posts.post', 2) }}</th>
                         <th class="col-md-2">{{ trans('forum::threads.newest') }}</th>
-                        <th class="col-md-2">{{ trans('forum::posts.last') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +47,7 @@
             <div class="col-xs-4">
                 @if ($category->threadsEnabled)
                     @can ('createThreads', $category)
-                        <a href="{{ Forum::route('thread.create', $category) }}" class="btn btn-primary">{{ trans('forum::threads.new_thread') }}</a>
+                        <a href="{{ Forum::route('thread.create', $category) }}" class="btn btn-nav btn-sm">{{ trans('forum::threads.new_thread') }}</a>
                     @endcan
                 @endif
             </div>
@@ -64,7 +63,7 @@
         @endcan
 
         @if ($category->threadsEnabled)
-            <table class="table table-thread">
+            <table class="table table-thread table-responsive">
                 <thead>
                     <tr>
                         <th>{{ trans('forum::general.subject') }}</th>
@@ -108,7 +107,7 @@
                                     <td class="text-right">
                                         {{ $thread->lastPost->authorName }}
                                         <p class="text-muted">({{ $thread->lastPost->posted }})</p>
-                                        <a href="{{ Forum::route('thread.show', $thread->lastPost) }}" class="btn btn-primary btn-xs">{{ trans('forum::posts.view') }} &raquo;</a>
+                                        <a href="{{ Forum::route('thread.show', $thread->lastPost) }}" class="btn btn-nav btn-sm">{{ trans('forum::posts.view') }} &raquo;</a>
                                     </td>
                                 @endif
                                 @can ('manageThreads', $category)
@@ -143,7 +142,7 @@
             <div class="col-xs-4">
                 @if ($category->threadsEnabled)
                     @can ('createThreads', $category)
-                        <a href="{{ Forum::route('thread.create', $category) }}" class="btn btn-primary">{{ trans('forum::threads.new_thread') }}</a>
+                        <a href="{{ Forum::route('thread.create', $category) }}" class="btn btn-nav btn-sm">{{ trans('forum::threads.new_thread') }}</a>
                     @endcan
                 @endif
             </div>

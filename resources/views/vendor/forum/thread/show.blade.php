@@ -33,11 +33,11 @@
         @endcan
 
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-8">
                 @can ('reply', $thread)
                     <div class="btn-group" role="group">
-                        <a href="{{ Forum::route('post.create', $thread) }}" class="btn btn-primary">{{ trans('forum::general.new_reply') }}</a>
-                        <a href="#quick-reply" class="btn btn-primary">{{ trans('forum::general.quick_reply') }}</a>
+                        <a href="{{ Forum::route('post.create', $thread) }}" class="btn btn-nav btn-sm">{{ trans('forum::general.new_reply') }}</a>
+                        <a href="#quick-reply" class="btn btn-nav btn-sm">{{ trans('forum::general.quick_reply') }}</a>
                     </div>
                 @endcan
             </div>

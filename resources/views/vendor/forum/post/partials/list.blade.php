@@ -4,10 +4,6 @@
         <br />
         <img src="{{ UserHelper::getUserById($post->author_id)->avatar }}" height="100px" />
         <br/>
-        <div class="btn-group" role="group">
-            <a href="/message/send/{{ UserHelper::getUserById($post->author_id)->name }}" class="btn btn-primary"><span class="glyphicon glyphicon-envelope"></span> </a>
-            <a href="/user/show/{{ UserHelper::getUserById($post->author_id)->name }}" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> </a>
-        </div>
     </td>
     <td class="content">
         @if (!is_null($post->parent))

@@ -70,3 +70,22 @@
 .container {
    width:100%!important;
 }
+
+.btn.btn-nav {
+    color: white;
+    background: #2e6da4;
+    border-radius: 0;
+    border: 1px solid #286090;
+}
+
+.btn.btn-nav:hover {
+    background: #2696a4;
+}
+
+.btn.btn-nav .badge {
+    background: #ff7136b3;
+}
+
+.btn.btn-default .badge {
+    background: #2e6da4;
+}
