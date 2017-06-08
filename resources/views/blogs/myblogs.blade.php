@@ -21,6 +21,14 @@
                     <textarea id="comment" class="form-control" name="comment"></textarea>
                 </div>
                 <div class="form-group">
+                    <label class="control-label" for="tags">Метки:</label>
+                    <select multiple name="tags[]" class="form-control">
+                        @foreach($tags as $_tag)
+                            <option value="{{ $_tag->id }}">{{ $_tag->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-default">Запостить</button>
                 </div>
             </form>

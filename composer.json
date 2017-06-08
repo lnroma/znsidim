@@ -20,7 +20,8 @@
     "mews/captcha": "^2.1",
     "riari/laravel-forum": "~3.0",
     "riari/laravel-forum-frontend": "~1.0",
-    "google/apiclient": "^2.0"
+    "google/apiclient": "^2.0",
+    "roumen/feed": "^2.10"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

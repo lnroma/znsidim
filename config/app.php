@@ -147,6 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Roumen\Feed\FeedServiceProvider::class,
         /**
          * user providers....
          */
@@ -223,6 +224,7 @@ return [
         'MessageHelper' => App\Helpers\Messages::class,
         'GoogleHelper' => App\Helpers\Google::class,
         'Capcha' => Mews\Captcha\Facades\Captcha::class,
+        'Feed' => Roumen\Feed\Feed::class,
     ],
 
 ];

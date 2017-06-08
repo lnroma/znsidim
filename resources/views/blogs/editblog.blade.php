@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="tags">Метки:</label>
-                    <select multiple name="tags[]">
+                    <select multiple name="tags[]" class="form-control">
                         @foreach($tags as $_tag)
                             <option value="{{ $_tag->id }}">{{ $_tag->title }}</option>
                         @endforeach

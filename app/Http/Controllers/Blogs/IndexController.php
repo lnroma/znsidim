@@ -25,9 +25,12 @@ class IndexController extends Controller
         if (Auth::guest()) {
             head('Location:/');
         }
+        $tags = Tags::all();
         /** @var \Illuminate\Database\Query\Builder $blogs */
         $blogs = Blogs::orderBy('id', 'desc')->where('user_id', '=', Auth::user()->id)->paginate(5);
-        return view('blogs/myblogs')->with('blogs', $blogs);
+        return view('blogs/myblogs')
+            ->with('blogs', $blogs)
+            ->with('tags', $tags);
     }
 
     public function post(Request $request)
@@ -67,13 +70,17 @@ class IndexController extends Controller
             $tags2blogs = new Tags2Blogs();
             // clear all tags and adding new
             $tags2blogs->clearAll($blogs->id);
-            foreach ($request->get('tags') as $_tag) {
-                $tags2blogs = new Tags2Blogs();
-                $tags2blogs->addFollow($blogs->id, $_tag);
+
+            if($request->get('tags')) {
+                foreach ($request->get('tags') as $_tag) {
+                    $tags2blogs = new Tags2Blogs();
+                    $tags2blogs->addFollow($blogs->id, $_tag);
+                }
             }
 
         } catch (Exception $exception) {
-            return redirect(url()->previous())->with('error', 'Произошла ошибка при сохранение формы');
+            Messages::addError('Произошла ошибка');
+            return redirect(url()->previous());
         }
         return redirect('/myblogs');
     }
@@ -99,6 +106,10 @@ class IndexController extends Controller
     {
         $blog = Blogs::find($idBlog);
         $tags = Tags::all();
+
+        if($blog === null) {
+            redirect('/');
+        }
 
         if (!$this->_checkPermisionEdit($blog)) {
             Messages::addError('Не хватает прав!');
