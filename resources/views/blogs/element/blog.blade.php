@@ -4,7 +4,7 @@
         <div class="text-center">
             <div class="row">
                 <div class="col-sm-9">
-                    <h3 class="pull-left">{{$_blog->name}}</h3>
+                    <h3 class="pull-left"><a href="/blogs/read/{{ $_blog->id }}">{{$_blog->name}}</a></h3>
                 </div>
                 <div class="col-sm-3">
                     <h4 class="pull-right">
