@@ -65,6 +65,7 @@
                 <span class="glyphicon glyphicon-user"></span>
                 <span class="badge">{{$user_count}}</span>
             </a>
+            <a href="/feed" class="btn btn-default">RSS</a>
         </div>
         @yield('content')
         @include('layouts.snipets.metrika')
