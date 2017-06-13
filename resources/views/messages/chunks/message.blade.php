@@ -8,7 +8,7 @@
         $link = $comment->name;
     }
 ?>
-<div class="row">
+<div class="row comment">
     <div class="col-sm-1">
         <div class="comment-left thumbnail">
             <img class="img-responsive user-photo" src="{{ $avatar }}">
