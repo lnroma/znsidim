@@ -35,7 +35,7 @@
             @endforeach
         </div>
         {{--</div>--}}
-        <h3>Ваши комментарии</h3>
+        <h3 id="comments">Ваши комментарии</h3>
         @foreach($blog->comments as $_comment)
             @include('messages.chunks.message', array(
                 'comment' => $_comment,
