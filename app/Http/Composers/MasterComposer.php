@@ -6,6 +6,7 @@
  * Time: 16:14
  */
 namespace App\Http\Composers;
+use App\Http\Requests\Request;
 use App\Models\Blogs;
 use App\Notifications\Post;
 use App\Notifications\UserEvents;
@@ -14,6 +15,10 @@ use App\User;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
+use Riari\Forum\Frontend\Support\Forum;
+use Riari\Forum\Models\Category;
+use Riari\Forum\Models\Thread;
+use Symfony\Component\HttpFoundation\RequestMatcher;
 
 class MasterComposer {
 
@@ -50,12 +55,52 @@ class MasterComposer {
                 'keywords' => $seo->keywords,
             );
         } else {
-            return array(
-                'title' => 'Знакомства, блоги, хайп и айти всё это - официальный сайт пробки об айти sidimvprobke.com',
-                'description' => 'Вы хотите войти в айти, научиться кодить или программировать, тогда этот сайт для вас, изучи обстановку и смотри что будет',
-                'keywords' => 'it, php, python, ssl, certificate, философия, пробки об айти'
-            );
+            if($seo = $this->_seoForum()) {
+                return $seo;
+            } else {
+                return array(
+                    'title' => 'Знакомства, блоги, хайп и айти всё это - официальный сайт пробки об айти sidimvprobke.com',
+                    'description' => 'Вы хотите войти в айти, научиться кодить или программировать, тогда этот сайт для вас, изучи обстановку и смотри что будет',
+                    'keywords' => 'it, php, python, ssl, certificate, философия, пробки об айти'
+                );
+            }
         }
+    }
+
+    /**
+     * компиляция сео для форума
+     * @return array|bool
+     */
+    protected function _seoForum()
+    {
+        $ids = explode('/', $_SERVER['REQUEST_URI']);
+
+        if(!isset($ids[2])) {
+            return false;
+        }
+
+        $idCategory = $ids[2];
+
+        // выбираем категорию
+        $category = new Category();
+        $seo = $category->find($idCategory);
+
+        // если нет категории смотрим в поток
+        if(!$seo || isset($ids[3])) {
+            $thread = new Thread();
+            $seo = $thread->find($ids[3]);
+        }
+        // если нет и потока возвращаем фалс
+        if(!$seo) {
+            return false;
+        }
+
+        // всё заебись вернём title и description
+        return array(
+            'title' => $seo->title,
+            'description' => $seo->description,
+            'keywords' => 'PHP, программирование, python, форум программистов',
+        );
     }
 
     /**
