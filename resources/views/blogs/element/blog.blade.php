@@ -4,7 +4,7 @@
         <div class="text-center">
             <div class="row">
                 <div class="col-sm-9">
-                    <h3 class="pull-left">{{$_blog->name}}</h3>
+                    <h3 class="pull-left"><a href="/blogs/read/{{ $_blog->id }}">{{$_blog->name}}</a></h3>
                 </div>
                 <div class="col-sm-3">
                     <h4 class="pull-right">
@@ -27,8 +27,10 @@
 
     <div class="panel-footer">
         <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!} |
-        <span class="glyphicon glyphicon-comment"></span>
-        <span class="badge">{{ $_blog->comments->count() }}</span> |
+        <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span class="badge">{{ $_blog->comments->count() }}</span> 
+        </a> |
         <span class="glyphicon-eye-open glyphicon"></span>
         <span class="badge">{{ $_blog->viewed }}</span> |
         <a href="/blogs/like/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-default"><span
