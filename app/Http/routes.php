@@ -107,7 +107,8 @@ Route::get('feed', function () {
                 \App\Helpers\User::getUserById($_post->user_id)->name,
                 url('blogs/read') . '/' . $_post->id,
                 $_post->created_at,
-                strip_tags($_post->content)
+                strip_tags($_post->content),
+		strip_tags($_post->content)
                 );
         }
 //        var_dump($posts);die;
