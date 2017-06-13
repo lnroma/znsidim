@@ -27,8 +27,10 @@
 
     <div class="panel-footer">
         <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!} |
-        <span class="glyphicon glyphicon-comment"></span>
-        <span class="badge">{{ $_blog->comments->count() }}</span> |
+        <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span class="badge">{{ $_blog->comments->count() }}</span> 
+        </a> |
         <span class="glyphicon-eye-open glyphicon"></span>
         <span class="badge">{{ $_blog->viewed }}</span> |
         <a href="/blogs/like/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-default"><span
