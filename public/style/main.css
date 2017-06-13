@@ -94,3 +94,11 @@ body {
     max-width: 1000px;
     margin:auto;
 }
+
+/* link to comments */
+.panel-footer a.comments {
+    color: #333;
+}
+.panel-footer a.comments:focus, .panel-footer a.comments:hover {
+    text-decoration: none;
+}
