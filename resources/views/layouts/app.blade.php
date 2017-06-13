@@ -34,6 +34,11 @@
 <body id="app-layout">
 <div class="container">
     <div class="row">
+        <div class="panel-footer" style="height: 63px;">
+            <span style="position: relative;top: -42px;">Пр<span style="font-size: 57px;position: relative;top: 19px; color: red;">о</span><span>бки<br></span>
+                <span style="left: 56px;position: relative;top: -19px; color:#9127ff;">
+                      б айти</span>
+        </span></div>
         <div class="btn-group btn-group-justified" role="group">
             @if (!Auth::guest())
                 <a href="{{ url('/message') }}" class="btn  btn-nav">
