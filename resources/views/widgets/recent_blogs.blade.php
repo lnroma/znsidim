@@ -1,8 +1,4 @@
-<div class="panel panel-default">
-    <div class="panel-heading">Последние блоги</div>
-    <div class="panel-body">
+<h2> Последние блоги </h2>
         @foreach($blogs as $_blog)
             @include('blogs.element.blog', array('_blog' => $_blog))
         @endforeach
-    </div>
-</div>

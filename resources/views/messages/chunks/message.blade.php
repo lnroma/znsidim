@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="col-sm-5">
+    <div class="col-sm-10">
         <div class="comment-left panel panel-default">
             <div class="panel-heading">
                 <strong>{!! $link  !!}</strong> <span class="text-muted">{{ $comment->created_at }}</span>

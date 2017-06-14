@@ -39,6 +39,7 @@
 
 .comment-left.thumbnail {
     padding:0px;
+    width: 50px;
 }
 
 .panel.comment-left {
@@ -107,6 +108,8 @@ body {
 }
 .panel .comment {
     padding-left: 15px;
+    padding-right: 15px;
+}
 }
 .panel .panel-body iframe {
     height: 545px;
