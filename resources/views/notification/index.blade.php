@@ -7,8 +7,8 @@
         <div class="panel-heading">Журнал</div>
         <div class="panel-body">
             <ul id="myTab2" class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#unread">Непрочитанные</a></li>
-                <li><a data-toggle="tab" href="#all">Все</a></li>
+                <li class="active" id='unread-menu'><a data-toggle="tab" href="#unread">Непрочитанные</a></li>
+                <li id='all-menu'><a data-toggle="tab" href="#all">Все</a></li>
             </ul>
             <div class="tab-content">
                 <div id="unread" class="tab-pane fade in active">
@@ -22,4 +22,14 @@
             </div>
         </div>
     </div>
+   <script>
+     window.onload = function() {
+       var tab = window.location.hash.replace("#","");
+       if(tab == 'all') {
+          $('#all-menu a').trigger('click');
+       } else {
+          $('#unread-menu a').trigger('click');
+       }
+    } 
+   </script>
 @endsection

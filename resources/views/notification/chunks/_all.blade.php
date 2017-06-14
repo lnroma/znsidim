@@ -7,4 +7,4 @@
                  )
     @endif
 @endforeach
-{{ $all->paginate(10)->links() }}
+{{ $all->paginate(10)->render() }}

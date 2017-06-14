@@ -112,6 +112,6 @@ body {
 }
 }
 .panel .panel-body iframe {
-    height: 545px;
-    width: 100%;
+    height: 545px!important;
+    width: 100%#!important;
 }
