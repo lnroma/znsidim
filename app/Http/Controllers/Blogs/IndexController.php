@@ -20,6 +20,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class IndexController extends Controller
 {
 
+    /**
+     * show blogs
+     * @return $this
+     */
     public function index()
     {
         if (Auth::guest()) {
@@ -33,13 +37,19 @@ class IndexController extends Controller
             ->with('tags', $tags);
     }
 
+    /**
+     * create post
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function post(Request $request)
     {
         try {
 
-            if($request->get('blog_id')) {
+            if ($request->get('blog_id')) {
                 $blogs = Blogs::find($request->get('blog_id'));
-                if(!$this->_checkPermisionEdit($blogs)) {
+                if (!$this->_checkPermisionEdit($blogs)) {
                     Messages::addError('Не хватает прав!');
                     return redirect(url()->previous());
                 }
@@ -52,7 +62,7 @@ class IndexController extends Controller
             $blogs->is_enable = true;
 
             // если есть уже id автора не перезаписываем
-            if(!$blogs->user_id) {
+            if (!$blogs->user_id) {
                 $blogs->user_id = Auth::user()->id;
             }
 
@@ -71,7 +81,7 @@ class IndexController extends Controller
             // clear all tags and adding new
             $tags2blogs->clearAll($blogs->id);
 
-            if($request->get('tags')) {
+            if ($request->get('tags')) {
                 foreach ($request->get('tags') as $_tag) {
                     $tags2blogs = new Tags2Blogs();
                     $tags2blogs->addFollow($blogs->id, $_tag);
@@ -85,7 +95,11 @@ class IndexController extends Controller
         return redirect('/myblogs');
     }
 
-
+    /**
+     * read blog
+     * @param $idBlog
+     * @return $this
+     */
     public function read($idBlog)
     {
         $blog = Blogs::find($idBlog);
@@ -107,7 +121,7 @@ class IndexController extends Controller
         $blog = Blogs::find($idBlog);
         $tags = Tags::all();
 
-        if($blog === null) {
+        if ($blog === null) {
             redirect('/');
         }
 
@@ -121,6 +135,11 @@ class IndexController extends Controller
             ->with('tags', $tags);
     }
 
+    /**
+     * add comment to blog
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function comment(Request $request)
     {
         $blogsComment = new Comment();
@@ -139,58 +158,118 @@ class IndexController extends Controller
         $blogsComment->is_delete = false;
         $blogsComment->save();
 
-        $user = Auth::user();
         // load block and notification users
         $blog = Blogs::find($request->get('blog_id'));
 
-        if (Auth::guest() || $blog->user_id !== $user->id) {
-            $userNotifi = User::find($blog->user_id);
-            $userNotifi->notify(
-                new UserEvents(
-                    array(
-                        'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
-                        'title' => 'Новое сообщение в блоге',
-                        'link' => '/blogs/read/' . $blog->id,
-                    )
-                )
-            );
-        }
+        $this->_sendNotifi($blog, $comment);
 
         return redirect('blogs/read/' . $request->get('blog_id'));
     }
 
+    /**
+     * send notification to users on blog activity
+     * @param Blogs $blog
+     * @param $comment
+     */
+    protected function _sendNotifi(Blogs $blog, $comment)
+    {
+        if (!Auth::guest() && $blog->user_id != Auth::user()->id) {
+            // скомпилируем тем кому надо отправить нотификацию
+            $comments = $blog->comments;
+            $userIds = array();
+
+            foreach ($comments as $_comments) {
+                $userIds[] = $_comments->user_id;
+            }
+            $userIds[] = $blog->user_id;
+            $userIds = array_unique($userIds);
+
+            // разослать всем нотификации
+            foreach ($userIds as $_userId) {
+                // быдлокод не большой
+                if(Auth::user()->id == $_userId) continue;
+
+                $userNotifi = User::find($_userId);
+                $userNotifi->notify(
+                    new UserEvents(
+                        array(
+                            'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
+                            'title' => 'Новое сообщение в блоге',
+                            'link' => '/blogs/read/' . $blog->id,
+                        )
+                    )
+                );
+            }
+        }
+    }
+
+    /**
+     * delete comment from post
+     * @param $idComment
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function commentDelete($idComment)
+    {
+        if (Auth::guest()) {
+            Messages::addError('Недостаточно прав!');
+            return redirect(url()->previous());
+        }
+
+        $role = Auth::user()->can('superadmin');
+
+        if (!$role) {
+            Messages::addError('Недостаточно прав!');
+            return redirect(url()->previous());
+        }
+
+        $comment = Comment::find($idComment);
+        $comment->delete();
+
+        Messages::addSuccess('Комментарий удалён');
+        return redirect(url()->previous());
+    }
+
+    /**
+     * list blogs
+     * @return $this
+     */
     public function listBlogs()
     {
         $blogs = Blogs::orderBy('id', 'desc')->paginate(5);
         return view('blogs/blogs')->with('blogs', $blogs);
     }
 
+    /**
+     * set like to blog post
+     * @param $idBlog
+     * @param $csrf
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function like($idBlog, $csrf, Request $request)
     {
         $token = $request->session()->getToken();
 
-        if($token != $csrf) {
-	    Messages::addError('Защита от батов!');
-            return redirect(url()->previous()); 
-       }
+        if ($token != $csrf) {
+            Messages::addError('Защита от батов!');
+            return redirect(url()->previous());
+        }
 
-        $this->saveLikeDislike($idBlog, 'like');
-	Messages::addSuccess('Лайк поставлен!');
-        return redirect(url()->previous() . '#blog_' . $idBlog);
+        return $this->saveLikeDislike($idBlog, 'like', $request);
     }
+
 
     public function dislike($idBlog, $csrf, Request $request)
     {
         $token = $request->session()->getToken();
 
-        if($token != $csrf) {
+        if ($token != $csrf) {
             Messages::addError('Защита от ботов!');
             return redirect(url()->previous());
         }
 
-	Messages::addSuccess('Дизлайк поставлен!');
-        $this->saveLikeDislike($idBlog, 'dislike');
-        return redirect(url()->previous() . '#blog_' . $idBlog);
+        return $this->saveLikeDislike($idBlog, 'dislike', $request);
     }
 
     /**
@@ -198,12 +277,20 @@ class IndexController extends Controller
      * @param $id
      * @param $likeOrDislike string 'like' or 'dislike'
      */
-    protected function saveLikeDislike($id, $likeOrDislike)
+    protected function saveLikeDislike($id, $likeOrDislike, Request $request)
     {
+
+        if($request->session()->get('blog_like_' . $likeOrDislike . $id) == true) {
+            Messages::addError('Вы уже поставили ' . $likeOrDislike . ' к этому посту');
+            return redirect(url()->previous() . '#blog_' . $id);
+        }
+
         $blogs = Blogs::find($id);
         $blogs->{$likeOrDislike}++;
         $blogs->save();
-        return true;
+        $request->session()->set('blog_like_' . $likeOrDislike . $id, true);
+        Messages::addSuccess($likeOrDislike . ' поставлен!');
+        return redirect(url()->previous() . '#blog_' . $id);
     }
 
     /**
@@ -213,7 +300,7 @@ class IndexController extends Controller
      */
     protected function _checkPermisionEdit(Blogs $blog)
     {
-        if(
+        if (
             (!Auth::guest() && $blog->user_id == Auth::user()->id)
             || (!Auth::guest() && Auth::user()->role == 'superadmin')
         ) {

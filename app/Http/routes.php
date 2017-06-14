@@ -58,6 +58,8 @@ Route::post('blogs/comment', 'Blogs\IndexController@comment');
 Route::get('blogs/like/{idBlog}/{csrf}', 'Blogs\IndexController@like');
 Route::get('blogs/dislike/{idBlog}/{csrf}', 'Blogs\IndexController@dislike');
 Route::get('blogs/edit/{idBlog}', 'Blogs\IndexController@edit');
+Route::get('comment/delete/{idComment}', 'Blogs\IndexController@commentDelete');
+Route::get('notifi/read/{idNotifi}', 'Notification\IndexController@read');
 /**
  * events router
  */
@@ -88,7 +90,7 @@ Route::get('feed', function () {
     $feed = App::make("feed");
     $feed->setCache(0, 'rss_feed');
 
-    if(!$feed->isCached()) {
+    if (!$feed->isCached()) {
         $posts = \DB::table('user_blogs')->orderBy('created_at', 'desc')->take(20)->get();
 
         $feed->title = 'Пробки об айти';
@@ -101,17 +103,15 @@ Route::get('feed', function () {
         $feed->setTextLimit(100);
 
         foreach ($posts as $_post) {
-//            var_dump($_post);die;
             $feed->add(
                 strip_tags($_post->name),
                 \App\Helpers\User::getUserById($_post->user_id)->name,
                 url('blogs/read') . '/' . $_post->id,
                 $_post->created_at,
                 strip_tags($_post->content),
-		strip_tags($_post->content)
-                );
+                strip_tags($_post->content)
+            );
         }
-//        var_dump($posts);die;
     }
     return $feed->render('atom');
 });

@@ -2,10 +2,8 @@
 
 namespace App\Policies;
 
-use App\Helpers\User;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Foundation\Console\PolicyMakeCommand;
-use Taskforcedev\LaravelForum\Forum;
 
 class AdminPolicy
 {
@@ -16,27 +14,12 @@ class AdminPolicy
      *
      * @return void
      */
-    public function __construct()
+    public function superadmin(User $user)
     {
-        //
-    }
-
-    public function create(User $user, Forum $forum)
-    {
-    }
-
-    public function admin()
-    {
-    }
-
-
-    public function before()
-    {
-        return true;
-    }
-
-    public function administrate()
-    {
-        return true;
+        if($user->role == 'superadmin') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

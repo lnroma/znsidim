@@ -26,16 +26,17 @@ class IndexController extends Controller
         /** @var DatabaseNotificationCollection $notifications */
         $notifications = $user->unreadNotifications;
         $allNotifications = $user->notifications();
-        /** @var DatabaseNotification $_notifi */
-        foreach ($notifications as $_notifi) {
-            if($_notifi->toArray()['type'] == UserEvents::class) {
-                $_notifi->markAsRead();
-            }
-        }
 
         return view('notification.index')
             ->with('notifications', $notifications)
             ->with('all', $allNotifications);
+    }
+
+    public function read($idNotifi)
+    {
+        $notifi = DatabaseNotification::find($idNotifi);
+        $notifi->markAsRead();
+        return redirect($notifi->data['link']);
     }
 
 }

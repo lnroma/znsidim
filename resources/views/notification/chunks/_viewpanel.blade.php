@@ -6,6 +6,6 @@
         {{ $notify['data']['message'] }}
     </div>
     <div class="panel-footer">
-        {{ $notify['created_at'] }} | <a href="{{ $notify['data']['link'] }}">Читать</a>
+        {{ $notify['created_at'] }} | <a href="/notifi/read/{{ $notify['id'] }}">Читать</a>
     </div>
 </div>
