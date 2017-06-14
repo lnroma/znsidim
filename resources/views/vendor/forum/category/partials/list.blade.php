@@ -6,6 +6,5 @@
     @if ($category->threadsEnabled)
         <td>{{ $category->thread_count }}</td>
         <td>{{ $category->post_count }}</td>
-
     @endif
 </tr>
