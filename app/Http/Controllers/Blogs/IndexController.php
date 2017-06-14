@@ -89,11 +89,11 @@ class IndexController extends Controller
     public function read($idBlog)
     {
         $blog = Blogs::find($idBlog);
-        $blog->viewed++;
-        $blog->save();
         if ($blog === null) {
             throw new NotFoundHttpException('Такой записи нет');
         }
+        $blog->viewed++;
+        $blog->save();
         return view('blogs/show')->with('blog', $blog);
     }
 

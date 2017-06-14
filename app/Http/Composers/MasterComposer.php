@@ -73,6 +73,7 @@ class MasterComposer {
      */
     protected function _seoForum()
     {
+	// return false;
         $ids = explode('/', $_SERVER['REQUEST_URI']);
 
         if(!isset($ids[2])) {
@@ -88,6 +89,7 @@ class MasterComposer {
         // если нет категории смотрим в поток
         if(!$seo || isset($ids[3])) {
             $thread = new Thread();
+            if(!isset($ids[3])) return false;
             $seo = $thread->find($ids[3]);
         }
         // если нет и потока возвращаем фалс
