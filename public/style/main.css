@@ -108,3 +108,7 @@ body {
 .panel .comment {
     padding-left: 15px;
 }
+.panel .panel-body iframe {
+    height: 545px;
+    width: 100%;
+}
