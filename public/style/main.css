@@ -102,3 +102,9 @@ body {
 .panel-footer a.comments:focus, .panel-footer a.comments:hover {
     text-decoration: none;
 }
+.panel h3#comments {
+    padding-left: 15px;
+}
+.panel .comment {
+    padding-left: 15px;
+}
