@@ -110,3 +110,8 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+}
+.panel .panel-body iframe {
+    height: 545px;
+    width: 100%;
+}
