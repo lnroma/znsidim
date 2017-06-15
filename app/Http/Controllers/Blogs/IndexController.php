@@ -123,40 +123,45 @@ class IndexController extends Controller
 
     public function comment(Request $request)
     {
-        $blogsComment = new Comment();
+        // значение с input'а, который создается при открытии страницы браузером
+        $antispam = $request->get('antispam');
 
-        if (Auth::guest()) {
-            $blogsComment->user_id = -1;
-        } else {
-            $blogsComment->user_id = Auth::user()->id;
-        }
+        if ($antispam) {
+            $blogsComment = new Comment();
 
-        $comment = str_replace('script', 'hui', $request->get('comment'));
-        $blogsComment->name = $request->get('name', 'Аноним');
-        $blogsComment->comment = $comment;
-        $blogsComment->user_blogs_id = $request->get('blog_id');
-        $blogsComment->is_enabled = true;
-        $blogsComment->is_delete = false;
-        $blogsComment->save();
+            if (Auth::guest()) {
+                $blogsComment->user_id = -1;
+            } else {
+                $blogsComment->user_id = Auth::user()->id;
+            }
 
-        $user = Auth::user();
-        // load block and notification users
-        $blog = Blogs::find($request->get('blog_id'));
+            $comment = str_replace('script', 'hui', $request->get('comment'));
+            $blogsComment->name = $request->get('name', 'Аноним');
+            $blogsComment->comment = $comment;
+            $blogsComment->user_blogs_id = $request->get('blog_id');
+            $blogsComment->is_enabled = true;
+            $blogsComment->is_delete = false;
+            $blogsComment->save();
 
-        if (Auth::guest() || $blog->user_id !== $user->id) {
-            $userNotifi = User::find($blog->user_id);
-            $userNotifi->notify(
-                new UserEvents(
-                    array(
-                        'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
-                        'title' => 'Новое сообщение в блоге',
-                        'link' => '/blogs/read/' . $blog->id,
+            $user = Auth::user();
+            // load block and notification users
+            $blog = Blogs::find($request->get('blog_id'));
+
+            if (Auth::guest() || $blog->user_id !== $user->id) {
+                $userNotifi = User::find($blog->user_id);
+                $userNotifi->notify(
+                    new UserEvents(
+                        array(
+                            'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
+                            'title' => 'Новое сообщение в блоге',
+                            'link' => '/blogs/read/' . $blog->id,
+                        )
                     )
-                )
-            );
-        }
+                );
+            }
 
-        return redirect('blogs/read/' . $request->get('blog_id'));
+            return redirect('blogs/read/' . $request->get('blog_id'));
+        }
     }
 
     public function listBlogs()
