@@ -2,7 +2,8 @@
 /vendor
 /node_modules
 /public/storage
-./public/uploads/
+/public/uploads
 Homestead.yaml
 Homestead.json
 .env
+/.idea
