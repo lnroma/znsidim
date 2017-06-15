@@ -187,9 +187,10 @@ class IndexController extends Controller
             // разослать всем нотификации
             foreach ($userIds as $_userId) {
                 // быдлокод не большой
-                if(Auth::user()->id == $_userId) continue;
+                //if(Auth::user()->id == $_userId) continue;
 
                 $userNotifi = User::find($_userId);
+                if(!$userNotifi)  continue;
                 $userNotifi->notify(
                     new UserEvents(
                         array(
