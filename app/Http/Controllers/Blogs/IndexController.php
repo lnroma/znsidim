@@ -142,27 +142,31 @@ class IndexController extends Controller
      */
     public function comment(Request $request)
     {
-        $blogsComment = new Comment();
+        // значение с input'а, который создается при открытии страницы браузером
+        $antispam = $request->get('antispam');
 
-        if (Auth::guest()) {
-            $blogsComment->user_id = -1;
-        } else {
-            $blogsComment->user_id = Auth::user()->id;
+        if ($antispam) {
+            $blogsComment = new Comment();
+
+            if (Auth::guest()) {
+                $blogsComment->user_id = -1;
+            } else {
+                $blogsComment->user_id = Auth::user()->id;
+            }
+
+            $comment = str_replace('script', 'hui', $request->get('comment'));
+            $blogsComment->name = $request->get('name', 'Аноним');
+            $blogsComment->comment = $comment;
+            $blogsComment->user_blogs_id = $request->get('blog_id');
+            $blogsComment->is_enabled = true;
+            $blogsComment->is_delete = false;
+            $blogsComment->save();
+
+            // load block and notification users
+            $blog = Blogs::find($request->get('blog_id'));
+
+            $this->_sendNotifi($blog, $comment);
         }
-
-        $comment = str_replace('script', 'hui', $request->get('comment'));
-        $blogsComment->name = $request->get('name', 'Аноним');
-        $blogsComment->comment = $comment;
-        $blogsComment->user_blogs_id = $request->get('blog_id');
-        $blogsComment->is_enabled = true;
-        $blogsComment->is_delete = false;
-        $blogsComment->save();
-
-        // load block and notification users
-        $blog = Blogs::find($request->get('blog_id'));
-
-        $this->_sendNotifi($blog, $comment);
-
         return redirect('blogs/read/' . $request->get('blog_id'));
     }
 
@@ -173,34 +177,41 @@ class IndexController extends Controller
      */
     protected function _sendNotifi(Blogs $blog, $comment)
     {
-        if (!Auth::guest() && $blog->user_id != Auth::user()->id) {
-            // скомпилируем тем кому надо отправить нотификацию
-            $comments = $blog->comments;
-            $userIds = array();
+        // скомпилируем тем кому надо отправить нотификацию
+        $comments = $blog->comments;
+        $userIds = array();
 
-            foreach ($comments as $_comments) {
-                $userIds[] = $_comments->user_id;
+        foreach ($comments as $_comments) {
+            $userIds[] = $_comments->user_id;
+        }
+
+        $userIds[] = $blog->user_id;
+        $userIds = array_unique($userIds);
+
+        // разослать всем нотификации
+        foreach ($userIds as $_userId) {
+            // быдлокод не большой
+            $userNotifi = User::find($_userId);
+
+            // исключаем самого себяиз нотификации
+            if(!Auth::guest() && $_userId == Auth::user()->id)
+            {
+                continue;
             }
-            $userIds[] = $blog->user_id;
-            $userIds = array_unique($userIds);
 
-            // разослать всем нотификации
-            foreach ($userIds as $_userId) {
-                // быдлокод не большой
-                //if(Auth::user()->id == $_userId) continue;
+            if (!$userNotifi) {
+                continue;
+            }
 
-                $userNotifi = User::find($_userId);
-                if(!$userNotifi)  continue;
-                $userNotifi->notify(
-                    new UserEvents(
-                        array(
-                            'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
-                            'title' => 'Новое сообщение в блоге',
-                            'link' => '/blogs/read/' . $blog->id,
-                        )
+            $userNotifi->notify(
+                new UserEvents(
+                    array(
+                        'message' => 'В вашем блоге: "' . $blog->name . '" есть новое сообщение: ' . $comment,
+                        'title' => 'Новое сообщение в блоге',
+                        'link' => '/blogs/read/' . $blog->id,
                     )
-                );
-            }
+                )
+            );
         }
     }
 
@@ -281,7 +292,7 @@ class IndexController extends Controller
     protected function saveLikeDislike($id, $likeOrDislike, Request $request)
     {
 
-        if($request->session()->get('blog_like_' . $likeOrDislike . $id) == true) {
+        if ($request->session()->get('blog_like_' . $likeOrDislike . $id) == true) {
             Messages::addError('Вы уже поставили ' . $likeOrDislike . ' к этому посту');
             return redirect(url()->previous() . '#blog_' . $id);
         }

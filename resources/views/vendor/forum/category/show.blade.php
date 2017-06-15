@@ -15,7 +15,6 @@
         </h2>
 
         <hr>
-
         @can ('manageCategories')
             <form action="{{ Forum::route('category.update', $category) }}" method="POST" data-actions-form>
                 {!! csrf_field() !!}
@@ -62,7 +61,7 @@
                 {!! method_field('delete') !!}
         @endcan
 
-        @if ($category->threadsEnabled)
+            @if ($category->threadsEnabled)
             <table class="table table-thread table-responsive">
                 <thead>
                     <tr>

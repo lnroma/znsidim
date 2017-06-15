@@ -1,12 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @include ('forum::partials.breadcrumbs')
     @include ('forum::partials.alerts')
-
     @yield('content')
 </div>
-
 <script>
     var toggle = $('input[type=checkbox][data-toggle-all]');
     var checkboxes = $('table tbody input[type=checkbox]');

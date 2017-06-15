@@ -54,3 +54,8 @@ Breadcrumbs::register('readblog', function ($breadcrumbs, $blog) {
     $breadcrumbs->parent('blogs');
     $breadcrumbs->push($blog->name, 'blog/show/' . $blog->id);
 });
+
+Breadcrumbs::register('forum', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Форум', '/forum');
+});
