@@ -1,7 +1,7 @@
 <tr id="post-{{ $post->sequence }}" class="{{ $post->trashed() ? 'deleted' : '' }}" class="post-body">
     <td class="author-info">
         <strong>{!! UserHelper::getLinkById($post->author_id) !!}</strong> |
-        @if(UserHelper::getUserById($post->user_id)->isOnline())<span class="badge" style="background:green">online</span> @endif
+        @if(UserHelper::getUserById($post->author_id)->isOnline())<span class="badge" style="background:green">online</span> @endif
         <br />
         <img src="{{ UserHelper::getUserById($post->author_id)->avatar }}" height="100px" />
         <br/>
