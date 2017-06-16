@@ -5,7 +5,12 @@
     @include('layouts.snipets.error')
     <div class="panel panel-default">
         <div class="panel-heading">
-            Диалог <?php echo $user->name ?>
+            Диалог <?php echo $user->name ?> |
+            @if($user->isOnline())
+                <span class="badge" style="background:green">online</span>
+            @else
+                <span class="badge" >offline</span>
+            @endif
         </div>
         <div class="panel-body">
             <?php /** @var Nahid\Talk\Messages\Message $_message */ ?>

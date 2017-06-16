@@ -11,7 +11,12 @@
             <?php foreach ($threads as $_thread): ?>
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <?php echo $_thread->withUser->name ?>
+                    <?php echo $_thread->withUser->name ?> |
+                        @if($_thread->withUser->isOnline())
+                            <span class="badge" style="background:green">online</span>
+                        @else
+                            <span class="badge" >offline</span>
+                        @endif
                 </div>
                 <div class="panel-body">
                     <div class="row">

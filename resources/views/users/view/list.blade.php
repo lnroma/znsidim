@@ -1,5 +1,5 @@
 <div class="panel panel-info">
-    <div class="panel-heading">{{ $item->created_at }} | {{ $item->name  }} |
+    <div class="panel-heading">{{ $item->created_at }} | {{ $item->name  }} | @if($item->isOnline()) online @else offline @endif |
         @if($item->hello)
             {{ $item->hello }}
         @else

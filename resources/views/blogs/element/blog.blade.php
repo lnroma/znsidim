@@ -24,9 +24,10 @@
         {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
         <a href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
     </div>
-
     <div class="panel-footer">
-        <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!} |
+        <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!}
+        @if(UserHelper::getUserById($_blog->user_id)->isOnline())<span class="badge" style="background:green">online</span> @endif
+        |
         <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
             <span class="glyphicon glyphicon-comment"></span>
             <span class="badge">{{ $_blog->comments->count() }}</span> 

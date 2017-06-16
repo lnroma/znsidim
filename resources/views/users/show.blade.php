@@ -5,12 +5,19 @@
     @include('layouts.snipets.error')
     <div class="panel panel-info">
         <div class="panel-heading">
-            <?php echo $name; ?>:
+            <?php echo $name; ?> |
+                @if(UserHelper::getUserById($id)->isOnline())
+                    <span class="badge" style="background:green">online</span>
+                @else
+                    <span class="badge" >offline</span>
+                @endif
+                |
             <?php if($hello): ?>
                    <?php echo $hello ?>
                 <?php else: ?>
             Я ещё не придумал приветствие
-            <?php endif; ?>
+            <?php endif; ?> |
+                <a href="/message/send/{{$name}}" class="btn-sm btn-info">Написать</a>
         </div>
         <div class="panel-body">
 
