@@ -26,7 +26,11 @@
     </div>
     <div class="panel-footer">
         <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!}
-        @if(UserHelper::getUserById($_blog->user_id)->isOnline())<span class="badge" style="background:green">online</span> @endif
+        @if(UserHelper::getUserById($_blog->user_id)->isOnline())
+            <span class="badge" style="background:green">online</span>
+        @else
+            <span class="badge">offline</span>
+        @endif
         |
         <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
             <span class="glyphicon glyphicon-comment"></span>
