@@ -2,10 +2,10 @@
 
 namespace App\Widgets;
 
-use App\Models\Blogs;
+use App\Models\Blogs\Comment;
 use Arrilot\Widgets\AbstractWidget;
 
-class RecentBlogs extends AbstractWidget
+class RecentActive extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -21,9 +21,9 @@ class RecentBlogs extends AbstractWidget
     public function run()
     {
         //
-        $blogs = Blogs::all()->sortByDesc('id')->take(5);
-        return view("widgets.recent_blogs", [
-            'blogs' => $blogs,
+        $comments = Comment::all()->sortByDesc('id')->take(5);
+        return view("widgets.recent_comments", [
+            'comments' => $comments,
             'config' => $this->config,
         ]);
     }

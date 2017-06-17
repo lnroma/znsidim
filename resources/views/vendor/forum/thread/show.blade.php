@@ -1,5 +1,6 @@
 @extends ('layouts.app')
 @section ('content')
+    {!! Breadcrumbs::render('forum_thread', $thread) !!}
     <div id="thread">
         <h2>
             @if ($thread->trashed())
