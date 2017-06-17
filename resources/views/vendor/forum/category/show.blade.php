@@ -2,6 +2,7 @@
 @extends ('forum::master', ['thread' => null])
 
 @section ('content')
+    {!! Breadcrumbs::render('forum_category', $category) !!}
     <div id="category">
         @can ('createCategories')
             @include ('forum::category.partials.form-create')

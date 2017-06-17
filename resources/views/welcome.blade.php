@@ -2,6 +2,9 @@
 
 @section('content')
     {!! Breadcrumbs::render('home') !!}
+    @include('layouts.snipets.error')
+    @widget("recentBlogs")
+    @widget("recentActive")
     <h2>В случае авторизаци/регистрации на сайте, вы сможете:</h2>
     <ul>
         <li>Получать уведомления о новых коментариях в блогах</li>
@@ -12,6 +15,4 @@
         <li>Создавать и комментировать темы на форуме сайта</li>
         <li>Оставить отзывы о компании</li>
     </ul>
-    @include('layouts.snipets.error')
-    @widget("recentBlogs")
 @endsection

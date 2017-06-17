@@ -73,7 +73,6 @@ class MasterComposer {
      */
     protected function _seoForum()
     {
-	// return false;
         $ids = explode('/', $_SERVER['REQUEST_URI']);
 
         if(!isset($ids[2])) {
@@ -81,16 +80,23 @@ class MasterComposer {
         }
 
         $idCategory = $ids[2];
-
+        $title = 'Форум пробки об айти!';
         // выбираем категорию
-        $category = new Category();
-        $seo = $category->find($idCategory);
+        $category = Category::find($idCategory);
 
-        // если нет категории смотрим в поток
-        if(!$seo || isset($ids[3])) {
-            $thread = new Thread();
-            if(!isset($ids[3])) return false;
-            $seo = $thread->find($ids[3]);
+        $seo = null;
+        if(!is_null($category) && $category->title) {
+            $title = $category->title;
+            $seo = $category;
+        }
+
+        // если есть поток то идём в поток
+        if(isset($ids[3])) {
+            $thread = Thread::find($ids[3]);
+            if(!is_null($thread) && $thread->title) {
+                $title .= ' ' . $thread->title;
+                $seo = $thread;
+            }
         }
         // если нет и потока возвращаем фалс
         if(!$seo) {
@@ -99,7 +105,7 @@ class MasterComposer {
 
         // всё заебись вернём title и description
         return array(
-            'title' => $seo->title,
+            'title' => $title,
             'description' => $seo->description,
             'keywords' => 'PHP, программирование, python, форум программистов',
         );

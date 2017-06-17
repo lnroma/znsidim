@@ -59,3 +59,13 @@ Breadcrumbs::register('forum', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Форум', '/forum');
 });
+
+Breadcrumbs::register('forum_category', function ($breadcrumbs, \Riari\Forum\Models\Category $category) {
+    $breadcrumbs->parent('forum');
+    $breadcrumbs->push($category->title, \Riari\Forum\Frontend\Support\Forum::route('category.show', $category));
+});
+
+Breadcrumbs::register('forum_thread', function ($breadcrumbs, \Riari\Forum\Models\Thread $thread){
+    $breadcrumbs->parent('forum_category', $thread->category);
+    $breadcrumbs->push($thread->title, \Riari\Forum\Frontend\Support\Forum::route('thread.show', $thread));
+});
