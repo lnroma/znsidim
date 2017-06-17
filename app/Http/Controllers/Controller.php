@@ -11,4 +11,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+
+    protected function _prevoice()
+    {
+        return redirect(url()->previous());
+    }
 }

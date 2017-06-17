@@ -59,11 +59,13 @@ Route::get('blogs/like/{idBlog}/{csrf}', 'Blogs\IndexController@like');
 Route::get('blogs/dislike/{idBlog}/{csrf}', 'Blogs\IndexController@dislike');
 Route::get('blogs/edit/{idBlog}', 'Blogs\IndexController@edit');
 Route::get('comment/delete/{idComment}', 'Blogs\IndexController@commentDelete');
-Route::get('notifi/read/{idNotifi}', 'Notification\IndexController@read');
 /**
  * events router
  */
 Route::get('events', 'Notification\IndexController@index');
+Route::get('events/all', 'Notification\IndexController@all');
+Route::get('notifi/read/{idNotifi}', 'Notification\IndexController@read');
+Route::get('notifi/asread/{idNotifi}', 'Notification\IndexController@markAsRead');
 /**
  * forum routers
  */
