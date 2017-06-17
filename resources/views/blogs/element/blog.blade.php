@@ -38,17 +38,17 @@
         </a> |
         <span class="glyphicon-eye-open glyphicon"></span>
         <span class="badge">{{ $_blog->viewed }}</span> |
-        <a href="/blogs/like/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-default"><span
+        <a href="/blogs/like/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-sm btn-default"><span
                     class="glyphicon glyphicon-thumbs-up"></span></a>
         <span class="badge">{{ $_blog->like }}</span> |
-        <a href="/blogs/dislike/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-default"><span
+        <a href="/blogs/dislike/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-sm btn-default"><span
                     class="glyphicon glyphicon-thumbs-down"></span></a>
         <span class="badge">{{ $_blog->dislike }}</span>
         @if(
                     (!Auth::guest() && Auth::user()->id == $_blog->user_id)
                     || (!Auth::guest() && Auth::user()->role == 'superadmin')
                 )
-            <a href="/blogs/edit/{{ $_blog->id }}" class="btn btn-default"><span
+            <a href="/blogs/edit/{{ $_blog->id }}" class="btn btn-sm btn-default"><span
                         class="glyphicon glyphicon-pencil"></span></a>
         @endif
         Теги:

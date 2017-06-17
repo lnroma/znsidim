@@ -46,6 +46,7 @@ class HomeController extends Controller
         $user->hello = $request->get('hello');
         $user->about_me = $request->get('about_me');
         $user->save();
-        header('Location:/home');
+
+        return redirect(url()->previous());
     }
 }

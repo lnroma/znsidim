@@ -22,7 +22,7 @@ class ThreadObserver
             $_user->notify(
                 new UserEvents(
                     array(
-                        'message' => 'В форуме создана новая ветка: ' . $thread->name,
+                        'message' => 'В форуме создана новая ветка: ' . $thread->title,
                         'title' => 'Новая ветка в форуме',
                         'link' => Forum::route('thread.show', $thread),
                     )

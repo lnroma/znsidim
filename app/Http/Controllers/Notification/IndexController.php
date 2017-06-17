@@ -17,7 +17,7 @@ class IndexController extends Controller
 {
 
     /**
-     * index action
+     * index action not read notification
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -25,10 +25,22 @@ class IndexController extends Controller
         $user = Auth::user();
         /** @var DatabaseNotificationCollection $notifications */
         $notifications = $user->unreadNotifications;
-        $allNotifications = $user->notifications();
 
         return view('notification.index')
-            ->with('notifications', $notifications)
+            ->with('notifications', $notifications);
+    }
+
+    /**
+     * all notification
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function all()
+    {
+        $user = Auth::user();
+        /** @var DatabaseNotificationCollection $notifications */
+        $allNotifications = $user->notifications();
+
+        return view('notification.all')
             ->with('all', $allNotifications);
     }
 
@@ -37,6 +49,18 @@ class IndexController extends Controller
         $notifi = DatabaseNotification::find($idNotifi);
         $notifi->markAsRead();
         return redirect($notifi->data['link']);
+    }
+
+    /**
+     * mark as read
+     * @param $idNotifi
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function markAsRead($idNotifi)
+    {
+        $notifi = DatabaseNotification::find($idNotifi);
+        $notifi->markAsRead();
+        return $this->_prevoice();
     }
 
 }
