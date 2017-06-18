@@ -22,7 +22,8 @@
     "riari/laravel-forum-frontend": "~1.0",
     "google/apiclient": "^2.0",
     "roumen/feed": "^2.10",
-    "highideas/laravel-users-online": "^1.0"
+    "highideas/laravel-users-online": "^1.0",
+    "sngrl/sphinxsearch": "dev-master"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

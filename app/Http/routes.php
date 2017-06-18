@@ -39,8 +39,9 @@ Route::get('/user/show/{login}', 'Users@show');
 /**
  * search route
  */
-Route::get('/find', 'Search\IndexController@index');
-Route::get('/find/result/{query}', 'Search\IndexController@result');
+Route::get('/search', 'Search\IndexController@index');
+Route::get('/search/result/', 'Search\IndexController@result');
+Route::get('/search/result/{type}/{query}', 'Search\IndexController@resultType');
 /**
  * static page routers
  */

@@ -34,7 +34,7 @@
         |
         <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
             <span class="glyphicon glyphicon-comment"></span>
-            <span class="badge">{{ $_blog->comments->count() }}</span> 
+            <span class="badge">{{ $_blog->comments->count() }}</span>
         </a> |
         <span class="glyphicon-eye-open glyphicon"></span>
         <span class="badge">{{ $_blog->viewed }}</span> |
@@ -51,9 +51,13 @@
             <a href="/blogs/edit/{{ $_blog->id }}" class="btn btn-sm btn-default"><span
                         class="glyphicon glyphicon-pencil"></span></a>
         @endif
-        Теги:
-        @foreach($_blog->tags as $_tag)
-            <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
-        @endforeach
+        | <span class="glyphicon glyphicon-tags"></span>
+        @if(count($_blog->tags) > 0)
+            @foreach($_blog->tags as $_tag)
+                <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
+            @endforeach
+        @else
+            Тегов нет
+        @endif
     </div>
 </div>
