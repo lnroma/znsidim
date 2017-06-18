@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Поис по сайту</div>
-                    <div class="panel-body">
-                        Анкета пользователя
-                    </div>
-                </div>
-            </div>
+    <h2>Поиск по сайту:</h2>
+    <form action="/search/result" method="get" class="form-horizontal">
+        <div>
+            <label for="query" class="label">
+                Поиск:
+            </label>
+            <input type="text" class="form-control" name="q" />
         </div>
-    </div>
+        <div>
+            <button type="submit" class="btn btn-success">Искать</button>
+        </div>
+    </form>
 @endsection

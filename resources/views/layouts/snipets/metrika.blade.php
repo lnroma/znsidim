@@ -1,3 +1,4 @@
+<div class='panel-heading'>
 <script src="http://mt-data.ru/279464.js" type="text/javascript"></script>
 <!-- Yandex.Metrika informer -->
 <a href="https://metrika.yandex.ru/stat/?id=44603926&amp;from=informer"
@@ -54,3 +55,4 @@ _tmr.push({id: "2909085", type: "pageView", start: (new Date()).getTime()});
 <img src="//top-fwz1.mail.ru/counter?id=2909085;t=479;l=1" 
 style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
 <!-- //Rating@Mail.ru logo --><br/>
+</div>

@@ -35,10 +35,14 @@
 <div class="container">
     <div class="row">
         <div class="panel-footer" style="height: 63px;">
-            <span style="position: relative;top: -42px;">Пр<span style="font-size: 57px;position: relative;top: 19px; color: red;">о</span><span>бки<br></span>
+            <a href="/" style="text-decoration:none;">
+            <span style="position: relative;top: -42px;">Пр<span
+                        style="font-size: 57px;position: relative;top: 19px; color: red;">о</span><span>бки<br></span>
                 <span style="left: 56px;position: relative;top: -19px; color:#9127ff;">
                       б айти</span>
-        </span></div>
+            </span>
+            </a>
+        </div>
         <div class="btn-group btn-group-justified" role="group">
             @if (!Auth::guest())
                 <a href="{{ url('/message') }}" class="btn  btn-nav">
@@ -65,12 +69,13 @@
             <a href="/forum" class="btn btn-default"><span class="glyphicon glyphicon-megafon"></span>Форум</a>
             <a href="/blogs" class="btn btn-default"><span class="glyphicon glyphicon-book"></span>Блоги<span
                         class="badge">{{$blog_count}}</span></a>
-            <a href="/tags" class="btn btn-default">Теги</a>
+            <a href="/tags" class="btn btn-default"><span class="glyphicon glyphicon-tags"></span> Теги</a>
             <a href="{{ url('/users') }}" class="btn  btn-default">
                 <span class="glyphicon glyphicon-user"></span>
                 <span class="badge">{{$user_count}}</span>
             </a>
-            <a href="/feed" class="btn btn-default">RSS</a>
+            <a href="/feed" class="btn btn-default"><i class="fa fa-btn fa-rss"></i>RSS</a>
+            <a href="/search" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Поиск</a>
         </div>
         @yield('content')
         @include('layouts.snipets.metrika')

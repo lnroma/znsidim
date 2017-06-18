@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Поис по блогу</div>
-                    <div class="panel-body">
-                        Анкета пользователя
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! Breadcrumbs::render('blogs') !!}
+    @include('layouts.snipets.error')
+    <h2>Результаты поиска по блогам {{$total}}</h2>
+    @if($total > 0)
+        @foreach($blogs as $_blog)
+            @include('blogs.element.blog', array('_blog' => $_blog))
+        @endforeach
+        {{$blogs->render()}}
+    @else
+        Ничего не найденно
+    @endif
 @endsection

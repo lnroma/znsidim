@@ -24,10 +24,14 @@
             <a href="/blogs/edit/{{ $blog->id }}" class="btn btn-sm btn-default"><span
                         class="glyphicon glyphicon-pencil"></span></a>
         @endif
-        Теги:
-        @foreach($blog->tags as $_tag)
-            <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
-        @endforeach
+        | <span class="glyphicon glyphicon-tags"></span>
+        @if(count($blog->tags) > 0)
+            @foreach($blog->tags as $_tag)
+                <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
+            @endforeach
+        @else
+            Нет гегов
+        @endif
     </div>
     {{--</div>--}}
     <h3 id="comments">Ваши комментарии</h3>
