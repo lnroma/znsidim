@@ -94,6 +94,8 @@
 body {
     max-width: 1000px;
     margin:auto;
+    font-family: Arial!important;
+    font-size:15px;
 }
 
 /* link to comments */
@@ -110,8 +112,12 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-}
+
 .panel .panel-body iframe {
     height: 545px!important;
-    width: 100%#!important;
+    width: 100%!important;
+}
+
+@font-face {
+    font-family: Arial;
 }
