@@ -16,7 +16,7 @@
             <h2>{{ $_tag->title }}</h2>
             <p>{{ $_tag->description }}</p>
             <p>
-                <a class="btn-primary btn" href="/tags/{{ $_tag->url_key }}">21Блоги тега <span
+                <a class="btn-primary btn" href="/tags/{{ $_tag->url_key }}">Блоги тега <span
                             class="badge">{{ $_tag->blogs->count() }}</span></a>
             </p>
         </div>

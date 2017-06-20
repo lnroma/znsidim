@@ -30,7 +30,7 @@
                 <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
             @endforeach
         @else
-            Нет гегов
+            Нет тегов
         @endif
     </div>
     {{--</div>--}}
@@ -39,6 +39,7 @@
         @include('messages.chunks.message', array(
             'comment' => $_comment,
             'user_id' => $_comment->user_id,
+            'aditional' => '',
         ))
     @endforeach
     <div class="panel panel-default">

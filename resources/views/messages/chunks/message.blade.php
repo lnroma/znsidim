@@ -27,6 +27,9 @@ if ($user_id != '-1') {
             <div class="panel-body">
                 {!! $comment->comment !!}
             </div>
+            <div class="panel-footer">
+                {!! $aditional !!}
+            </div>
         </div>
     </div>
 </div>
