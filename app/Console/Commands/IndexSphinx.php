@@ -57,7 +57,7 @@ class IndexSphinx extends Command
         foreach ($blogs as $_blog) {
             $sphinx = new Sphinx();
             $commonContent = $_blog->name . '  ' . $_blog->content;
-            $sphinx->index = $commonContent;
+            $sphinx->index = strip_tags($commonContent);
             $sphinx->sources_id = $_blog->id;
             $sphinx->module = Sphinx::INDEX_TYPE_BLOG;
             $sphinx->save();
