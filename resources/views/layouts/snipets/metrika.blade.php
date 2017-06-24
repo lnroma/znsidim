@@ -55,5 +55,6 @@ _tmr.push({id: "2909085", type: "pageView", start: (new Date()).getTime()});
 <img src="//top-fwz1.mail.ru/counter?id=2909085;t=479;l=1" 
 style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
 <!-- //Rating@Mail.ru logo --><br/>
-<a href='http://yotus.ru/'> yotus.ru - Видео, блоги, знакомства </a>
+<a href='http://yotus.ru/'> yotus.ru - Видео, блоги, знакомства </a><br/>
+<a href='https://www.youtube.com/Panteryasha'> Youtube канал потеряши, обзор хорор игр и их прохождение | не забываем подписываться </a>
 </div>

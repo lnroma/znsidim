@@ -1,0 +1,15 @@
+array (
+  '_token' => '7oxfB1T35YN2ti7uvYw06ad3VXxnv2cGnr4LnjjE',
+  'name' => 'privetvsem',
+  'email' => 'testinghuesting@mailforspam.com',
+  'password' => 'privetvsem',
+  'password_confirmation' => 'privetvsem',
+  'captcha' => 'AEQbU',
+)array (
+  '_token' => '51LWQxDZv82D17saYr9QgEcKzbxj9xqvIdNXxWYt',
+  'name' => 'Natusik024',
+  'email' => 'sasha1978404@gmail.com',
+  'password' => '1978ALEKSANDR7819',
+  'password_confirmation' => '1978ALEKSANDR7819',
+  'captcha' => 'hcpnd',
+)

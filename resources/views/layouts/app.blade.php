@@ -97,5 +97,34 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/js/main.js"></script>
+<script type="text/javascript">
+ 
+$(function() {
+ 
+$(window).scroll(function() {
+ 
+if($(this).scrollTop() != 0) {
+ 
+$('#toTop').fadeIn();
+ 
+} else {
+ 
+$('#toTop').fadeOut();
+ 
+}
+ 
+});
+ 
+$('#toTop').click(function() {
+ 
+$('body,html').animate({scrollTop:0},800);
+ 
+});
+ 
+});
+ 
+</script>
+
+<a href='#' class='btn btn-success' id='toTop'> Наверх ^ </a>
 </body>
 </html>
