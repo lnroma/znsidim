@@ -68,14 +68,21 @@ Route::get('events/all', 'Notification\IndexController@all');
 Route::get('notifi/read/{idNotifi}', 'Notification\IndexController@read');
 Route::get('notifi/asread/{idNotifi}', 'Notification\IndexController@markAsRead');
 /**
- * forum routers
+ * photo routers
  */
+Route::get('/photos/{userName}', 'Photos\Directories\IndexController@index');
+Route::get('/photos/{userName}/createDirectory', 'Photos\Directories\IndexController@createDirectory');
+Route::post('/photos/{userName}/createDirectory', 'Photos\Directories\IndexController@postCreateDirectory');
+Route::get('/photos/{userName}/directory/{directoryId}', 'Photos\Directories\IndexController@showDirectory');
+Route::get('/photos/{userName}/uploadForm', 'Photos\IndexController@upload');
+Route::post('/photos/{userName}/uploadForm', 'Photos\IndexController@post');
+Route::get('/photo/show/{idPhoto}', 'Photos\IndexController@show');
+Route::post('/photos/pass/directoy/{idDirectory}', 'Photos\Directories\IndexController@check');
 /**
  * other route
  */
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@post');
-
 Route::get('/googleCallbak', 'Auth\AuthController@googleCallback')->name('google');
 /**
  * seo modul routers

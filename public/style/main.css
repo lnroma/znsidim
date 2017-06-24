@@ -4,9 +4,11 @@
     margin: 0;
     padding: 20px 0;
 }
+
 .footer_dv {
     width: 100%;
 }
+
 .footer_dv h4 {
     color: #6157fc;
     font-family: roboto;
@@ -14,21 +16,25 @@
     margin-bottom: 30px;
     text-transform: uppercase;
 }
+
 .footer_dv ul {
     list-style: outside none none;
     margin: 0;
     padding: 0;
 }
+
 .footer_dv ul li:first-child {
     border-top: medium none;
     box-shadow: none;
 }
+
 .footer_dv ul li {
     border-top: 1px solid #000;
     box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.2);
     color: #f1f2f2;
     padding: 5px 0;
 }
+
 .footer_dv p {
     color: #ff7136;
     font-size: 14px;
@@ -38,74 +44,79 @@
 }
 
 .comment-left.thumbnail {
-    padding:0px;
+    padding: 0px;
     width: 50px;
 }
 
 .panel.comment-left {
-    position:relative;
+    position: relative;
 }
 
-.panel.comment-left>.panel-heading:after,.panel>.panel-heading:before{
-    position:absolute;
-    top:11px;left:-16px;
-    right:100%;
-    width:0;
-    height:0;
-    display:block;
-    content:" ";
-    border-color:transparent;
-    border-style:solid solid outset;
-    pointer-events:none;
-}
-.panel.comment-left>.panel-heading:after{
-    border-width:7px;
-    border-right-color:#f7f7f7;
-    margin-top:1px;
-    margin-left:2px;
-}
-.panel.comment-left>.panel-heading:before{
-   border-right-color:#ddd;
-    border-width:8px;
+.panel.comment-left > .panel-heading:after, .panel > .panel-heading:before {
+    position: absolute;
+    top: 11px;
+    left: -16px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    display: block;
+    content: " ";
+    border-color: transparent;
+    border-style: solid solid outset;
+    pointer-events: none;
 }
 
+.panel.comment-left > .panel-heading:after {
+    border-width: 7px;
+    border-right-color: #f7f7f7;
+    margin-top: 1px;
+    margin-left: 2px;
+}
+
+.panel.comment-left > .panel-heading:before {
+    border-right-color: #ddd;
+    border-width: 8px;
+}
 
 .comment-right.thumbnail {
-    padding:0px;
+    padding: 0px;
     width: 50px;
     flex-direction: row;
     justify-content: flex-end;
 }
 
 .panel.comment-right {
-    position:relative;
+    position: relative;
 }
 
-.panel.comment-right>.panel-heading:after,.panel>.panel-heading:before{
-    position:absolute;
-    top:11px;left:-16px;
-    right:100%;
-    width:0;
-    height:0;
-    display:block;
-    content:" ";
-    border-color:transparent;
-    border-style:solid solid outset;
-    pointer-events:none;
+.panel.comment-right > .panel-heading:after, .panel > .panel-heading:before {
+    position: absolute;
+    top: 11px;
+    left: -16px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    display: block;
+    content: " ";
+    border-color: transparent;
+    border-style: solid solid outset;
+    pointer-events: none;
 }
-.panel.comment-right>.panel-heading:after{
-    border-width:7px;
-    border-right-color:#f7f7f7;
-    margin-top:1px;
-    margin-left:2px;
+
+.panel.comment-right > .panel-heading:after {
+    border-width: 7px;
+    border-right-color: #f7f7f7;
+    margin-top: 1px;
+    margin-left: 2px;
 }
-.panel.comment-right>.panel-heading:before{
-    border-right-color:#ddd;
-    border-width:8px;
+
+.panel.comment-right > .panel-heading:before {
+    border-right-color: #ddd;
+    border-width: 8px;
 }
 
 .container {
-   width:100%!important;
+    width: 100% !important;
 }
 
 .btn.btn-nav {
@@ -129,29 +140,32 @@
 
 body {
     max-width: 1000px;
-    margin:auto;
-    font-family: Arial!important;
-    font-size:15px;
+    margin: auto;
+    font-family: Arial !important;
+    font-size: 15px;
 }
 
 /* link to comments */
 .panel-footer a.comments {
     color: #333;
 }
+
 .panel-footer a.comments:focus, .panel-footer a.comments:hover {
     text-decoration: none;
 }
+
 .panel h3#comments {
     padding-left: 15px;
 }
+
 .panel .comment {
     padding-left: 15px;
     padding-right: 15px;
 }
 
 .panel .panel-body iframe {
-    height: 545px!important;
-    width: 100%!important;
+    height: 545px !important;
+    width: 100% !important;
 }
 
 @font-face {
@@ -159,21 +173,22 @@ body {
 }
 
 .row {
-    margin:0px!important;
+    margin: 0px !important;
 }
+
 #toTop {
-width:100px;
-height: 50px;
-border:1px solid #ccc;
-background:#f7f7f7;
-text-align:center;
-padding:5px;
-position:fixed;
-bottom:10px; /* отступ кнопки от нижнего края страницы*/
-right:10px;
-cursor:pointer;
-display:none;
-color:#333;
-font-family:verdana;
-font-size:11px;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 10px; /* отступ кнопки от нижнего края страницы*/
+    right: 10px;
+    cursor: pointer;
+    display: none;
+    color: #333;
+    font-family: verdana;
+    font-size: 11px;
 }

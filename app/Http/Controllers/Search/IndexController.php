@@ -54,17 +54,16 @@ class IndexController extends Controller
             ->with('forum', $forum)
             ->with('blog', $blog)
             ->with('user', $user)
-            ->with('query', $query)
-            ;
+            ->with('query', $query);
     }
 
     public function resultType($type, $query)
     {
         $search = new SphinxSearch();
-        if($type == 'blog') {
+        if ($type == 'blog') {
             $result = $search->search($query, 'blogs')->query();
 
-            if($result['total'] > 0) {
+            if ($result['total'] > 0) {
                 $keys = array_keys($result['matches']);
                 $blogIds = $this->_getOriginId($keys);
                 $blogs = Blogs::whereIn('id', $blogIds)->paginate(5);
@@ -75,10 +74,10 @@ class IndexController extends Controller
             return view('search.result.blogs')
                 ->with('total', $result['total'])
                 ->with('blogs', $blogs);
-        } elseif($type=='user') {
+        } elseif ($type == 'user') {
             $result = $search->search($query, 'users')->query();
 
-            if($result['total'] > 0) {
+            if ($result['total'] > 0) {
                 $keys = array_keys($result['matches']);
                 $userIds = $this->_getOriginId($keys);
                 $users = User::whereIn('id', $userIds)->paginate(5);
@@ -89,10 +88,10 @@ class IndexController extends Controller
             return view('search.result.users')
                 ->with('total', $result['total'])
                 ->with('users', $users);
-        } elseif($type == 'forum') {
+        } elseif ($type == 'forum') {
             $result = $search->search($query, 'forum')->query();
 
-            if($result['total'] > 0) {
+            if ($result['total'] > 0) {
                 $keys = array_keys($result['matches']);
                 $threadIds = $this->_getOriginId($keys);
                 $threadIds = array_unique($threadIds);
@@ -116,7 +115,7 @@ class IndexController extends Controller
     {
         $searchRes = Sphinx::whereIn('id', $ids)->get();
         $result = array();
-        foreach($searchRes as $_searchRes) {
+        foreach ($searchRes as $_searchRes) {
             $result[] = $_searchRes->sources_id;
         }
         return $result;

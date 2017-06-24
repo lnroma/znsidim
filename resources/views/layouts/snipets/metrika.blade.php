@@ -1,4 +1,4 @@
-<div class='panel-heading'>
+<div class='panel panel-heading'>
 <script src="http://mt-data.ru/279464.js" type="text/javascript"></script>
 <!-- Yandex.Metrika informer -->
 <a href="https://metrika.yandex.ru/stat/?id=44603926&amp;from=informer"

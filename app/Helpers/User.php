@@ -9,7 +9,8 @@ namespace App\Helpers;
 
 use App\User as UserModel;
 
-class User {
+class User
+{
 
     public static function getLinkById($id)
     {
@@ -20,6 +21,11 @@ class User {
     public static function getUserById($id)
     {
         return UserModel::find($id);
+    }
+
+    public static function getUserByName($name)
+    {
+        return UserModel::where('name', $name)->first();
     }
 
 }
