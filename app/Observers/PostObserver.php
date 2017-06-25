@@ -7,30 +7,25 @@
  */
 namespace App\Observers;
 
-use App\Notifications\UserEvents;
-use App\User;
+use App\Jobs\SendNotification;
 use App\Helpers\User as UserHelper;
 use Riari\Forum\Frontend\Support\Forum;
 use Riari\Forum\Models\Post;
-use Riari\Forum\Models\Thread;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class PostObserver {
+class PostObserver
+{
+    use DispatchesJobs;
 
     public function created(Post $post)
     {
-        $thread = Thread::find($post->thread_id);
-        $users = User::all();
-        foreach ($users as $_user) {
-            $_user->notify(
-                new UserEvents(
-                    array(
-                        'message' => UserHelper::getUserById($post->author_id)->name . ' написал: ' . $post->content,
-                        'title' => 'Новое сообщение в форуме',
-                        'link' => Forum::route('thread.show', $thread),
-                    )
-                )
-            );
-        }
+        $this->dispatch(
+            new SendNotification(
+                UserHelper::getUserById($post->author_id)->name . ' написал: ' . $post->content,
+                Forum::route('thread.show', $post->thread),
+                'Новое сообщение в форуме'
+            )
+        );
     }
 
 }
