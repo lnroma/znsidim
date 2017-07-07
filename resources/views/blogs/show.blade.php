@@ -3,8 +3,10 @@
 @section('content')
     {!! Breadcrumbs::render('readblog', $blog) !!}
     @include('layouts.snipets.error')
-    <h2>{{$blog->name}}</h2>
-    {!! $blog->content !!}
+    <div class="container">
+        <h2>{{$blog->name}}</h2>
+        {!! $blog->content !!}
+    </div>
     <div class="panel-footer">
         <span class="glyphicon glyphicon-user"></span>{!!UserHelper::getLinkById($blog->user_id)   !!} |
         <span class="glyphicon glyphicon-comment"></span>

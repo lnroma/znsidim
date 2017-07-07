@@ -63,20 +63,38 @@
         <a href="{{ url('/logout') }}" class="btn  btn-nav"><i class="fa fa-btn fa-sign-out"></i></a>
     @endif
 </div>
-<div class="panel-footer">
-    <a href="/forum" class="btn btn-default"><span class="glyphicon glyphicon-megafon"></span>Форум</a>
-    <a href="/blogs" class="btn btn-default"><span class="glyphicon glyphicon-book"></span>Блоги<span
-                class="badge">{{$blog_count}}</span></a>
-    <a href="/tags" class="btn btn-default"><span class="glyphicon glyphicon-tags"></span> Теги</a>
-    <a href="{{ url('/users') }}" class="btn  btn-default">
-        <span class="glyphicon glyphicon-user"></span>
-        <span class="badge">{{$user_count}}</span>
-    </a>
-    <a href="/feed" class="btn btn-default"><i class="fa fa-btn fa-rss"></i>RSS</a>
-    <a href="/search" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Поиск</a>
-</div>
+<nav class="navbar navbar-default sidebar" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-sidebar-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/forum"><span class="glyphicon glyphicon-megafon"></span>Форум</a></li>
+                <li><a href="/blogs"><span class="glyphicon glyphicon-book"></span>Блоги<span
+                           class="badge">{{$blog_count}}</span></a></li>
+                <li><a href="/tags"><span class="glyphicon glyphicon-tags"></span> Теги</a></li>
+                <li><a href="{{ url('/users') }}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="badge">{{$user_count}}</span>
+                    </a></li>
+                <li><a href="/feed"><i class="fa fa-btn fa-rss"></i>RSS</a></li>
+                <li><a href="/search"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 @yield('content')
+<footer class="panel-foter">
 @include('layouts.snipets.metrika')
+        </footer>
+</div>
 @if(!Auth::guest() && Auth::user()->role == 'superadmin')
     <form method="post" action="/seo/save">
         {{ csrf_field() }}
