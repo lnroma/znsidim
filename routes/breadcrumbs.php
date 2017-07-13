@@ -69,3 +69,19 @@ Breadcrumbs::register('forum_thread', function ($breadcrumbs, \Riari\Forum\Model
     $breadcrumbs->parent('forum_category', $thread->category);
     $breadcrumbs->push($thread->title, \Riari\Forum\Frontend\Support\Forum::route('thread.show', $thread));
 });
+
+Breadcrumbs::register('photo', function ($breadcrumbs, $userName, $userId) {
+    $breadcrumbs->parent('users_show', $userId, $userName);
+    $breadcrumbs->push('Фото', '/photos/' . $userName );
+});
+
+Breadcrumbs::register('photo_directory', function ($breadcrumbs, $userName, $userId, $directoryName, $directoryId) {
+    $breadcrumbs->parent('photo', $userName, $userId);
+    $breadcrumbs->push($directoryName, '/photos/' . $userName . '/directory/' . $directoryId );
+});
+
+
+Breadcrumbs::register('photo_show', function ($breadcrumbs, $userName, $userId, $directoryName, $directoryId, $photoName, $photoId) {
+    $breadcrumbs->parent('photo_directory', $userName, $userId, $directoryName, $directoryId);
+    $breadcrumbs->push($photoName, '/photo/show/' . $photoId );
+});

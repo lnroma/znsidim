@@ -4,4 +4,10 @@ $(document).ready(function() {
     if ($(commentForm).length > 0) {
         $(commentForm).append('<input type="hidden" name="antispam" value="true">');
     }
+
+
+    commentPhotoForm = $('form[action="/photo/comment"');
+    if ($(commentPhotoForm).length > 0) {
+        $(commentPhotoForm).append('<input type="hidden" name="antispam" value="true">');
+    }
 });

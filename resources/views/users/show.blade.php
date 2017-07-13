@@ -55,10 +55,12 @@
                             <td><a href="/photos/{{$name}}" class="btn btn-nav">Фотоальбом</a></td>
                             <td>Просмотреть фотоальбом пользователя</td>
                         </tr>
-                        <tr>
-                            <td><a href="/message/send/{{$name}}" class="btn btn-nav">Написать</a></td>
-                            <td>Написать пользователю сообщение</td>
-                        </tr>
+                        @if(!Auth::guest())
+                            <tr>
+                                <td><a href="/message/send/{{$name}}" class="btn btn-nav">Написать</a></td>
+                                <td>Написать пользователю сообщение</td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>

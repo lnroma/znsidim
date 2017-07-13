@@ -77,7 +77,9 @@ Route::get('/photos/{userName}/directory/{directoryId}', 'Photos\Directories\Ind
 Route::get('/photos/{userName}/uploadForm', 'Photos\IndexController@upload');
 Route::post('/photos/{userName}/uploadForm', 'Photos\IndexController@post');
 Route::get('/photo/show/{idPhoto}', 'Photos\IndexController@show');
+Route::post('/photo/comment/', 'Photos\IndexController@comment');
 Route::post('/photos/pass/directoy/{idDirectory}', 'Photos\Directories\IndexController@check');
+
 /**
  * other route
  */
