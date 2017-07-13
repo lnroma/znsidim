@@ -56,5 +56,6 @@ _tmr.push({id: "2909085", type: "pageView", start: (new Date()).getTime()});
 style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
 <!-- //Rating@Mail.ru logo --><br/>
 <a href='http://yotus.ru/'> yotus.ru - Видео, блоги, знакомства </a><br/>
-<a href='https://www.youtube.com/Panteryasha'> Youtube канал потеряши, обзор хорор игр и их прохождение | не забываем подписываться </a>
+<a href='https://www.youtube.com/Panteryasha'> Youtube канал потеряши, обзор хорор игр и их прохождение | не забываем подписываться </a><br/>
+<a href='http://znakomim.site/'>Знакомства для it'ников - секс, общение, просто убить время</a>
 </div>
