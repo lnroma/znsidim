@@ -78,7 +78,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/forum"><span class="glyphicon glyphicon-megafon"></span>Форум</a></li>
                 <li><a href="/blogs"><span class="glyphicon glyphicon-book"></span>Блоги<span
-                           class="badge">{{$blog_count}}</span></a></li>
+                                class="badge">{{$blog_count}}</span></a></li>
                 <li><a href="/tags"><span class="glyphicon glyphicon-tags"></span> Теги</a></li>
                 <li><a href="{{ url('/users') }}">
                         <span class="glyphicon glyphicon-user"></span>
@@ -91,9 +91,9 @@
     </div>
 </nav>
 @yield('content')
-<footer class="panel-foter">
-@include('layouts.snipets.metrika')
-        </footer>
+<footer class="footer">
+    @include('layouts.snipets.metrika')
+</footer>
 </div>
 @if(!Auth::guest() && Auth::user()->role == 'superadmin')
     <form method="post" action="/seo/save">

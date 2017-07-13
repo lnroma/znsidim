@@ -8,28 +8,24 @@ if ($user_id != '-1') {
     $link = $comment->name;
 }
 ?>
-<div class="row comment">
-    <div class="col-sm-1">
+<div class="panel panel-default">
+    <div class="panel-heading">
         <div class="comment-left thumbnail">
             <img class="img-responsive user-photo" src="{{ $avatar }}">
         </div>
+        <span class="divider">|</span>
+        <strong>{!! $link  !!}</strong> <span class="text-muted">{{ $comment->created_at }}</span>
+        <span class="divider">|</span>
+        @can('superadmin')
+            <a href="/comment/delete/{{ $comment->id }}" class="btn btn-default"><span
+                        class="glyphicon glyphicon-erase"></span></a>
+        @endcan
     </div>
-
-    <div class="col-sm-6">
-        <div class="comment-left panel panel-default">
-            <div class="panel-heading">
-                <strong>{!! $link  !!}</strong> <span class="text-muted">{{ $comment->created_at }}</span>
-                @can('superadmin')
-                    <a href="/comment/delete/{{ $comment->id }}" class="btn btn-default"><span
-                                class="glyphicon glyphicon-erase"></span></a>
-                @endcan
-            </div>
-            <div class="panel-body">
-                {!! $comment->comment !!}
-            </div>
-            <div class="panel-footer">
-                {!! $aditional !!}
-            </div>
-        </div>
+    <div class="panel-body">
+        {!! $comment->comment !!}
+    </div>
+    <div class="panel-footer">
+        {!! $aditional !!}
     </div>
 </div>
+

@@ -1,4 +1,3 @@
-<div class='panel panel-heading'>
 <script src="http://mt-data.ru/279464.js" type="text/javascript"></script>
 <!-- Yandex.Metrika informer -->
 <a href="https://metrika.yandex.ru/stat/?id=44603926&amp;from=informer"
@@ -57,4 +56,3 @@ style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
 <!-- //Rating@Mail.ru logo --><br/>
 <a href='http://yotus.ru/'> yotus.ru - Видео, блоги, знакомства </a><br/>
 <a href='https://www.youtube.com/Panteryasha'> Youtube канал потеряши, обзор хорор игр и их прохождение | не забываем подписываться </a>
-</div>

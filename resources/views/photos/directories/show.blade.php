@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    {!! Breadcrumbs::render('photo_directory', $user->name, $user->id, $directory->title, $directory->id) !!}
     @include('layouts.snipets.error')
     <h2>Фото пользователя {{$user->name}}</h2>
     @if($directory->password && !session('pass_check_' . $directory->id))

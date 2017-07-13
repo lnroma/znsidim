@@ -44,35 +44,27 @@
             'aditional' => '',
         ))
     @endforeach
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Оставить комментарий
+    <form method="post" action="/blogs/comment" class="form-vertical">
+        @if(!Auth::guest())
+            <input type="hidden" value='{{Auth::user()->name}}' name="name">
+        @else
+            <div class="form-group">
+                <label class="control-label" for="name">Имя:</label>
+                <input type="text" name="name"
+                       @if(!Auth::guest()) value='{{Auth::user()->name}}'
+                       @endif class="form-control" id="name">
+            </div>
+        @endif
+        {{ csrf_field() }}
+        <input type="hidden" name="blog_id" value="{{$blog->id}}">
+        <div class="form-group">
+            <label class="control-label" for="comment">Коментарий:</label>
+            <textarea id="comment" class="form-control" name="comment"></textarea>
         </div>
-        <div class="panel-body">
-            <form method="post" action="/blogs/comment" class="form-vertical">
-                @if(!Auth::guest())
-                    <input type="hidden" value='{{Auth::user()->name}}' name="name">
-                @else
-                    <div class="form-group">
-                        <label class="control-label" for="name">Имя:</label>
-                        <input type="text" name="name"
-                               @if(!Auth::guest()) value='{{Auth::user()->name}}'
-                               @endif class="form-control" id="name">
-                    </div>
-                @endif
-                {{ csrf_field() }}
-                <input type="hidden" name="blog_id" value="{{$blog->id}}">
-                <div class="form-group">
-                    <label class="control-label" for="comment">Коментарий:</label>
-                    <textarea id="comment" class="form-control" name="comment"></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn  btn-default">Комментировать</button>
-                </div>
-            </form>
+        <div class="form-group">
+            <button type="submit" class="btn  btn-default">Комментировать</button>
         </div>
-    </div>
-
+    </form>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('comment');

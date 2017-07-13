@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    {!! Breadcrumbs::render('photo', $user->name, $user->id) !!}
     @include('layouts.snipets.error')
     <h2>Фото пользователя {{$user->name}}</h2>
     <table class="table table-bordered">

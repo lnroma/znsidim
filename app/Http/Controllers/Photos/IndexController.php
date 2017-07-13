@@ -12,7 +12,9 @@ use App\Helpers\Messages;
 use App\Helpers\User as UserHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Photos;
+use App\Models\Photos\Comment;
 use App\Models\Photos\Directory;
+use App\Notifications\UserEvents;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -73,4 +75,77 @@ class IndexController extends Controller
         return view('photos.show')->with('photo', $photo);
     }
 
+    /**
+     * add comment to blog
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function comment(Request $request)
+    {
+        // значение с input'а, который создается при открытии страницы браузером
+        $antispam = $request->get('antispam');
+        if ($antispam) {
+            $blogsComment = new Comment();
+
+            if (Auth::guest()) {
+                $blogsComment->user_id = -1;
+            } else {
+                $blogsComment->user_id = Auth::user()->id;
+            }
+
+            $comment = str_replace('script', 'hui', $request->get('comment'));
+            $blogsComment->name = $request->get('name', 'Аноним');
+            $blogsComment->comment = $comment;
+            $blogsComment->user_photo_id = $request->get('photo_id');
+            $blogsComment->is_enabled = true;
+            $blogsComment->is_delete = false;
+            $blogsComment->save();
+
+            // load block and notification users
+            $photo = Photos::find($request->get('photo_id'));
+
+            $this->_sendNotifi($photo, $comment);
+        }
+        return redirect('/photo/show/' . $request->get('photo_id'));
+    }
+
+    private function _sendNotifi($photo, $comment)
+    {
+        // скомпилируем тем кому надо отправить нотификацию
+        $comments = $photo->comments;
+        $userIds = array();
+
+        foreach ($comments as $_comments) {
+            $userIds[] = $_comments->user_id;
+        }
+
+        $userIds[] = $photo->user_id;
+        $userIds = array_unique($userIds);
+
+        // разослать всем нотификации
+        foreach ($userIds as $_userId) {
+            // быдлокод не большой
+            $userNotifi = User::find($_userId);
+
+            // исключаем самого себя из нотификации
+            if(!Auth::guest() && $_userId == Auth::user()->id)
+            {
+                continue;
+            }
+
+            if (!$userNotifi) {
+                continue;
+            }
+
+            $userNotifi->notify(
+                new UserEvents(
+                    array(
+                        'message' => 'Коментарий к фотографии "' . $photo->name . '": ' . $comment,
+                        'title' => 'Новое сообщение в фотографиях',
+                        'link' => '/photo/show/' . $photo->id,
+                    )
+                )
+            );
+        }
+    }
 }

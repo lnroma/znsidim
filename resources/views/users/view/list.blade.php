@@ -1,5 +1,6 @@
 <div class="panel panel-info">
-    <div class="panel-heading">{{ $item->created_at }} | {{ $item->name  }} | @if($item->isOnline()) online @else offline @endif |
+    <div class="panel-heading">{{ $item->created_at }} | {{ $item->name  }} | @if($item->isOnline()) online @else
+            offline @endif |
         @if($item->hello)
             {{ $item->hello }}
         @else
@@ -16,7 +17,9 @@
     </div>
     <div class="panel-footer">
         <div class="btn-group" role="group" arial-label="Управление">
-            <a href="/message/send/{{$item->name}}" class="btn btn-info">Написать</a>
+            @if(!Auth::guest())
+                <a href="/message/send/{{$item->name}}" class="btn btn-info">Написать</a>
+            @endif
             <a href="/user/show/{{$item->name}}" class="btn btn-info">Просмотреть</a>
         </div>
     </div>
