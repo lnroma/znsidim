@@ -38,6 +38,7 @@
             <div class="col-sm-offset-4 col-sm-8">
                 <button type="submit" class="btn btn-success">Сохранить</button>
                 <a href="/user/show/{{Auth::user()->name}}" class="btn btn-info" >Моя анкета</a>
+                <a href="/user/anketa/{{Auth::user()->name}}" class="btn btn-info" >Дополнительные данные</a>
             </div>
         </div>
     </form>

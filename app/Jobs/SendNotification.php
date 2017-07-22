@@ -22,11 +22,12 @@ class SendNotification extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($message, $link, $title)
+    public function __construct($message, $link, $title, $senEmail = true)
     {
         $this->message = $message;
         $this->link = $link;
         $this->title = $title;
+        $this->sendemail = $senEmail;
     }
 
     /**
@@ -47,8 +48,7 @@ class SendNotification extends Job implements ShouldQueue
                     )
                 )
             );
-
-            try {
+            if($this->sendemail) {
                 Mail::send('emails.forum.notification',
                     [
                         'message_text' => $this->message,
@@ -57,8 +57,6 @@ class SendNotification extends Job implements ShouldQueue
                         $m->from('noreply@sidimvprobke.com', 'Пробки об айти');
                         $m->to($_user->email, $_user->name)->subject('Новое сообщение в форуме пробкиобайти');
                     });
-            } catch (\Exception $exception) {
-                var_dump($exception->getMessage());die;
             }
         }
         $this->message = null;
