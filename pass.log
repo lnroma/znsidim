@@ -12,4 +12,18 @@ array (
   'password' => '1978ALEKSANDR7819',
   'password_confirmation' => '1978ALEKSANDR7819',
   'captcha' => 'hcpnd',
+)array (
+  '_token' => 'r9ZEoftpjH9M2cPEFxNGhZLCwpM4KLBRHmdlZdew',
+  'name' => 'Chipka',
+  'email' => 'Chipka18@spaces.ru',
+  'password' => 'chipka18',
+  'password_confirmation' => 'chipka18',
+  'captcha' => 'X2gzf',
+)array (
+  '_token' => 'yifhcOK5bZfDtXlag8vgMPbyx0S6JjIiQGEiioAw',
+  'name' => '_XxXx_xXxX_',
+  'email' => 'Ur5@spaces.ru',
+  'password' => '16012210m',
+  'password_confirmation' => '16012210m',
+  'captcha' => 'qTdEd',
 )
