@@ -86,25 +86,44 @@
                     </a></li>
                 <li><a href="/feed"><i class="fa fa-btn fa-rss"></i>RSS</a></li>
                 <li><a href="/search"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
+                <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
             </ul>
         </div>
     </div>
 </nav>
 @yield('content')
+@if(!Auth::guest() && Auth::user()->role == 'superadmin')
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Seo настройка страницы
+        </div>
+        <div class="panel-body">
+            <form method="post" action="/seo/save">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="url">Url:</label>
+                    <input class="form-control" id="url" type="text" name="url" value="{{ $_SERVER['REQUEST_URI'] }}">
+                </div>
+                <div class="form-group">
+                    <label for="title">Заголовок страницы:</label>
+                    <input id="title" class="form-control" type="text" name="title" value="{{ $title }}">
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание:</label>
+                    <textarea name="description" id="description" class="form-control">{{ $description }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="keywords">Ключевые слова</label>
+                    <textarea id="keywords" name="keywords" class="form-control">{{ $keywords }}</textarea>
+                </div>
+                <input type="submit" name="ok">
+            </form>
+        </div>
+    </div>
+@endif
 <footer class="footer">
     @include('layouts.snipets.metrika')
 </footer>
-</div>
-@if(!Auth::guest() && Auth::user()->role == 'superadmin')
-    <form method="post" action="/seo/save">
-        {{ csrf_field() }}
-        <input type="text" name="url" value="{{ $_SERVER['REQUEST_URI'] }}"></br>
-        <input type="text" name="title" value="{{ $title }}"><br>
-        <textarea name="description" style="width: 100%">{{ $description }}</textarea><br/>
-        <textarea name="keywords" style="width: 100%">{{ $keywords }}</textarea><br/>
-        <input type="submit" name="ok">
-    </form>
-@endif
 
 <!-- JavaScripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"

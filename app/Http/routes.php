@@ -81,6 +81,17 @@ Route::post('/photo/comment/', 'Photos\IndexController@comment');
 Route::post('/photos/pass/directoy/{idDirectory}', 'Photos\Directories\IndexController@check');
 
 /**
+ * users anketa
+ */
+Route::get('/user/anketa/{userName}', 'Anketa\IndexController@editAnketa');
+Route::post('/user/anketa/{userName}', 'Anketa\IndexController@saveAnketa');
+Route::post('/anketa/saveFilters', 'Anketa\IndexController@saveFilters');
+Route::get('/dating', 'Anketa\IndexController@listAnketa');
+Route::get('/anketa/clearFilters', 'Anketa\IndexController@clearFilters');
+Route::post('/tables/saveComment', 'Users@saveTables');
+
+
+/**
  * other route
  */
 Route::get('/home', 'HomeController@index')->name('home');

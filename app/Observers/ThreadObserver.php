@@ -17,6 +17,8 @@ class ThreadObserver
 
     public function created(Thread $thread)
     {
+        // ибо создаёться и сообщение
+        return;
         $users = User::all();
         foreach ($users as $_user) {
             $_user->notify(

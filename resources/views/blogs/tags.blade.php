@@ -27,13 +27,30 @@
             Тегов нет
         @endif
         @can('create-tags')
-            <form action="/tags" method="post">
-                Title:<input type="text" name="title"/><br>
-                Url-key:<input type="text" name="url_key"/><br>
-                Description:<input type="text" name="description"/><br>
-                {!! csrf_field() !!}
-                <input type="submit" name="ok" value="ok"/>
-            </form>
+            <div class="clearfix"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Создать тэг
+                </div>
+                <div class="panel-body">
+                    <form action="/tags" method="post">
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input id="title" class="form-control" type="text" name="title"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="url_key">Url key:</label>
+                            <input id="url_key" class="form-control" type="text" name="url_key"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc">Description:</label>
+                            <input id="desc" class="form-control" type="text" name="description"/><br>
+                        </div>
+                        {!! csrf_field() !!}
+                        <input type="submit" name="ok" value="ok"/>
+                    </form>
+                </div>
+            </div>
         @endcan
     </div>
 @endsection
