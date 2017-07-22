@@ -16,7 +16,7 @@ class SendNotification extends Job implements ShouldQueue
     protected $message = null;
     protected $link = null;
     protected $title = null;
-
+    protected $sendemail = null;
     /**
      * Create a new command instance.
      *
