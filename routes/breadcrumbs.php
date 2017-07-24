@@ -19,6 +19,12 @@ Breadcrumbs::register('mypage', function ($breadcrumbs) {
     $breadcrumbs->push('Анкета', route('home'));
 });
 
+
+Breadcrumbs::register('dating', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Знакомства', route('home'));
+});
+
 Breadcrumbs::register('users', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Пользователи', '/users');
