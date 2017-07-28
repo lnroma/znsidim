@@ -21,6 +21,7 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <style>
         body {
             font-family: 'Lato';
@@ -134,6 +135,7 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/bootstrap-select.js"></script>
 <script type="text/javascript">
     $(function () {
         $(window).scroll(function () {
