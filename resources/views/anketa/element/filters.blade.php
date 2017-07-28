@@ -36,6 +36,7 @@ $filters = session('filters');
         </select>
     </div>
     {{ csrf_field() }}
+    <button type="submit" class="btn btn-success" onclick="$('#filter').submit()">Применить</button>
 </form>
-<button type="submit" class="btn btn-default" onclick="$('#filter').submit()">Применить</button>
-<a href="/anketa/clearFilters" class="btn btn-default">Сбросить фильтры</a>
+<span class="clear-fix">&nbsp;<br/></span>
+<a href="/anketa/clearFilters" class="btn btn-warning">Сбросить</a>
