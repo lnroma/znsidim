@@ -61,7 +61,7 @@
                         $ankets = UserHelper::getUserById($id)->ankets;
                         $tables = UserHelper::getUserById($id)->tables;
                         ?>
-                        @if($ankets->is_enable)
+                        @if($ankets && $ankets->is_enable)
                             <tr>
                                 <td colspan="2"><b>Для знакомства</b></td>
                             </tr>
