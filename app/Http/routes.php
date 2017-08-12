@@ -45,9 +45,10 @@ Route::get('/search/result/{type}/{query}', 'Search\IndexController@resultType')
 /**
  * static page routers
  */
-Route::get('/chats', function () {
-    return view('pages.chats');
-});
+Route::get('/games', 'Games\IndexController@listGames');
+Route::get('/games/add', 'Games\IndexController@addGames');
+Route::post('/games/add', 'Games\IndexController@postAddGames');
+Route::get('/games/show/{id}', 'Games\IndexController@show');
 /**
  * blogs router
  */

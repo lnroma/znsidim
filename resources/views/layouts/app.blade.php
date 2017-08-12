@@ -88,6 +88,8 @@
                 <li><a href="/feed"><i class="fa fa-btn fa-rss"></i>RSS</a></li>
                 <li><a href="/search"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
                 <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
+                <li><a href="/games"><i class="fa fa-gamepad"></i>
+                    Игры денди!</a></li>
             </ul>
         </div>
     </div>

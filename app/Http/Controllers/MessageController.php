@@ -97,7 +97,7 @@ class MessageController extends Controller
         $this->middleware('auth');
         Talk::setAuthUserId(Auth::user()->id);
 
-        $conversations = Talk::getMessagesByUserId($user->id);
+        $conversations = Talk::getMessagesAllByUserId($user->id);
 
         if($conversations) {
             /** @var Collection $messages */
