@@ -48,6 +48,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>Последния активность:</td>
+                            <td>
+                                <?php if($userActivity = UserHelper::getUserById($id)->getLastActivite()): ?>
+                                    <?php echo date('Y-m-d h:i', $userActivity) ?>
+                                <?php else: ?>
+                                    Не известно
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <td><a href="/photos/{{$name}}" class="btn btn-nav">Фотоальбом</a></td>
                             <td>Просмотреть фотоальбом пользователя</td>
                         </tr>

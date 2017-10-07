@@ -89,7 +89,10 @@
                 <li><a href="/search"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
                 <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
                 <li><a href="/games"><i class="fa fa-gamepad"></i>
-                    Игры денди!</a></li>
+                        Игры денди!</a></li>
+                <li>
+                    <a href="/videos"><i class="fa fa-video"></i>Наши выпуски</a>
+                </li>
             </ul>
         </div>
     </div>

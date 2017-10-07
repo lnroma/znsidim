@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 //use App\Notifications\InvoicePaid;
 //use App\Notifications\Post;
+use App\Helpers\Messages;
 use App\Notifications\Post;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\User;
 use Intervention\Image\Exception\NotFoundException;
+use Nahid\Talk\Conversations\Conversation;
 use Nahid\Talk\Facades\Talk;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
@@ -36,6 +38,45 @@ class MessageController extends Controller
 
         return view('messages.threads')
             ->with('threads', $threads);
+    }
+
+    public function settings()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if($user->getProperty('mail_settings_input_up', 1) == 1) {
+            $inputUp[1] = 'active';
+            $inputUp[0] = 'notActive';
+        } else {
+            $inputUp[1] = 'notActive';
+            $inputUp[0] = 'active';
+        }
+
+        if($user->getProperty('mail_settings_first_up', 1) == 1) {
+            $firstUp[1] = 'active';
+            $firstUp[0] = 'notActive';
+        } else {
+            $firstUp[1] = 'notActive';
+            $firstUp[0] = 'active';
+        }
+
+        return view('messages.settings')
+            ->with('inputUp', $inputUp)
+            ->with('firstUp', $firstUp);
+    }
+
+    public function saveSettings(Request $request)
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        $user->setProperty('mail_settings_input_up', $request->get('input_up', 1));
+        $user->setProperty('mail_settings_first_up', $request->get('first_up', 1));
+
+        Messages::addSuccess('Настройка почты сохранена');
+
+        header('Location: ' . url()->previous());
+        exit;
     }
 
     public function send($login)
@@ -75,7 +116,7 @@ class MessageController extends Controller
         die;
     }
 
-    public function chat($login)
+    public function chat($login, Request $request)
     {
         if(!Auth::user()) {
             header('Location:/');
@@ -97,16 +138,33 @@ class MessageController extends Controller
         $this->middleware('auth');
         Talk::setAuthUserId(Auth::user()->id);
 
-        $conversations = Talk::getMessagesAllByUserId($user->id);
+        $conversations = Talk::getMessagesAllByUserId($user->id, 0, 1000);
 
         if($conversations) {
-            /** @var Collection $messages */
             $messages = $conversations->messages;
+            $countMessages = $messages->count();
+
+            /** @var Collection $messages */
+            $countPages = ceil($countMessages / 5);
+
+            if($user->getProperty('mail_settings_first_up', 1)) {
+                $messages = $messages->reverse();
+                $currentPage = $request->get('p', 1);
+            } else {
+                $currentPage = $request->get('p', $countPages);
+            }
+            $messages = $messages->forPage($currentPage, 5);
+        } else {
+            $countPages = 0;
+            $currentPage = 0;
         }
 
         return view('messages.chat', array(
             'user' => $user,
             'messages' => $messages,
+            'countPage' => $countPages,
+            'currentPage' => $currentPage,
+            'inputUp' => $user->getProperty('mail_settings_input_up', 1)
         ));
     }
 }

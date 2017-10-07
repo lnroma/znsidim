@@ -6,18 +6,21 @@ if ($user_id != '-1') {
 } else {
     $avatar = '/img/noimage.jpg';
     $link = $comment->name;
+    $user = null;
 }
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="comment-left thumbnail">
-            <img class="img-responsive user-photo" src="{{ $avatar }}">
-        </div>
-        <span class="divider">|</span>
+        <?php if($user): ?>
+        <?php if ($user->isOnline()): ?>
+        <span class="glyphicon glyphicon-user " style="color:green"></span>
+        <?php else: ?>
+        <span class="glyphicon glyphicon-user " style="color:red"></span>
+        <?php endif; ?>
+        <?php endif; ?>
         <strong>{!! $link  !!}</strong> <span class="text-muted">{{ $comment->created_at }}</span>
-        <span class="divider">|</span>
         @can('superadmin')
-            <a href="/comment/delete/{{ $comment->id }}" class="btn btn-default"><span
+            <a href="/comment/delete/{{ $comment->id }}" class="btn-sm btn-default"><span
                         class="glyphicon glyphicon-erase"></span></a>
         @endcan
     </div>

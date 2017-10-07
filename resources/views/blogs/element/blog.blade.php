@@ -25,12 +25,12 @@
         <a href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
     </div>
     <div class="panel-footer">
-        <span class="glyphicon glyphicon-user"></span>{!! UserHelper::getLinkById($_blog->user_id)   !!}
         @if(UserHelper::getUserById($_blog->user_id)->isOnline())
-            <span class="badge" style="background:green">online</span>
+            <span class="glyphicon glyphicon-user " style="color:green"></span>
         @else
-            <span class="badge">offline</span>
+            <span class="glyphicon glyphicon-user " style="color:red"></span>
         @endif
+        {!! UserHelper::getLinkById($_blog->user_id)   !!}
         |
         <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
             <span class="glyphicon glyphicon-comment"></span>

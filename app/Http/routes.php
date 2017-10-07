@@ -28,6 +28,8 @@ Route::auth();
  * message rout
  */
 Route::get('/message', 'MessageController@index');
+Route::post('/message/settings', 'MessageController@saveSettings');
+Route::get('/message/settings', 'MessageController@settings');
 Route::get('/message/send/{login}', 'MessageController@send');
 Route::post('/message/send', 'MessageController@postMessage');
 Route::get('/messages/chat/{login}', 'MessageController@chat');
@@ -90,8 +92,10 @@ Route::post('/anketa/saveFilters', 'Anketa\IndexController@saveFilters');
 Route::get('/dating', 'Anketa\IndexController@listAnketa');
 Route::get('/anketa/clearFilters', 'Anketa\IndexController@clearFilters');
 Route::post('/tables/saveComment', 'Users@saveTables');
-
-
+/**
+ * youtube video
+ */
+Route::get('/videos', 'Videos\IndexController@index');
 /**
  * other route
  */

@@ -169,8 +169,6 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Riari\Forum\ForumServiceProvider::class,
         Riari\Forum\Frontend\ForumFrontendServiceProvider::class,
-        HighIdeas\UsersOnline\UsersOnlineServiceProvider::class,
-        HighIdeas\UsersOnline\Providers\UsersOnlineEventServiceProvider::class,
         sngrl\SphinxSearch\SphinxSearchServiceProvider::class,
     ],
 

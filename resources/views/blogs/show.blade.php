@@ -8,7 +8,13 @@
         {!! $blog->content !!}
     </div>
     <div class="panel-footer">
-        <span class="glyphicon glyphicon-user"></span>{!!UserHelper::getLinkById($blog->user_id)   !!} |
+        @if(UserHelper::getUserById($blog->user_id)->isOnline())
+            <span class="glyphicon glyphicon-user " style="color:green"></span>
+        @else
+            <span class="glyphicon glyphicon-user " style="color:red"></span>
+        @endif
+        {!!UserHelper::getLinkById($blog->user_id)   !!}
+        |
         <span class="glyphicon glyphicon-comment"></span>
         <span class="badge">{{ $blog->comments->count() }}</span> |
         <span class="glyphicon-eye-open glyphicon"></span>
