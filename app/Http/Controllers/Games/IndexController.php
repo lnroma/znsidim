@@ -51,7 +51,7 @@ class IndexController extends Controller
             $games->name = $request->get('name');
             $games->save();
         } catch (Exception $exception) {
-            Messages::addError('Произошла ошибка во время сохранения');
+            Messages::addError('Произошла ошибка во время сохранения '. $exception->getMessage());
         }
         Messages::addSuccess('Игра добавленна!');
         return redirect('/games/');
