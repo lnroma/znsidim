@@ -90,7 +90,7 @@
                 <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
                 <li><a href="/games"><i class="fa fa-gamepad"></i>
                         Игры денди!</a></li>
-            </ul>
+          </ul>
         </div>
     </div>
 </nav>
