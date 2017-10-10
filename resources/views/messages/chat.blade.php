@@ -5,12 +5,12 @@
     @include('layouts.snipets.error')
     <div class="panel panel-default">
         <div class="panel-heading">
-            Диалог <?php echo $user->name ?> |
-            @if($user->isOnline())
-                <span class="badge" style="background:green">online</span>
-            @else
-                <span class="badge">offline</span>
-            @endif
+            <?php if ($user->isOnline()): ?>
+            <span class="glyphicon glyphicon-user " style="color:green"></span>
+            <?php else: ?>
+            <span class="glyphicon glyphicon-user " style="color:red"></span>
+            <?php endif; ?>
+                Диалог {!! UserHelper::getLinkById($user->id) !!}
             <a href="/message/settings" class="pull-right btn-sm btn-primary"><span class="glyphicon glyphicon-cog"></span> </a>
         </div>
     </div>

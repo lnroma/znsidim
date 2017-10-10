@@ -18,7 +18,7 @@
         </div>
         <br/><br/>
         <div class="form-group">
-            <label for="happy" class="col-sm-4 col-md-4 control-label text-right">Первые сообщения</label>
+            <label for="first_up" class="col-sm-4 col-md-4 control-label text-right">Первые сообщения</label>
             <div class="col-sm-7 col-md-7">
                 <div class="input-group">
                     <div class="radioBtn btn-group">
@@ -26,6 +26,18 @@
                         <a class="btn btn-primary btn-sm {{ $firstUp[0] }}" data-toggle="first_up" data-title="0">В низу</a>
                     </div>
                     <input type="hidden" name="first_up" id="first_up">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="font_size" class="col-sm-4 col-md-4 control-label text-right">Шрифт в почте</label>
+            <div class="col-sm-7 col-md-7">
+                <div class="input-group">
+                    <select name="font_size" id="font_size">
+                        <?php for ($font = 12; $font < 26; $font = $font+2): ?>
+                            <option value="<?php echo $font ?>" <?php if($font == $fontChecked) echo 'selected' ?> ><?php echo $font ?></option>
+                        <?php endfor; ?>
+                    </select>
                 </div>
             </div>
         </div>

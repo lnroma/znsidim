@@ -63,7 +63,9 @@ class MessageController extends Controller
 
         return view('messages.settings')
             ->with('inputUp', $inputUp)
-            ->with('firstUp', $firstUp);
+            ->with('firstUp', $firstUp)
+            ->with('fontChecked', $user->getProperty('mail_settings_font_size', 12))
+            ;
     }
 
     public function saveSettings(Request $request)
@@ -72,6 +74,7 @@ class MessageController extends Controller
         $user = Auth::user();
         $user->setProperty('mail_settings_input_up', $request->get('input_up', 1));
         $user->setProperty('mail_settings_first_up', $request->get('first_up', 1));
+        $user->setProperty('mail_settings_font_size', $request->get('font_size', 12));
 
         Messages::addSuccess('Настройка почты сохранена');
 

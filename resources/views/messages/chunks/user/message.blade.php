@@ -13,7 +13,7 @@
         | Не прочитано
         <?php endif; ?>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="font-size: {{Auth::user()->getProperty('mail_settings_font_size', 12)}}px;">
         <?php echo $_message->message ?>
     </div>
 </div>

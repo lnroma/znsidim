@@ -5,12 +5,12 @@
     @include('layouts.snipets.error')
     <div class="panel panel-info">
         <div class="panel-heading">
-            <?php echo $name; ?> |
-            @if(UserHelper::getUserById($id)->isOnline())
-                <span class="badge" style="background:green">online</span>
-            @else
-                <span class="badge">offline</span>
-            @endif
+            <?php if (UserHelper::getUserById($id)->isOnline()): ?>
+            <span class="glyphicon glyphicon-user " style="color:green"></span>
+            <?php else: ?>
+            <span class="glyphicon glyphicon-user " style="color:red"></span>
+            <?php endif; ?>
+            <?php echo $name; ?>
         </div>
         <div class="panel-body">
             <div class="row">

@@ -4,6 +4,7 @@
     {!! Breadcrumbs::render('blogs') !!}
     @include('layouts.snipets.error')
     <h2>Теги</h2>
+    <div class="container">
     <div class="row">
         @if($tags->count() > 0)
             <?php $i = 0 ?>
@@ -12,8 +13,8 @@
     </div>
     <div class="row">
         @endif
-        <div class="col-lg-3">
-            <h2>{{ $_tag->title }}</h2>
+        <div class="col-sm-4">
+            <h2><a href="/tags/{{ $_tag->url_key }}">{{ $_tag->title }}</a></h2>
             <p>{{ $_tag->description }}</p>
             <p>
                 <a class="btn-primary btn" href="/tags/{{ $_tag->url_key }}">Блоги тега <span
@@ -52,5 +53,6 @@
                 </div>
             </div>
         @endcan
+    </div>
     </div>
 @endsection

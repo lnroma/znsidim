@@ -32,7 +32,7 @@ Breadcrumbs::register('users', function ($breadcrumbs) {
 
 Breadcrumbs::register('users_show', function ($breadcrumbs, $userId, $name) {
     $breadcrumbs->parent('users');
-    $breadcrumbs->push($name, '/user/show/' . $userId);
+    $breadcrumbs->push($name, '/user/show/' . $name);
 });
 
 Breadcrumbs::register('events', function ($breadcrumbs) {
