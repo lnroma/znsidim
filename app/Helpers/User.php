@@ -15,6 +15,9 @@ class User
     public static function getLinkById($id)
     {
         $user = UserModel::find($id);
+        if(!$user) {
+            return 'Аноним';
+        }
         return '<a href="/user/show/' . $user->name . '"> ' . $user->name . '</a>';
     }
 

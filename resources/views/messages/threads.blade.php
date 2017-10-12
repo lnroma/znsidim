@@ -16,7 +16,6 @@
             @endif
             <?php echo $_thread->withUser->name ?>
             <span class="pull-right">
-
             <div class="btn-group">
                 <a href="/messages/chat/<?php echo $_thread->withUser->name ?>"
                    class="btn btn-sm btn-info">Читать</a>
