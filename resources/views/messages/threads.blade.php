@@ -34,7 +34,7 @@
                     <?php else: ?>
                     <b><?php echo $_thread->withUser->name ?></b>
                     <?php endif; ?>
-                    <?php echo substr($_thread->thread->message, 0, 200) . '...' ?>
+                    <?php echo substr(strip_tags($_thread->thread->message), 0, 200) . '...' ?>
                 </div>
                 <div class="col-sm-8 info">
                     <?php if($_thread->thread->is_seen): ?>

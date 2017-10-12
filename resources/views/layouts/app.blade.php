@@ -33,16 +33,6 @@
     </style>
 </head>
 <body id="app-layout">
-<div class="panel-footer" style="height: 63px;">
-    <a href="/" style="text-decoration:none;">
-            <span style="position: relative;top: -42px;">Пр<span
-                        style="font-size: 57px;position: relative;top: 19px; color: red;">о</span><span>бки<br></span>
-                <span style="left: 56px;position: relative;top: -19px; color:#9127ff;">
-                      б айти</span>
-            </span>
-    </a>
-</div>
-
 <nav class="navbar navbar-default sidebar" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -75,44 +65,55 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-lg-9">
-            @yield('content')
-        </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Меню пользователя
                 </div>
                 <div class="panel-body">
                     {{--<div class="btn-group btn-group-justified" role="group">--}}
-                    @if (!Auth::guest())
-                        <a href="{{ url('/message') }}" class="btn btn-default" style="width: 100%">
-                            <span class="glyphicon glyphicon-envelope pull-left"></span>
-                            <span class="badge pull-right">{{$mail_count}}</span>
-                        </a><br/>
-                        <a href="{{ url('/events') }}" class="btn  btn-default" style="width: 100%">
-                            <span class="glyphicon glyphicon-bell pull-left"></span>
-                            <span class="badge pull-right">{{$events_count}}</span>
-                        </a><br/>
-                    @endif
-                    @if (Auth::guest())
-                        <a href="{{ url('/login') }}" class="btn  btn-default pull-left" style="width: 100%">Вход</a>
-                        <br/>
-                        <a href="{{ url('/register') }}" class="btn  btn-default pull-left" style="width: 100%">Регистрация</a>
-                        <br/>
-                        <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-nav pull-left" style="width: 100%">Google+</a>
-                        <br/>
-                    @else
-                        <a style="width: 100%" href="{{ url('/myblogs') }}" class="btn  btn-default"><span
-                                    class="glyphicon glyphicon-pencil pull-left"></span></a><br/>
-                        <a style="width: 100%" href="{{ url('/home') }}" class="btn  btn-default"><i
-                                    class="fa fa-btn fa-home pull-left"></i></a><br/>
-                        <a style="width: 100%" href="{{ url('/logout') }}" class="btn  btn-default"><i
-                                    class="fa fa-btn fa-sign-out pull-left"></i></a><br/>
-                    @endif
+                    <ul class="nav">
+                        @if (!Auth::guest())
+                            <li><a href="{{ url('/message') }}">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                      Сообщения
+                                    <span class="badge pull-right">{{$mail_count}}</span>
+                                </a></li>
+                            <li><a href="{{ url('/events') }}">
+                                    <span class="glyphicon glyphicon-bell"></span>
+                                    Журнал
+                                    <span class="badge pull-right">{{$events_count}}</span>
+                                </a></li>
+                        @endif
+                        @if (Auth::guest())
+                            <li><a href="{{ url('/login') }}">Вход</a>
+                            </li>
+                            <li><a href="{{ url('/register') }}">Регистрация</a>
+                            </li>
+                            <li>
+                                <a href="{{ GoogleHelper::getAuthUrl() }}">Google+</a>
+                            </li>
+                        @else
+                            <li><a href="{{ url('/myblogs') }}"><span
+                                            class="glyphicon glyphicon-pencil"></span>
+                                Написать</a></li>
+                            <li><a href="{{ url('/home') }}" ><i
+                                            class="fa fa-btn fa-home pull-left"></i>
+                                    Домой
+                                </a></li>
+                            <li><a href="{{ url('/logout') }}" ><i
+                                            class="fa fa-btn fa-sign-out "></i>
+                                Выйти</a></li>
+                        @endif
+                    </ul>
                 </div>
                 {{--</div>--}}
             </div>
+        </div>
+        <div class="col-lg-7">
+            @yield('content')
+        </div>
+        <div class="col-lg-3">
             @widget("recentActive")
             <div class="panel panel-default">
                 <div class="panel-heading">
