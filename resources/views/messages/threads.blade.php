@@ -4,8 +4,10 @@
     {!! Breadcrumbs::render('messages') !!}
     @include('layouts.snipets.error')
     <h2>Диалоги</h2>
+    <?php $notfirst = false; ?>
     <?php foreach ($threads as $_thread): ?>
-    <div class="panel panel-info">
+    <div class="panel panel-info" <?php if($notfirst): ?> style="margin-top:-35px" <?php endif ?> >
+        <?php $notfirst = true;?>
         <div class="panel-heading">
             @if($_thread->withUser->isOnline())
                 <span class="glyphicon glyphicon-user " style="color:green"></span>
@@ -13,6 +15,12 @@
                 <span class="glyphicon glyphicon-user " style="color:red"></span>
             @endif
             <?php echo $_thread->withUser->name ?>
+            <span class="pull-right">
+            <div class="btn-group">
+                <a href="/messages/chat/<?php echo $_thread->withUser->name ?>"
+                   class="btn btn-sm btn-info">Читать</a>
+            </div>
+            </span>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -26,7 +34,7 @@
                     <?php else: ?>
                     <b><?php echo $_thread->withUser->name ?></b>
                     <?php endif; ?>
-                    <?php echo substr($_thread->thread->message, 0, 200) . '...' ?>
+                    <?php echo substr(strip_tags($_thread->thread->message), 0, 200) . '...' ?>
                 </div>
                 <div class="col-sm-8 info">
                     <?php if($_thread->thread->is_seen): ?>
@@ -37,12 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-footer">
-            <div class="btn-group">
-                <a href="/messages/chat/<?php echo $_thread->withUser->name ?>"
-                   class="btn btn-sm btn-info">Читать</a>
-            </div>
-        </div>
     </div>
+
     <?php endforeach; ?>
 @endsection

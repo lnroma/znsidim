@@ -21,7 +21,7 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/style/main.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"/>
     <style>
         body {
             font-family: 'Lato';
@@ -42,28 +42,7 @@
             </span>
     </a>
 </div>
-<div class="btn-group btn-group-justified" role="group">
-    @if (!Auth::guest())
-        <a href="{{ url('/message') }}" class="btn  btn-nav">
-            <span class="glyphicon glyphicon-envelope"></span>
-            <span class="badge">{{$mail_count}}</span>
-        </a>
-        <a href="{{ url('/events') }}" class="btn  btn-nav">
-            <span class="glyphicon glyphicon-bell"></span>
-            <span class="badge">{{$events_count}}</span>
-        </a>
-    @endif
-    @if (Auth::guest())
-        <a href="{{ url('/login') }}" class="btn  btn-nav">Вход</a>
-        <a href="{{ url('/register') }}" class="btn  btn-nav">Регистрация</a>
-        <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-nav">Google+</a>
-    @else
-        <a href="{{ url('/myblogs') }}" class="btn  btn-nav"><span
-                    class="glyphicon glyphicon-pencil"></span></a>
-        <a href="{{ url('/home') }}" class="btn  btn-nav"><i class="fa fa-btn fa-home"></i></a>
-        <a href="{{ url('/logout') }}" class="btn  btn-nav"><i class="fa fa-btn fa-sign-out"></i></a>
-    @endif
-</div>
+
 <nav class="navbar navbar-default sidebar" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -90,11 +69,74 @@
                 <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
                 <li><a href="/games"><i class="fa fa-gamepad"></i>
                         Игры денди!</a></li>
-          </ul>
+            </ul>
         </div>
     </div>
 </nav>
-@yield('content')
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Меню пользователя
+                </div>
+                <div class="panel-body">
+                    {{--<div class="btn-group btn-group-justified" role="group">--}}
+                    @if (!Auth::guest())
+                        <a href="{{ url('/message') }}" class="btn btn-default" style="width: 100%">
+                            <span class="glyphicon glyphicon-envelope pull-left"></span>
+                            <span class="badge pull-right">{{$mail_count}}</span>
+                        </a><br/>
+                        <a href="{{ url('/events') }}" class="btn  btn-default" style="width: 100%">
+                            <span class="glyphicon glyphicon-bell pull-left"></span>
+                            <span class="badge pull-right">{{$events_count}}</span>
+                        </a><br/>
+                    @endif
+                    @if (Auth::guest())
+                        <a href="{{ url('/login') }}" class="btn  btn-default pull-left" style="width: 100%">Вход</a>
+                        <br/>
+                        <a href="{{ url('/register') }}" class="btn  btn-default pull-left" style="width: 100%">Регистрация</a>
+                        <br/>
+                        <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-nav pull-left" style="width: 100%">Google+</a>
+                        <br/>
+                    @else
+                        <a style="width: 100%" href="{{ url('/myblogs') }}" class="btn  btn-default"><span
+                                    class="glyphicon glyphicon-pencil pull-left"></span></a><br/>
+                        <a style="width: 100%" href="{{ url('/home') }}" class="btn  btn-default"><i
+                                    class="fa fa-btn fa-home pull-left"></i></a><br/>
+                        <a style="width: 100%" href="{{ url('/logout') }}" class="btn  btn-default"><i
+                                    class="fa fa-btn fa-sign-out pull-left"></i></a><br/>
+                    @endif
+                </div>
+                {{--</div>--}}
+            </div>
+        </div>
+        <div class="col-lg-7">
+            @yield('content')
+        </div>
+        <div class="col-lg-3">
+            @widget("recentActive")
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    В случае авторизаци/регистрации на сайте, вы сможете:
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li>Получать уведомления о новых коментариях в блогах</li>
+                        <li>Получать уведомления с форума</li>
+                        <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
+                        <li>Общаться с другими пользователями сайта в внутреней почте</li>
+                        <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
+                            пробкиобайти.рус
+                        </li>
+                        <li>Создавать и комментировать темы на форуме сайта</li>
+                        <li>Оставить отзывы о компании</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @if(!Auth::guest() && Auth::user()->role == 'superadmin')
     <div class="panel panel-default">
         <div class="panel-heading">

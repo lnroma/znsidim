@@ -9,7 +9,7 @@ if ($user_id != '-1') {
     $user = null;
 }
 ?>
-<div class="panel panel-default">
+<div class="panel panel-default" >
     <div class="panel-heading">
         <?php if($user): ?>
         <?php if ($user->isOnline()): ?>

@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-info" >
     <div class="panel-heading">
         <?php if ($item->isOnline()): ?>
         <span class="glyphicon glyphicon-user " style="color:green"></span>
