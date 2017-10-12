@@ -1,34 +1,51 @@
 var myApp=angular.module('myApp');
 myApp.controller('MessageController',  function($scope) {
-    $scope.replaceSmile = function (content) {
+    $scope.render = function (content) {
         var html = $scope.textContent;
         if(html == undefined) {
             return '';
         }
-        html = html.replaceAll(':-)', '<img src="/smiles/smiles/smile.gif"/>');
+        console.log($scope.smiles);
+        for (var smile in $scope.smiles) {
+            html = html.replaceAll(smile, '<img src="' + $scope.smiles[smile] + '" />');
+        }
         html = html.replaceAll('[b]', '<b>');
         html = html.replaceAll('[/b]', '</b>');
         html = html.replaceAll('[s]', '<strike>');
         html = html.replaceAll('[/s]', '</strike>');
         html = html.replaceAll('[i]', '<i>');
         html = html.replaceAll('[/i]', '</i>');
+
+        html = html.replaceAll('[quote]', '<blockquote>');
+        html = html.replaceAll('[/quote]', '</blockquote>');
+
         content = html;
         return content;
     };
-    
+
     $scope.bold = function () {
-        inputTags('[b]', '[/b]');
+        $scope.inputTags('[b]', '[/b]');
     };
 
     $scope.italic = function () {
-        inputTags('[i]', '[/i]');
+        $scope.inputTags('[i]', '[/i]');
     };
 
     $scope.strice = function () {
-        inputTags('[s]', '[/s]')
+        $scope.inputTags('[s]', '[/s]')
     };
-    
-    inputTags = function (tag1, tag2) {
+
+    $scope.insertSmile = function (smile) {
+        var allMessage = $('#message').val();
+        var positionStart = $('#message').prop('selectionStart');
+
+        var startString = allMessage.substring(0, positionStart);
+        var endString = allMessage.substring(positionStart, allMessage.length);
+
+        $('#message').val(startString + smile + endString);
+    };
+
+    $scope.inputTags = function (tag1, tag2) {
 
         var allMessage = $('#message').val();
         var positionStart = $('#message').prop('selectionStart');

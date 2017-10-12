@@ -158,3 +158,17 @@ h2 {
     color: #3276b1;
     background-color: #fff;
 }
+
+.edit-hints {
+    padding-top:5px;
+}
+
+.edit-hints:before {
+    display: block;
+    border: 1px solid black;
+
+}
+
+.smiles a {
+    height: 50px;
+}

@@ -161,13 +161,20 @@ class MessageController extends Controller
             $countPages = 0;
             $currentPage = 0;
         }
+        $smiles = glob(base_path('public/smiles/smiles/*.gif'));
+        $smiles = array_map(function($element){
+            $element = explode('/', $element);
+            $element = end($element);
+            return $element;
+        }, $smiles);
 
         return view('messages.chat', array(
             'user' => $user,
             'messages' => $messages,
             'countPage' => $countPages,
             'currentPage' => $currentPage,
-            'inputUp' => $user->getProperty('mail_settings_input_up', 1)
+            'inputUp' => $user->getProperty('mail_settings_input_up', 1),
+            'smiles' => $smiles,
         ));
     }
 }
