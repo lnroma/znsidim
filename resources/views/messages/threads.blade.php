@@ -4,8 +4,10 @@
     {!! Breadcrumbs::render('messages') !!}
     @include('layouts.snipets.error')
     <h2>Диалоги</h2>
+    <?php $notfirst = false; ?>
     <?php foreach ($threads as $_thread): ?>
-    <div class="panel panel-info">
+    <div class="panel panel-info" <?php if($notfirst): ?> style="margin-top:-35px" <?php endif ?> >
+        <?php $notfirst = true;?>
         <div class="panel-heading">
             @if($_thread->withUser->isOnline())
                 <span class="glyphicon glyphicon-user " style="color:green"></span>
@@ -13,6 +15,13 @@
                 <span class="glyphicon glyphicon-user " style="color:red"></span>
             @endif
             <?php echo $_thread->withUser->name ?>
+            <span class="pull-right">
+
+            <div class="btn-group">
+                <a href="/messages/chat/<?php echo $_thread->withUser->name ?>"
+                   class="btn btn-sm btn-info">Читать</a>
+            </div>
+            </span>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -35,12 +44,6 @@
                     Не прочитано
                     <?php endif; ?>
                 </div>
-            </div>
-        </div>
-        <div class="panel-footer">
-            <div class="btn-group">
-                <a href="/messages/chat/<?php echo $_thread->withUser->name ?>"
-                   class="btn btn-sm btn-info">Читать</a>
             </div>
         </div>
     </div>

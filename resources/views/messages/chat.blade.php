@@ -3,7 +3,7 @@
 @section('content')
     {!! Breadcrumbs::render('messages_show', $user) !!}
     @include('layouts.snipets.error')
-    <div class="panel panel-default">
+    <div class="panel panel-default" >
         <div class="panel-heading">
             <?php if ($user->isOnline()): ?>
             <span class="glyphicon glyphicon-user " style="color:green"></span>
