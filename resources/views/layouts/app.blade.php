@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="964ad5f0ab4b6e32"/>
     <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}"/>
@@ -74,6 +75,11 @@
                     {{--<div class="btn-group btn-group-justified" role="group">--}}
                     <ul class="nav">
                         @if (!Auth::guest())
+                            <li>
+                                <center>
+                                <img src="<?php echo Auth::user()->avatar ?>" class="img-circle" width="100px" height="100px">
+                                </center>
+                            </li>
                             <li><a href="{{ url('/message') }}">
                                     <span class="glyphicon glyphicon-envelope"></span>
                                       Сообщения

@@ -107,6 +107,10 @@ Route::get('/googleCallbak', 'Auth\AuthController@googleCallback')->name('google
  */
 Route::post('/seo/save', 'Seo\IndexController@save');
 /**
+ * file upload
+ */
+Route::post('/file/upload', 'Files\IndexController@upload');
+/**
  * blogs tags
  */
 Route::get('/tags', 'Blogs\Tags\IndexController@index');

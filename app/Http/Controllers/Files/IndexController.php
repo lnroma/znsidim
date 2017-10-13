@@ -19,13 +19,45 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IndexController extends Controller
 {
-
     /**
      * show blogs
      * @return $this
      */
-    public function upload()
+    public function upload(Request $request)
     {
-        var_dump($_POST, $_FILES);die;
+        $this->validate($request, [
+            'file' => 'required|image'
+        ], [
+            'file' => 'Разрешенно загружать только картинки!'
+        ]);
+        // upload main image
+        try {
+            if (Input::file('file') && Input::file('file')->isValid()) {
+                $destinationPath = 'uploads';
+                $extensions = Input::file('file')->getClientOriginalExtension();
+                $user = Auth::user();
+                $destinationPath = public_path($destinationPath . DIRECTORY_SEPARATOR . $user->id);
+                if (!file_exists($destinationPath)) {
+                    var_dump($destinationPath);
+                    if (
+                    !@mkdir($destinationPath)
+                    ) {
+                        throw new Exception('Ошибка создания директории');
+                    }
+                }
+
+                $fileName = rand(1000, 10000) . '.' . $extensions;
+                Input::file('file')->move($destinationPath, $fileName);
+                $fileUrl = DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $user->id . DIRECTORY_SEPARATOR . $fileName;
+            }
+        } catch (Exception $err) {
+            var_dump($err->getMessage());
+            die;
+        }
+
+        return [
+            'result' => true,
+            'url' => $fileUrl
+        ];
     }
 }

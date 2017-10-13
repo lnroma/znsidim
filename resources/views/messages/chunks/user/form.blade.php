@@ -3,8 +3,10 @@
     <li><a data-toggle="tab" href="#show">Просмотр</a></li>
 </ul>
 
-<div class="tab-content" ng-app="myApp" ng-controller="MessageController" ng-init="content=''">
-    <div id="edit" class="tab-pane fade in active">
+<div class="tab-content" ng-app="myApp" ng-controller="MessageController"
+     ng-init="content=''"
+>
+    <div id="edit" class="tab-pane fade in active" ng-init="picture='testinghuesintg'">
         <form action="/message/send" method="post">
             <input type="hidden" name="login" id="login" value="<?php echo $user->name ?>"
                    class="form-control"
@@ -26,11 +28,13 @@
                                 class="fa fa-strikethrough"
                                 aria-hidden="true"></i></a>
 
-                    <a class="btn btn-nav" ng-mousedown="inputTags('[quote]', '[/quote]')"><i
+                    <a class="btn btn-nav" ng-mousedown="inputTags('<blockquote>', '</blockquote>')"><i
                                 class="fa fa-quote-right"></i></a>
                 </div>
-                <div class="form-group edit-hints" ng-class="{ 'hidden': ! showDetails }">
-                    <input class="form-control" type="file" name="file"/>
+                <div class="edit-hints" ng-class="{ 'hidden': ! showDetails }">
+                    <input type="file" name="file" id="file_upload"/>
+                    <a ng-click="remove()" class="btn btn-primary">Удалить</a>
+                    <a ng-mousedown="upload()" ng-model="file" class="btn btn-primary">Загрузить</a>
                 </div>
                 <div class="form-group">
                     <div class="btn-group smiles edit-hints" role="group" aria-label="Смайлики"
@@ -59,12 +63,17 @@
                     <button type="submit" class="pull-right btn btn-success">Отправить</button>
                 </div>
                 <input type="hidden" name="message" id="message_back" value="<?php echo '{{content}}' ?>"/>
+                <img src="<?php echo '{{picture}}' ?>" height="100px" ng-class="{ 'hidden': !show_preview }">
             </div>
 
         </form>
     </div>
     <div id="show" class="tab-pane fade">
         <span ng-bind-html="content | unsafe"></span>
+        <div ng-class="{ 'hidden': !show_preview }">
+            Вложение:<br/>
+            <img src="<?php echo '{{picture}}' ?>" height="100px">
+        </div>
     </div>
 </div>
 <div class="clearfix"></div><br/>

@@ -1,38 +1,54 @@
-var myApp=angular.module('myApp');
-myApp.controller('MessageController',  function($scope) {
+var myApp = angular.module('myApp');
+myApp.controller('MessageController', function ($scope) {
     $scope.render = function (content) {
         var html = $scope.textContent;
-        if(html == undefined) {
+        if (html == undefined) {
             return '';
         }
-        console.log($scope.smiles);
         for (var smile in $scope.smiles) {
             html = html.replaceAll(smile, '<img src="' + $scope.smiles[smile] + '" />');
         }
-        html = html.replaceAll('[b]', '<b>');
-        html = html.replaceAll('[/b]', '</b>');
-        html = html.replaceAll('[s]', '<strike>');
-        html = html.replaceAll('[/s]', '</strike>');
-        html = html.replaceAll('[i]', '<i>');
-        html = html.replaceAll('[/i]', '</i>');
-
-        html = html.replaceAll('[quote]', '<blockquote>');
-        html = html.replaceAll('[/quote]', '</blockquote>');
-
         content = html;
         return content;
     };
 
+    $scope.remove = function () {
+        $('#file_upload').val('');
+    };
+
+    $scope.upload = function () {
+        var file = $('#file_upload').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file);
+        var url = null;
+        $.ajax({
+            url: '/file/upload',
+            dataType: 'json',
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'post',
+            success: function (result) {
+                $scope.picture = result.url;
+                $scope.show_preview = true;
+                $scope.insertSmile('<a href="'+result.url+'"><img src="'+result.url+'" height="200px"></a>');
+                $scope.$digest();
+                $('#file_upload').val('');
+            }
+        });
+    };
+
     $scope.bold = function () {
-        $scope.inputTags('[b]', '[/b]');
+        $scope.inputTags('<b>', '</b>');
     };
 
     $scope.italic = function () {
-        $scope.inputTags('[i]', '[/i]');
+        $scope.inputTags('<i>', '</i>');
     };
 
     $scope.strice = function () {
-        $scope.inputTags('[s]', '[/s]')
+        $scope.inputTags('<strike>', '</strike>')
     };
 
     $scope.insertSmile = function (smile) {
@@ -45,7 +61,7 @@ myApp.controller('MessageController',  function($scope) {
         $('#message').val(startString + smile + endString);
     };
 
-    $scope.inputTags = function (tag1, tag2) {
+    $scope.inputTags = function (tag1, tag2, text) {
 
         var allMessage = $('#message').val();
         var positionStart = $('#message').prop('selectionStart');
@@ -55,10 +71,16 @@ myApp.controller('MessageController',  function($scope) {
         var midleString = allMessage.substring(positionStart, positionEnd);
         var endString = allMessage.substring(positionEnd, allMessage.length);
 
-        $('#message').val(startString + tag1 + midleString + tag2 + endString);
+        if(text != undefined) {
+            $('#message').val(startString + tag1 + text + tag2 + endString);
+        } else {
+            $('#message').val(startString + tag1 + midleString + tag2 + endString);
+        }
     }
 });
-myApp.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
-String.prototype.replaceAll = function(search, replace){
+myApp.filter('unsafe', function ($sce) {
+    return $sce.trustAsHtml;
+});
+String.prototype.replaceAll = function (search, replace) {
     return this.split(search).join(replace);
 };
