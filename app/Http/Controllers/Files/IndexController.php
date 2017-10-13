@@ -38,7 +38,6 @@ class IndexController extends Controller
                 $user = Auth::user();
                 $destinationPath = public_path($destinationPath . DIRECTORY_SEPARATOR . $user->id);
                 if (!file_exists($destinationPath)) {
-                    var_dump($destinationPath);
                     if (
                     !@mkdir($destinationPath)
                     ) {
@@ -51,8 +50,10 @@ class IndexController extends Controller
                 $fileUrl = DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $user->id . DIRECTORY_SEPARATOR . $fileName;
             }
         } catch (Exception $err) {
-            var_dump($err->getMessage());
-            die;
+            return [
+                'result' => false,
+                'message' => 'Фаил не верного формата'
+            ];
         }
 
         return [
