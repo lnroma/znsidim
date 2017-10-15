@@ -72,7 +72,9 @@ class IndexController extends Controller
     public function show($idPhoto)
     {
         $photo = Photos::find($idPhoto);
-        return view('photos.show')->with('photo', $photo);
+
+        return view('photos.show')
+            ->with('photo', $photo);
     }
 
     /**

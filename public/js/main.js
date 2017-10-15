@@ -29,3 +29,11 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+!function ($) {
+    $(function(){
+        var $window = $(window)
+        // Запускаем code pretty:
+        window.prettyPrint && prettyPrint()
+    })
+}(window.jQuery)

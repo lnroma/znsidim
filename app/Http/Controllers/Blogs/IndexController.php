@@ -59,20 +59,12 @@ class IndexController extends Controller
 
             $blogs->name = $request->get('name');
             $blogs->content = $request->get('comment');
+            $blogs->short_description = $request->get('short_description');
             $blogs->is_enable = true;
 
             // если есть уже id автора не перезаписываем
             if (!$blogs->user_id) {
                 $blogs->user_id = Auth::user()->id;
-            }
-
-            // upload main image
-            if (Input::file('main_image') && Input::file('main_image')->isValid()) {
-                $destinationPath = 'uploads';
-                $extensions = Input::file('main_image')->getClientOriginalExtension();
-                $fileName = rand(1000, 10000) . '.' . $extensions;
-                Input::file('main_image')->move($destinationPath, $fileName);
-                $blogs->main_image = '/' . $destinationPath . '/' . $fileName;
             }
 
             $blogs->save();
@@ -108,7 +100,18 @@ class IndexController extends Controller
         }
         $blog->viewed++;
         $blog->save();
-        return view('blogs/show')->with('blog', $blog);
+
+        $smiles = glob(base_path('public/smiles/smiles/*.gif'));
+        $smiles = array_map(function($element){
+            $element = explode('/', $element);
+            $element = end($element);
+            return $element;
+        }, $smiles);
+
+        return view('blogs/show')
+            ->with('blog', $blog)
+            ->with('smiles', $smiles)
+            ;
     }
 
     /**

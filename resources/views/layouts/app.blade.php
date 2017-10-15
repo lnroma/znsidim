@@ -66,7 +66,13 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-9">
+            @if($mail_count)
+                <div class="alert alert-warning">У вас новое сообщение в <a href="{{ url('/message') }}">почте</a></div>
+            @endif
+            @yield('content')
+        </div>
+        <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Меню пользователя
@@ -77,12 +83,13 @@
                         @if (!Auth::guest())
                             <li>
                                 <center>
-                                <img src="<?php echo Auth::user()->avatar ?>" class="img-circle" width="100px" height="100px">
+                                    <img src="<?php echo Auth::user()->avatar ?>" class="img-circle" width="100px"
+                                         height="100px">
                                 </center>
                             </li>
                             <li><a href="{{ url('/message') }}">
                                     <span class="glyphicon glyphicon-envelope"></span>
-                                      Сообщения
+                                    Сообщения
                                     <span class="badge pull-right">{{$mail_count}}</span>
                                 </a></li>
                             <li><a href="{{ url('/events') }}">
@@ -102,43 +109,42 @@
                         @else
                             <li><a href="{{ url('/myblogs') }}"><span
                                             class="glyphicon glyphicon-pencil"></span>
-                                Написать</a></li>
-                            <li><a href="{{ url('/home') }}" ><i
+                                    Написать</a></li>
+                            <li><a href="{{ url('/home') }}"><i
                                             class="fa fa-btn fa-home pull-left"></i>
                                     Домой
                                 </a></li>
-                            <li><a href="{{ url('/logout') }}" ><i
+                            <li><a href="{{ url('/logout') }}"><i
                                             class="fa fa-btn fa-sign-out "></i>
-                                Выйти</a></li>
+                                    Выйти</a></li>
+                            <li><a href="{{ url('/user/show') }}/{{ Auth::user()->name }}" >Анкета</a> </li>
+                            <li><a href="{{ url('/photos/') }}/{{ Auth::user()->name }}" >Фотоальбом</a> </li>
                         @endif
                     </ul>
                 </div>
                 {{--</div>--}}
             </div>
-        </div>
-        <div class="col-lg-7">
-            @yield('content')
-        </div>
-        <div class="col-lg-3">
             @widget("recentActive")
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    В случае авторизаци/регистрации на сайте, вы сможете:
+            @if(Auth::guest())
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        В случае авторизаци/регистрации на сайте, вы сможете:
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>Получать уведомления о новых коментариях в блогах</li>
+                            <li>Получать уведомления с форума</li>
+                            <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
+                            <li>Общаться с другими пользователями сайта в внутреней почте</li>
+                            <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
+                                пробкиобайти.рус
+                            </li>
+                            <li>Создавать и комментировать темы на форуме сайта</li>
+                            <li>Оставить отзывы о компании</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <ul>
-                        <li>Получать уведомления о новых коментариях в блогах</li>
-                        <li>Получать уведомления с форума</li>
-                        <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
-                        <li>Общаться с другими пользователями сайта в внутреней почте</li>
-                        <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
-                            пробкиобайти.рус
-                        </li>
-                        <li>Создавать и комментировать темы на форуме сайта</li>
-                        <li>Оставить отзывы о компании</li>
-                    </ul>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -199,7 +205,6 @@
         });
     });
 </script>
-
 <a href='#' class='btn btn-success' id='toTop'> Наверх ^ </a>
 </body>
 </html>

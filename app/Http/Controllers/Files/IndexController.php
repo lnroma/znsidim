@@ -61,4 +61,26 @@ class IndexController extends Controller
             'url' => $fileUrl
         ];
     }
+
+    public function getUploaded(Request $request)
+    {
+        $user = Auth::user();
+        $destinationPath = 'uploads';
+        $destinationPath = public_path($destinationPath . DIRECTORY_SEPARATOR . $user->id);
+        $getFileUploaded = glob($destinationPath . DIRECTORY_SEPARATOR . '*');
+
+        $getFileUploaded = array_map(function($element) use ($user, $destinationPath) {
+            return [
+                'url' => '/uploads/' . $user->id . str_replace($destinationPath, '', $element),
+                'path' => $element
+            ];
+        }, $getFileUploaded);
+
+        return [
+            'html' => view('messages.chunks.user.files')
+                ->with('id_editor', $request->get('id_editor'))
+                ->with('files', $getFileUploaded)->render()
+        ];
+    }
+
 }

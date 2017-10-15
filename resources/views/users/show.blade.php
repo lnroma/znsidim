@@ -53,7 +53,7 @@
                                 <?php if($userActivity = UserHelper::getUserById($id)->getLastActivite()): ?>
                                     <?php echo date('Y-m-d h:i', $userActivity) ?>
                                 <?php else: ?>
-                                    Не известно
+                                Не известно
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -102,17 +102,16 @@
                 ))
             @endforeach
             <hr/>
-            <form action="/tables/saveComment" method="post">
-                <input type="hidden" name="user_id" value="{{$id}}">
-                <div class="form-group">
-                    <label class="control-label" for="comment">Коментарий:</label>
-                    <textarea id="comment" class="form-control" name="comment"></textarea>
-                </div>
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <button type="submit" class="btn  btn-default">Написать</button>
-                </div>
-            </form>
+            Комментарий:
+            @include('messages.chunks.user.form', [
+                    'action' => '/tables/saveComment',
+                    'hiddens' => [
+                        'user_id' => $id,
+                    ],
+                    'name_field' => 'comment',
+                    'form_container' => true,
+                    'id_editor' => 'message',
+                ])
         </div>
     </div>
 @endsection

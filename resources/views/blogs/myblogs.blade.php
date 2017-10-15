@@ -11,14 +11,26 @@
                     <label class="control-label" for="name">Имя:</label>
                     <input type="text" name="name" class="form-control" id="name" required>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="image">Главная картинка:</label>
-                    <input type="file" name="main_image" class="form-control" id="image">
-                </div>
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label class="control-label" for="comment">Записка:</label>
-                    <textarea id="comment" class="form-control" name="comment"></textarea>
+                    <label class="control-label" for="comment">Короткое описание:</label>
+                    @include('messages.chunks.user.form', [
+                            'action' => '/',
+                            'hiddens' => [],
+                            'name_field' => 'short_description',
+                            'form_container' => false,
+                            'id_editor' => 'short_description',
+                        ])
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="comment">Пост:</label>
+                    @include('messages.chunks.user.form', [
+                            'action' => '/',
+                            'hiddens' => [],
+                            'name_field' => 'comment',
+                            'form_container' => false,
+                            'id_editor' => 'comment',
+                        ])
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="tags">Метки:</label>
@@ -50,6 +62,7 @@
             filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
             filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
         };
-        CKEDITOR.replace('comment', options);
+//        CKEDITOR.replace('comment', options);
+//        CKEDITOR.replace('short_description', options);
     </script>
 @endsection

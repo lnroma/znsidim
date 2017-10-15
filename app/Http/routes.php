@@ -110,6 +110,7 @@ Route::post('/seo/save', 'Seo\IndexController@save');
  * file upload
  */
 Route::post('/file/upload', 'Files\IndexController@upload');
+Route::get('/file/get_uploaded', 'Files\IndexController@getUploaded');
 /**
  * blogs tags
  */

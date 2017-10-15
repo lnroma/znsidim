@@ -29,7 +29,16 @@ class Users extends Controller
         $user = $user->toArray();
         $userInformation = reset($user);
 
+
+        $smiles = glob(base_path('public/smiles/smiles/*.gif'));
+        $smiles = array_map(function($element){
+            $element = explode('/', $element);
+            $element = end($element);
+            return $element;
+        }, $smiles);
+
         return view('users.show')
+            ->with('smiles', $smiles)
             ->with($userInformation);
     }
 
