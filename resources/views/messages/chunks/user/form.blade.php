@@ -55,7 +55,7 @@
                                     <div id="file_table_{{ $id_editor }}" style="max-height: 300px;overflow: scroll">
                                     </div>
                                     <hr/>
-                                    <div class="btn-group">
+                                    <div class="btn-group pull-right">
                                         <a ng-click="remove('{{ $id_editor }}')" class="btn btn-nav">Удалить</a>
                                         <a ng-mousedown="upload('{{ $id_editor }}')" ng-model="file" class="btn btn-nav">Загрузить</a>
                                         <a ng-mousedown="choose_file('{{ $id_editor }}')" class="btn btn-nav">Выбрать загруженое</a>
