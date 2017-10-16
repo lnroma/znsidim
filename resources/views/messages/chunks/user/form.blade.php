@@ -17,33 +17,37 @@
                     <input type="hidden" name="{{$_name}}" id="{{$_name}}" value="{{$_value}}"/>
                 @endforeach
                 <div class="form-group">
-                    <div class="panel panel-default ">
+                    <div class="panel panel-default " style="margin: 0px; border-radius: 0px">
                         <div class="panel-body " style="padding: 2px">
                             <div class="btn-group pull-right" role="group" aria-label="Опции редактора"
                                  ng-init="showDetails = false"
                                  ng-init="showSmiles = false"
                             >
-                                <a class="btn btn-primary" ng-click="showDetails_{{$id_editor}} = ! showDetails_{{$id_editor}}"><i
+                                <a class="btn btn-nav" ng-click="showDetails_{{$id_editor}} = ! showDetails_{{$id_editor}}"><i
                                             class="fa fa-paperclip"
                                             aria-hidden="true"></i></a>
-                                <a class="btn btn-primary" ng-click="showSmiles_{{$id_editor}} = ! showSmiles_{{$id_editor}}">
+                                <a class="btn btn-nav" ng-click="showSmiles_{{$id_editor}} = ! showSmiles_{{$id_editor}}">
                                     <i class="fa fa-smile-o"></i>
                                 </a>
-                                <a class="btn btn-primary" ng-mousedown="bold('{{ $id_editor }}')"><span
+                                <a class="btn btn-nav" ng-mousedown="bold('{{ $id_editor }}')"><span
                                             class="glyphicon glyphicon-bold"></span></a>
-                                <a class="btn btn-primary" ng-mousedown="italic('{{ $id_editor }}')"><span
+                                <a class="btn btn-nav" ng-mousedown="italic('{{ $id_editor }}')"><span
                                             class="glyphicon glyphicon-italic"></span></a>
-                                <a class="btn btn-primary" ng-mousedown="strice('{{ $id_editor }}')"><i
+                                <a class="btn btn-nav" ng-mousedown="strice('{{ $id_editor }}')"><i
                                             class="fa fa-strikethrough"
                                             aria-hidden="true"></i></a>
 
-                                <a class="btn btn-primary" ng-mousedown="inputTags('<blockquote>', '</blockquote>', null, '{{ $id_editor }}')"><i
+                                <a class="btn btn-nav" ng-mousedown="inputTags('<blockquote>', '</blockquote>', null, '{{ $id_editor }}')"><i
                                             class="fa fa-quote-right"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="edit-hints" ng-class="{ 'hidden': ! showDetails_{{$id_editor}} }">
-                        <div class="panel panel-default">
+                    <div  ng-class="{ 'hidden': ! showDetails_{{$id_editor}} }">
+                        <div class="panel panel-default"
+                             style="margin: 0px; border-radius: 0px; ">
+                            <a class="pull-right" style="margin:10px; text-decoration: none"
+                               ng-click="showDetails_{{$id_editor}} = ! showDetails_{{$id_editor}}"
+                               href="#" onclick="return false;">X</a>
                             <div class="panel-body">
                                 @if(!Auth::guest())
                                     <input type="file" name="file" id="file_upload_{{ $id_editor }}"/>
@@ -52,9 +56,9 @@
                                     </div>
                                     <hr/>
                                     <div class="btn-group">
-                                        <a ng-click="remove('{{ $id_editor }}')" class="btn btn-primary">Удалить</a>
-                                        <a ng-mousedown="upload('{{ $id_editor }}')" ng-model="file" class="btn btn-primary">Загрузить</a>
-                                        <a ng-mousedown="choose_file('{{ $id_editor }}')" class="btn btn-primary">Выбрать загруженое</a>
+                                        <a ng-click="remove('{{ $id_editor }}')" class="btn btn-nav">Удалить</a>
+                                        <a ng-mousedown="upload('{{ $id_editor }}')" ng-model="file" class="btn btn-nav">Загрузить</a>
+                                        <a ng-mousedown="choose_file('{{ $id_editor }}')" class="btn btn-nav">Выбрать загруженое</a>
                                     </div>
                                 @else
                                     <p>
@@ -66,9 +70,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="btn-group smiles edit-hints" role="group" aria-label="Смайлики"
+                        <div class="btn-group smiles" role="group" aria-label="Смайлики"
                              ng-class="{ 'hidden': ! showSmiles_{{$id_editor}} }">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default" style="margin: 0px; border-radius: 0px">
+                                <a class="pull-right" style="margin:10px; text-decoration: none"
+                                   ng-click="showSmiles_{{$id_editor}} = ! showSmiles_{{$id_editor}}"
+                                   href="#" onclick="return false;">X</a>
                                 <div class="panel-body">
                                     <?php
                                     $smiles = glob(base_path('public/smiles/smiles/*.gif'));
@@ -95,7 +102,7 @@
                                   ng-init='smiles = <?php echo json_encode($newSmiles) ?>; textContent_{{$id_editor}} = "@if(isset($value)) {{$value}} @endif"'
                                   id="{{ $id_editor }}"
                                   class="form-control"
-                                  style=""
+                                  style="margin: 0px; border-radius: 0px"
                         ></textarea>
                     </div>
                     {{ csrf_field() }}
