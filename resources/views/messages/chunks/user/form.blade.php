@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="form-group"
-                         ng-init="textContent_{{$id_editor}} = '@if(isset($value)) {{$value}} @endif'">
+                         ng-init="textContent_{{$id_editor}} = '@if(isset($value)) {{addslashes($value)}} @endif'">
                         <div class="btn-group smiles" role="group" aria-label="Смайлики"
                              ng-class="{ 'hidden': ! showSmiles_{{$id_editor}} }">
                             <div class="panel panel-default" style="margin: 0px; border-radius: 0px">
