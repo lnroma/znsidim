@@ -69,7 +69,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"
+                         ng-init="textContent_{{$id_editor}} = '@if(isset($value)) {{$value}} @endif'">
                         <div class="btn-group smiles" role="group" aria-label="Смайлики"
                              ng-class="{ 'hidden': ! showSmiles_{{$id_editor}} }">
                             <div class="panel panel-default" style="margin: 0px; border-radius: 0px">
@@ -96,10 +97,10 @@
                                 </div>
                             </div>
                         </div>
-                        <textarea ng-keypress="content_{{$id_editor}} = render('{{$id_editor}}')"
+                        <textarea
                                   ng-change="content_{{$id_editor}} = render('{{$id_editor}}')"
                                   ng-model="textContent_{{$id_editor}}"
-                                  ng-init='smiles = <?php echo json_encode($newSmiles) ?>; textContent_{{$id_editor}} = "@if(isset($value)) {{$value}} @endif"'
+                                  ng-init='smiles=<?php echo json_encode($newSmiles) ?>'
                                   id="{{ $id_editor }}"
                                   class="form-control"
                                   style="margin: 0px; border-radius: 0px"

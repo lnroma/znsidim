@@ -3,15 +3,12 @@ myApp.controller('MessageController', function ($scope, $compile) {
     $scope.render = function (id_editor) {
         // var html = eval($scope.textContent_+id_editor);
         var html = $('#'+id_editor).val();
-        console.log(html);
         if (html == undefined) {
             return '';
         }
         for (var smile in $scope.smiles) {
             html = html.replaceAll(smile, '<img src="' + $scope.smiles[smile] + '" />');
         }
-        // $scope.content = html;
-        // $scope.$digest();
         return html;
     };
 
@@ -63,14 +60,17 @@ myApp.controller('MessageController', function ($scope, $compile) {
 
     $scope.bold = function (id_editor) {
         $scope.inputTags('<b>', '</b>', null, id_editor);
+        angular.element(jQuery('#' + id_editor)).triggerHandler('input');
     };
 
     $scope.italic = function (id_editor) {
         $scope.inputTags('<i>', '</i>', null, id_editor);
+        angular.element(jQuery('#' + id_editor)).triggerHandler('input');
     };
 
     $scope.strice = function (id_editor) {
-        $scope.inputTags('<strike>', '</strike>', null, id_editor)
+        $scope.inputTags('<strike>', '</strike>', null, id_editor);
+        angular.element(jQuery('#' + id_editor)).triggerHandler('input');
     };
 
     $scope.insertSmile = function (smile, id_editor) {
@@ -82,6 +82,8 @@ myApp.controller('MessageController', function ($scope, $compile) {
         var endString = allMessage.substring(positionStart, allMessage.length);
 
         $('#' + id_editor).val(startString + smile + endString);
+
+        angular.element(jQuery('#' + id_editor)).triggerHandler('input');
     };
 
     $scope.inputTags = function (tag1, tag2, text, id_editor) {
@@ -99,11 +101,14 @@ myApp.controller('MessageController', function ($scope, $compile) {
         } else {
             $('#' + id_editor).val(startString + tag1 + midleString + tag2 + endString);
         }
+        angular.element(jQuery('#' + id_editor)).triggerHandler('input');
     }
 });
+
 myApp.filter('unsafe', function ($sce) {
     return $sce.trustAsHtml;
 });
+
 String.prototype.replaceAll = function (search, replace) {
     return this.split(search).join(replace);
 };
