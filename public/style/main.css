@@ -105,10 +105,10 @@
 }
 
 body {
-    max-width: 1400px;
+    max-width: 1500px;
     margin: auto;
     font-family: Arial !important;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .panel h3#comments {
@@ -171,4 +171,24 @@ h2 {
 
 .smiles a {
     height: 50px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

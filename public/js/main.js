@@ -22,4 +22,18 @@ $('.radioBtn a').on('click', function(){
 
     $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
     $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
-})
+});
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+!function ($) {
+    $(function(){
+        var $window = $(window)
+        // Запускаем code pretty:
+        window.prettyPrint && prettyPrint()
+    })
+}(window.jQuery)

@@ -79,17 +79,13 @@
         @can ('reply', $thread)
             <h3>{{ trans('forum::general.quick_reply') }}</h3>
             <div id="quick-reply">
-                <form method="POST" action="{{ Forum::route('post.store', $thread) }}">
-                    {!! csrf_field() !!}
-
-                    <div class="form-group">
-                        <textarea name="content" class="form-control">{{ old('content') }}</textarea>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-success pull-right">{{ trans('forum::general.reply') }}</button>
-                    </div>
-                </form>
+                @include('messages.chunks.user.form', [
+                        'action' => Forum::route('post.store', $thread),
+                        'hiddens' => [],
+                        'name_field' => 'content',
+                        'form_container' => true,
+                        'id_editor' => 'message',
+                    ])
             </div>
         @endcan
     </div>

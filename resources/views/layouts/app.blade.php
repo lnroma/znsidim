@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="964ad5f0ab4b6e32"/>
     <meta name="google-site-verification" content="FLQsybZxCdEquYFvzSvRnT-02d_iV02kShDuDJC9l00"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}"/>
@@ -33,16 +34,6 @@
     </style>
 </head>
 <body id="app-layout">
-<div class="panel-footer" style="height: 63px;">
-    <a href="/" style="text-decoration:none;">
-            <span style="position: relative;top: -42px;">Пр<span
-                        style="font-size: 57px;position: relative;top: 19px; color: red;">о</span><span>бки<br></span>
-                <span style="left: 56px;position: relative;top: -19px; color:#9127ff;">
-                      б айти</span>
-            </span>
-    </a>
-</div>
-
 <nav class="navbar navbar-default sidebar" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -75,65 +66,85 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-9">
+            @if($mail_count)
+                <div class="alert alert-warning">У вас новое сообщение в <a href="{{ url('/message') }}">почте</a></div>
+            @endif
+            @yield('content')
+        </div>
+        <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Меню пользователя
                 </div>
                 <div class="panel-body">
                     {{--<div class="btn-group btn-group-justified" role="group">--}}
-                    @if (!Auth::guest())
-                        <a href="{{ url('/message') }}" class="btn btn-default" style="width: 100%">
-                            <span class="glyphicon glyphicon-envelope pull-left"></span>
-                            <span class="badge pull-right">{{$mail_count}}</span>
-                        </a><br/>
-                        <a href="{{ url('/events') }}" class="btn  btn-default" style="width: 100%">
-                            <span class="glyphicon glyphicon-bell pull-left"></span>
-                            <span class="badge pull-right">{{$events_count}}</span>
-                        </a><br/>
-                    @endif
-                    @if (Auth::guest())
-                        <a href="{{ url('/login') }}" class="btn  btn-default pull-left" style="width: 100%">Вход</a>
-                        <br/>
-                        <a href="{{ url('/register') }}" class="btn  btn-default pull-left" style="width: 100%">Регистрация</a>
-                        <br/>
-                        <a href="{{ GoogleHelper::getAuthUrl() }}" class="btn btn-nav pull-left" style="width: 100%">Google+</a>
-                        <br/>
-                    @else
-                        <a style="width: 100%" href="{{ url('/myblogs') }}" class="btn  btn-default"><span
-                                    class="glyphicon glyphicon-pencil pull-left"></span></a><br/>
-                        <a style="width: 100%" href="{{ url('/home') }}" class="btn  btn-default"><i
-                                    class="fa fa-btn fa-home pull-left"></i></a><br/>
-                        <a style="width: 100%" href="{{ url('/logout') }}" class="btn  btn-default"><i
-                                    class="fa fa-btn fa-sign-out pull-left"></i></a><br/>
-                    @endif
+                    <ul class="nav">
+                        @if (!Auth::guest())
+                            <li>
+                                <center>
+                                    <img src="<?php echo Auth::user()->avatar ?>" class="img-circle" width="100px"
+                                         height="100px">
+                                </center>
+                            </li>
+                            <li><a href="{{ url('/message') }}">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                    Сообщения
+                                    <span class="badge pull-right">{{$mail_count}}</span>
+                                </a></li>
+                            <li><a href="{{ url('/events') }}">
+                                    <span class="glyphicon glyphicon-bell"></span>
+                                    Журнал
+                                    <span class="badge pull-right">{{$events_count}}</span>
+                                </a></li>
+                        @endif
+                        @if (Auth::guest())
+                            <li><a href="{{ url('/login') }}">Вход</a>
+                            </li>
+                            <li><a href="{{ url('/register') }}">Регистрация</a>
+                            </li>
+                            <li>
+                                <a href="{{ GoogleHelper::getAuthUrl() }}">Google+</a>
+                            </li>
+                        @else
+                            <li><a href="{{ url('/myblogs') }}"><span
+                                            class="glyphicon glyphicon-pencil"></span>
+                                    Написать</a></li>
+                            <li><a href="{{ url('/home') }}"><i
+                                            class="fa fa-btn fa-home pull-left"></i>
+                                    Домой
+                                </a></li>
+                            <li><a href="{{ url('/logout') }}"><i
+                                            class="fa fa-btn fa-sign-out "></i>
+                                    Выйти</a></li>
+                            <li><a href="{{ url('/user/show') }}/{{ Auth::user()->name }}" >Анкета</a> </li>
+                            <li><a href="{{ url('/photos/') }}/{{ Auth::user()->name }}" >Фотоальбом</a> </li>
+                        @endif
+                    </ul>
                 </div>
                 {{--</div>--}}
             </div>
-        </div>
-        <div class="col-lg-7">
-            @yield('content')
-        </div>
-        <div class="col-lg-3">
             @widget("recentActive")
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    В случае авторизаци/регистрации на сайте, вы сможете:
+            @if(Auth::guest())
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        В случае авторизаци/регистрации на сайте, вы сможете:
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>Получать уведомления о новых коментариях в блогах</li>
+                            <li>Получать уведомления с форума</li>
+                            <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
+                            <li>Общаться с другими пользователями сайта в внутреней почте</li>
+                            <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
+                                пробкиобайти.рус
+                            </li>
+                            <li>Создавать и комментировать темы на форуме сайта</li>
+                            <li>Оставить отзывы о компании</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <ul>
-                        <li>Получать уведомления о новых коментариях в блогах</li>
-                        <li>Получать уведомления с форума</li>
-                        <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
-                        <li>Общаться с другими пользователями сайта в внутреней почте</li>
-                        <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
-                            пробкиобайти.рус
-                        </li>
-                        <li>Создавать и комментировать темы на форуме сайта</li>
-                        <li>Оставить отзывы о компании</li>
-                    </ul>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -194,7 +205,6 @@
         });
     });
 </script>
-
 <a href='#' class='btn btn-success' id='toTop'> Наверх ^ </a>
 </body>
 </html>

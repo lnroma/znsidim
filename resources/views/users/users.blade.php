@@ -3,14 +3,14 @@
 @section('content')
     {!! Breadcrumbs::render('users') !!}
     @include('layouts.snipets.error')
-    <?php $usersRender = $users->getCollection()->toArray(); ?>
-    <?php $usersRender = array_chunk($usersRender, 3) ?>
-    <?php foreach ($usersRender as $user): ?>
+    <?php $userArray = $users->getCollection()->toArray() ?>
+    <?php $userArray = array_chunk($userArray, 3) ?>
+    <?php foreach ($userArray as $user): ?>
     <div class="row">
-        <?php foreach ($user as $item): ?>
+        <?php foreach($user as $item): ?>
         <?php $item = UserHelper::getUserById($item['id']) ?>
         <div class="col-md-4">
-            @include('users.view.list')
+            @include('users.view.list');
         </div>
         <?php endforeach; ?>
     </div>

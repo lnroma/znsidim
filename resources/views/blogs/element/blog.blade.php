@@ -21,7 +21,11 @@
                 <img alt="Image" src="{{ $_blog->main_image }}">
             </a>
         @endif
-        {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
+        @if($_blog->short_description)
+            {!! $_blog->short_description !!}
+        @else
+            {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
+        @endif
         <a href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
     </div>
     <div class="panel-footer">

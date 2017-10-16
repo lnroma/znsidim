@@ -19,7 +19,7 @@
                 {{ csrf_field() }}
                 <input type="hidden" value="{{ $blog->id }}" name="blog_id"/>
                 <div class="form-group">
-                    <label class="control-label" for="comment">Записка:</label>
+                    <label class="control-label" for="comment">Пост:</label>
                     <textarea id="comment" class="form-control" name="comment">{{ $blog->content }}</textarea>
                 </div>
                 <div class="form-group">

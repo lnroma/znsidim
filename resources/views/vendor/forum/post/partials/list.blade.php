@@ -26,7 +26,7 @@
         @if ($post->trashed())
             <span class="label label-danger">{{ trans('forum::general.deleted') }}</span>
         @else
-            {!! Forum::render($post->content) !!}
+            {!! strip_tags($post->content, '<br><a><img><blockquote><strike><b><p><i><code>' ) !!}
         @endif
     </td>
 </tr>

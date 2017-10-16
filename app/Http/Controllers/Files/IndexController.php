@@ -19,13 +19,68 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IndexController extends Controller
 {
-
     /**
      * show blogs
      * @return $this
      */
-    public function upload()
+    public function upload(Request $request)
     {
-        var_dump($_POST, $_FILES);die;
+        $this->validate($request, [
+            'file' => 'required|image'
+        ], [
+            'file' => 'Разрешенно загружать только картинки!'
+        ]);
+        // upload main image
+        try {
+            if (Input::file('file') && Input::file('file')->isValid()) {
+                $destinationPath = 'uploads';
+                $extensions = Input::file('file')->getClientOriginalExtension();
+                $user = Auth::user();
+                $destinationPath = public_path($destinationPath . DIRECTORY_SEPARATOR . $user->id);
+                if (!file_exists($destinationPath)) {
+                    if (
+                    !@mkdir($destinationPath)
+                    ) {
+                        throw new Exception('Ошибка создания директории');
+                    }
+                }
+
+                $fileName = rand(1000, 10000) . '.' . $extensions;
+                Input::file('file')->move($destinationPath, $fileName);
+                $fileUrl = DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $user->id . DIRECTORY_SEPARATOR . $fileName;
+            }
+        } catch (Exception $err) {
+            return [
+                'result' => false,
+                'message' => 'Фаил не верного формата'
+            ];
+        }
+
+        return [
+            'result' => true,
+            'url' => $fileUrl
+        ];
     }
+
+    public function getUploaded(Request $request)
+    {
+        $user = Auth::user();
+        $destinationPath = 'uploads';
+        $destinationPath = public_path($destinationPath . DIRECTORY_SEPARATOR . $user->id);
+        $getFileUploaded = glob($destinationPath . DIRECTORY_SEPARATOR . '*');
+
+        $getFileUploaded = array_map(function($element) use ($user, $destinationPath) {
+            return [
+                'url' => '/uploads/' . $user->id . str_replace($destinationPath, '', $element),
+                'path' => $element
+            ];
+        }, $getFileUploaded);
+
+        return [
+            'html' => view('messages.chunks.user.files')
+                ->with('id_editor', $request->get('id_editor'))
+                ->with('files', $getFileUploaded)->render()
+        ];
+    }
+
 }

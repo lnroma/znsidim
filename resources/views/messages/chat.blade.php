@@ -10,12 +10,21 @@
             <?php else: ?>
             <span class="glyphicon glyphicon-user " style="color:red"></span>
             <?php endif; ?>
-                Диалог {!! UserHelper::getLinkById($user->id) !!}
-            <a href="/message/settings" class="pull-right btn-sm btn-primary"><span class="glyphicon glyphicon-cog"></span> </a>
+            Диалог {!! UserHelper::getLinkById($user->id) !!}
+            <a href="/message/settings" class="pull-right btn-sm btn-primary"><span
+                        class="glyphicon glyphicon-cog"></span> </a>
         </div>
     </div>
     @if($inputUp)
-        @include('messages.chunks.user.form')
+        @include('messages.chunks.user.form', [
+            'action' => '/message/send',
+            'hiddens' => [
+                'login' => $user->name
+            ],
+            'name_field' => 'message',
+            'form_container' => true,
+            'id_editor' => 'message',
+        ])
     @endif
     <?php /** @var Nahid\Talk\Messages\Message $_message */ ?>
     <?php foreach ($messages as $_message): ?>
@@ -23,6 +32,14 @@
     <?php endforeach; ?>
     @include('messages.chunks.user.pagination')
     @if(!$inputUp)
-        @include('messages.chunks.user.form')
+        @include('messages.chunks.user.form', [
+            'action' => '/message/send',
+            'hiddens' => [
+                'login' => $user->name
+            ],
+            'name_field' => 'message',
+            'form_container' => true,
+            'id_editor' => 'message',
+        ])
     @endif
 @endsection
