@@ -11,6 +11,10 @@
                     <label class="control-label" for="name">Имя:</label>
                     <input type="text" name="name" class="form-control" id="name" required>
                 </div>
+
+                <div class="tab-content" ng-app="myApp" ng-controller="MessageController"
+                     ng-init="content=''"
+                >
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label class="control-label" for="comment">Короткое описание:</label>
@@ -40,6 +44,14 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="clearfix"></div><br/>
+                </div>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+                <script type="text/javascript">
+                    var myApp = angular.module('myApp', []);
+                </script>
+                <script src="/js/controllers/MessageController.js"></script>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Запостить</button>
                 </div>
@@ -54,15 +66,4 @@
             {{$blogs->render()}}
         </div>
     </div>
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script>
-        var options = {
-            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-        };
-//        CKEDITOR.replace('comment', options);
-//        CKEDITOR.replace('short_description', options);
-    </script>
 @endsection

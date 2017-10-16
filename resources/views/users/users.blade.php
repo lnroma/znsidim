@@ -10,7 +10,7 @@
         <?php foreach($user as $item): ?>
         <?php $item = UserHelper::getUserById($item['id']) ?>
         <div class="col-md-4">
-            @include('users.view.list');
+            @include('users.view.list')
         </div>
         <?php endforeach; ?>
     </div>

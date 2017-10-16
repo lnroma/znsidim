@@ -1,16 +1,18 @@
 var myApp = angular.module('myApp');
 myApp.controller('MessageController', function ($scope, $compile) {
-    $scope.render = function (content) {
-        var html = $scope.textContent;
+    $scope.render = function (id_editor) {
+        // var html = eval($scope.textContent_+id_editor);
+        var html = $('#'+id_editor).val();
+        console.log(html);
         if (html == undefined) {
             return '';
         }
         for (var smile in $scope.smiles) {
             html = html.replaceAll(smile, '<img src="' + $scope.smiles[smile] + '" />');
         }
-        $scope.content = html;
-        $scope.$digest();
-        return content;
+        // $scope.content = html;
+        // $scope.$digest();
+        return html;
     };
 
     $scope.remove = function (id_editor) {
@@ -39,6 +41,7 @@ myApp.controller('MessageController', function ($scope, $compile) {
         var file = $('#file_upload_' + id_editor).prop('files')[0];
         var form_data = new FormData();
         form_data.append('file', file);
+        form_data.append('id_editor', id_editor);
         var url = null;
         $.ajax({
             url: '/file/upload',
@@ -51,7 +54,7 @@ myApp.controller('MessageController', function ($scope, $compile) {
             success: function (result) {
                 $scope.picture = result.url;
                 $scope.show_preview = true;
-                $scope.insertSmile('<a href="'+result.url+'"><img src="'+result.url+'" height="200px"></a>');
+                $scope.insertSmile('<a href="'+result.url+'"><img src="'+result.url+'" height="200px"></a>', result.id_editor);
                 $scope.$digest();
                 $('#file_upload_' + id_editor).val('');
             }
