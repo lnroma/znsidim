@@ -150,9 +150,12 @@ body {
     font-size: 11px;
 }
 
-h2 {
-    background: #f5f5f5;
-}
+/*body {*/
+    /*background: #b4b4b4;*/
+/*}*/
+/*h2 {*/
+    /*background: #f5f5f5;*/
+/*}*/
 
 .radioBtn .notActive{
     color: #3276b1;

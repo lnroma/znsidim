@@ -52,13 +52,14 @@ class IndexController extends Controller
         } catch (Exception $err) {
             return [
                 'result' => false,
-                'message' => 'Фаил не верного формата'
+                'message' => 'Фаил не верного формата',
             ];
         }
 
         return [
             'result' => true,
-            'url' => $fileUrl
+            'url' => $fileUrl,
+            'id_editor' => $request->get('id_editor')
         ];
     }
 
