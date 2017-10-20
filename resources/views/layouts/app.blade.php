@@ -24,10 +24,6 @@
     <link rel="stylesheet" href="/style/main.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"/>
     <style>
-        body {
-            font-family: 'Lato';
-        }
-
         .fa-btn {
             margin-right: 6px;
         }

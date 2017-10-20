@@ -106,7 +106,7 @@ class IndexController extends Controller
                 ]
             ]);
         }
-        $ankets = $ankets->paginate(5);
+        $ankets = $ankets->paginate(30);
         return view('anketa/list')->with('ankets', $ankets);
     }
 
