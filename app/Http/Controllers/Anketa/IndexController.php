@@ -60,28 +60,51 @@ class IndexController extends Controller
                 'purpose_id' => $request->get('purpose_id'),
             ]
         ]);
-        return redirect('/dating');
+        return redirect('/dating?sex=' . $request->get('sex') . '&city_id=' . $request->get('city_id') . '&purpose_id=' . $request->get('purpose_id'));
     }
 
-    public function listAnketa()
+    public function listAnketa(Request $request)
     {
+
         $filters = session('filters');
 
         $ankets = Anketa::orderBy('id', 'desc')
             ->where('is_enable', '1');
 
-        if (is_array($filters)) {
-            if (!empty($filters['sex']) && $filters['sex'] >=0) {
+        if (is_array($filters) && (!$request->get('sex') || !$request->get('city_id') || !$request->get('purpose_id'))) {
+            if (!empty($filters['sex']) && $filters['sex'] >= 0 && !$request->get('sex')) {
                 $ankets->where('sex', $filters['sex']);
             }
 
-            if (!empty($filters['city_id']) && $filters['city_id'] >=0 ) {
+            if (!empty($filters['city_id']) && $filters['city_id'] >= 0 && !$request->get('city_id')) {
                 $ankets->where('city_id', $filters['city_id']);
             }
 
-            if (!empty($filters['purpose_id']) && $filters['purpose_id'] >= 0) {
+            if (!empty($filters['purpose_id']) && $filters['purpose_id'] >= 0 && !$request->get('purpose_id')) {
                 $ankets->where('purpose_id', $filters['purpose_id']);
             }
+        }
+
+        if($request->get('sex') || $request->get('city_id') || $request->get('purpose_id')) {
+            if($sex = $request->get('sex')) {
+                $ankets->where('sex', $sex);
+            }
+
+            if($city_id = $request->get('city_id')) {
+                $ankets->where('city_id', $city_id);
+            }
+
+            if($purpose_id = $request->get('purpose_id')) {
+                $ankets->where('purpose_id', $purpose_id);
+            }
+            // set params to filter
+            session([
+                'filters' => [
+                    'sex' => $request->get('sex'),
+                    'city_id' => $request->get('city_id'),
+                    'purpose_id' => $request->get('purpose_id'),
+                ]
+            ]);
         }
         $ankets = $ankets->paginate(5);
         return view('anketa/list')->with('ankets', $ankets);
