@@ -4,45 +4,39 @@
     {!! Breadcrumbs::render('readblog', $blog) !!}
     @include('layouts.snipets.error')
     <div class="container">
-      <div clas='row'>
-         <div class='col-sm-2 text-muted'> 
-          @if(UserHelper::getUserById($blog->user_id)->isOnline())
+        <div clas='row'>
+            <div class='col text-muted'>
+                @if(UserHelper::getUserById($blog->user_id)->isOnline())
                     <span class="glyphicon glyphicon-user " style="color:green"></span>
-                  @else
+                @else
                     <span class="glyphicon glyphicon-user " style="color:red"></span>
-                  @endif
-        {!!UserHelper::getLinkById($blog->user_id)   !!}
-        </div>
-        <div class='col-sm-3 text-muted'>
-          {{$blog->created_at}}
-        </div>
-        <div class='col-sm-2 text-muted'>
-         Коментариев: {{ $blog->comments->count() }}
-        </div>
-        <div class='col-sm-3 text-muted'>
-           Просмотров: {{ $blog->viewed }}
-       </div>
-        <div class='col-lg-12'>
-	<div class='clearfix'></div>
+                @endif
+                {!!UserHelper::getLinkById($blog->user_id)   !!},
+                {{$blog->created_at}},
+                Комментариев: {{ $blog->comments->count() }},
+                Просмотров: {{ $blog->viewed }}
+            </div>
+            <div class='col-lg-12'>
+                <div class='clearfix'></div>
 
-        <h2 class='text'>{{$blog->name}}</h2>
-        </div>
-        <div class='col-lg-12 text-muted'>
-          <div class='row'>
-          <span class="glyphicon glyphicon-tags"></span>
-        @if(count($blog->tags) > 0)
-            @foreach($blog->tags as $_tag)
-              &nbsp;  <a href="/tags/{{ $_tag->url_key }}" class="text-muted">{{ $_tag->title }}</a>,
-            @endforeach
-        @else
-            Нет тегов
-        @endif
-          </div>
-        </div>
+                <h2 class='text'>{{$blog->name}}</h2>
+            </div>
+            <div class='col-lg-12 text-muted'>
+                <div class='row'>
+                    <span class="glyphicon glyphicon-tags"></span>
+                    @if(count($blog->tags) > 0)
+                        @foreach($blog->tags as $_tag)
+                            &nbsp;  <a href="/tags/{{ $_tag->url_key }}" class="text-muted">{{ $_tag->title }}</a>,
+                        @endforeach
+                    @else
+                        Нет тегов
+                    @endif
+                </div>
+            </div>
 
-         <div class='col-lg-12'>&nbsp;</div>	
-	</div>
-         <div class='clearfix'></div>
+            <div class='col-lg-12'>&nbsp;</div>
+        </div>
+        <div class='clearfix'></div>
         {!! strip_tags($blog->content, '<br><a><img><blockquote><strike><b><p><i><code><p><h2><h3><h1><h4><ul><li><ol>') !!}
     </div>
     <div class="panel-footer">

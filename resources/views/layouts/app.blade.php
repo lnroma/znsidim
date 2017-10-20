@@ -35,154 +35,157 @@
 </head>
 <body id="app-layout">
 <div class='row'>
-<nav class="navbar navbar-fixed-top navbar-default sidebar" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-sidebar-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/forum"><span class="glyphicon glyphicon-megafon"></span>Форум</a></li>
-                <li><a href="/blogs"><span class="glyphicon glyphicon-book"></span>Блоги<span
-                                class="badge">{{$blog_count}}</span></a></li>
-                <li><a href="/tags"><span class="glyphicon glyphicon-tags"></span> Теги</a></li>
-                <li><a href="{{ url('/users') }}">
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span class="badge">{{$user_count}}</span>
-                    </a></li>
-                <li><a href="/feed"><i class="fa fa-btn fa-rss"></i>RSS</a></li>
-                <li><a href="/search"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
-                <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
-                <li><a href="/games"><i class="fa fa-gamepad"></i>
-                        Игры денди!</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
- &nbsp; <br/>
- &nbsp; <br/>
- &nbsp; <br/>
- <div class="clear-fix"></div>
-   <div class='col-md-2'></div>
-   <div class='col-md-8'>
-    <div class="row">
-        <div class="col-lg-9">
-            @if($mail_count)
-                <div class="alert alert-warning">У вас новое сообщение в <a href="{{ url('/message') }}">почте</a></div>
-            @endif
-            @yield('content')
-        </div>
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Меню пользователя
-                </div>
-                <div class="panel-body">
-                    {{--<div class="btn-group btn-group-justified" role="group">--}}
-                    <ul class="nav">
-                        @if (!Auth::guest())
-                            <li>
-                                <center>
-                                    <img src="<?php echo Auth::user()->avatar ?>" class="img-circle" width="100px"
-                                         height="100px">
-                                </center>
-                            </li>
-                            <li><a href="{{ url('/message') }}">
-                                    <span class="glyphicon glyphicon-envelope"></span>
-                                    Сообщения
-                                    <span class="badge pull-right">{{$mail_count}}</span>
-                                </a></li>
-                            <li><a href="{{ url('/events') }}">
-                                    <span class="glyphicon glyphicon-bell"></span>
-                                    Журнал
-                                    <span class="badge pull-right">{{$events_count}}</span>
-                                </a></li>
-                        @endif
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Вход</a>
-                            </li>
-                            <li><a href="{{ url('/register') }}">Регистрация</a>
-                            </li>
-                            <li>
-                                <a href="{{ GoogleHelper::getAuthUrl() }}">Google+</a>
-                            </li>
-                        @else
-                            <li><a href="{{ url('/myblogs') }}"><span
-                                            class="glyphicon glyphicon-pencil"></span>
-                                    Написать</a></li>
-                            <li><a href="{{ url('/home') }}"><i
-                                            class="fa fa-btn fa-home pull-left"></i>
-                                    Домой
-                                </a></li>
-                            <li><a href="{{ url('/logout') }}"><i
-                                            class="fa fa-btn fa-sign-out "></i>
-                                    Выйти</a></li>
-                            <li><a href="{{ url('/user/show') }}/{{ Auth::user()->name }}" >Анкета</a> </li>
-                            <li><a href="{{ url('/photos/') }}/{{ Auth::user()->name }}" >Фотоальбом</a> </li>
-                        @endif
-                    </ul>
-                </div>
-                {{--</div>--}}
+    <nav class="navbar navbar-fixed-top navbar-default sidebar" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-sidebar-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-            @widget("recentActive")
-            @if(Auth::guest())
+            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/forum"><span class="glyphicon glyphicon-megafon"></span>Форум</a></li>
+                    <li><a href="/blogs"><span class="glyphicon glyphicon-book"></span>Блоги<span
+                                    class="badge">{{$blog_count}}</span></a></li>
+                    <li><a href="/tags"><span class="glyphicon glyphicon-tags"></span> Теги</a></li>
+                    <li><a href="{{ url('/users') }}">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="badge">{{$user_count}}</span>
+                        </a></li>
+                    <li><a href="/feed"><i class="fa fa-btn fa-rss"></i>RSS</a></li>
+                    <li><a href="/search"><span class="glyphicon glyphicon-search"></span> Поиск</a></li>
+                    <li><a href="/dating"><span class="glyphicon glyphicon-heart"></span> Знакомство</a></li>
+                    <li><a href="/games"><i class="fa fa-gamepad"></i>
+                            Игры денди!</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    &nbsp; <br/>
+    &nbsp; <br/>
+    &nbsp; <br/>
+    <div class="clear-fix"></div>
+    <div class='col-md-1'></div>
+    <div class='col-md-10'>
+        <div class="row">
+            <div class="col-lg-9">
+                @if($mail_count)
+                    <div class="alert alert-warning">У вас новое сообщение в <a href="{{ url('/message') }}">почте</a>
+                    </div>
+                @endif
+                @yield('content')
+            </div>
+            <div class="col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        В случае авторизаци/регистрации на сайте, вы сможете:
+                        Меню пользователя
                     </div>
                     <div class="panel-body">
-                        <ul>
-                            <li>Получать уведомления о новых коментариях в блогах</li>
-                            <li>Получать уведомления с форума</li>
-                            <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
-                            <li>Общаться с другими пользователями сайта в внутреней почте</li>
-                            <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
-                                пробкиобайти.рус
-                            </li>
-                            <li>Создавать и комментировать темы на форуме сайта</li>
-                            <li>Оставить отзывы о компании</li>
+                        {{--<div class="btn-group btn-group-justified" role="group">--}}
+                        <ul class="nav">
+                            @if (!Auth::guest())
+                                <li>
+                                    <center>
+                                        <img src="<?php echo Auth::user()->avatar ?>" class="img-circle" width="100px"
+                                             height="100px">
+                                    </center>
+                                </li>
+                                <li><a href="{{ url('/message') }}">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                        Сообщения
+                                        <span class="badge pull-right">{{$mail_count}}</span>
+                                    </a></li>
+                                <li><a href="{{ url('/events') }}">
+                                        <span class="glyphicon glyphicon-bell"></span>
+                                        Журнал
+                                        <span class="badge pull-right">{{$events_count}}</span>
+                                    </a></li>
+                            @endif
+                            @if (Auth::guest())
+                                <li><a href="{{ url('/login') }}">Вход</a>
+                                </li>
+                                <li><a href="{{ url('/register') }}">Регистрация</a>
+                                </li>
+                                <li>
+                                    <a href="{{ GoogleHelper::getAuthUrl() }}">Google+</a>
+                                </li>
+                            @else
+                                <li><a href="{{ url('/myblogs') }}"><span
+                                                class="glyphicon glyphicon-pencil"></span>
+                                        Написать</a></li>
+                                <li><a href="{{ url('/home') }}"><i
+                                                class="fa fa-btn fa-home pull-left"></i>
+                                        Домой
+                                    </a></li>
+                                <li><a href="{{ url('/logout') }}"><i
+                                                class="fa fa-btn fa-sign-out "></i>
+                                        Выйти</a></li>
+                                <li><a href="{{ url('/user/show') }}/{{ Auth::user()->name }}">Анкета</a></li>
+                                <li><a href="{{ url('/photos/') }}/{{ Auth::user()->name }}">Фотоальбом</a></li>
+                            @endif
                         </ul>
                     </div>
+                    {{--</div>--}}
                 </div>
-            @endif
+                @widget("recentActive")
+                @if(Auth::guest())
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            В случае авторизаци/регистрации на сайте, вы сможете:
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Получать уведомления о новых коментариях в блогах</li>
+                                <li>Получать уведомления с форума</li>
+                                <li>Постить свои блоги, около айти тематики, без какой либо модерации и ограничений</li>
+                                <li>Общаться с другими пользователями сайта в внутреней почте</li>
+                                <li>По заявке получить почтовый ящик вида yourname@sidimvprobke.com или yourname@
+                                    пробкиобайти.рус
+                                </li>
+                                <li>Создавать и комментировать темы на форуме сайта</li>
+                                <li>Оставить отзывы о компании</li>
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
+        @if(!Auth::guest() && Auth::user()->role == 'superadmin')
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Seo настройка страницы
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="/seo/save">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="url">Url:</label>
+                            <input class="form-control" id="url" type="text" name="url"
+                                   value="{{ $_SERVER['REQUEST_URI'] }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Заголовок страницы:</label>
+                            <input id="title" class="form-control" type="text" name="title" value="{{ $title }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Описание:</label>
+                            <textarea name="description" id="description"
+                                      class="form-control">{{ $description }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="keywords">Ключевые слова</label>
+                            <textarea id="keywords" name="keywords" class="form-control">{{ $keywords }}</textarea>
+                        </div>
+                        <input type="submit" name="ok">
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
-@if(!Auth::guest() && Auth::user()->role == 'superadmin')
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Seo настройка страницы
-        </div>
-        <div class="panel-body">
-            <form method="post" action="/seo/save">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="url">Url:</label>
-                    <input class="form-control" id="url" type="text" name="url" value="{{ $_SERVER['REQUEST_URI'] }}">
-                </div>
-                <div class="form-group">
-                    <label for="title">Заголовок страницы:</label>
-                    <input id="title" class="form-control" type="text" name="title" value="{{ $title }}">
-                </div>
-                <div class="form-group">
-                    <label for="description">Описание:</label>
-                    <textarea name="description" id="description" class="form-control">{{ $description }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="keywords">Ключевые слова</label>
-                    <textarea id="keywords" name="keywords" class="form-control">{{ $keywords }}</textarea>
-                </div>
-                <input type="submit" name="ok">
-            </form>
-        </div>
-    </div>
-@endif
-</div>
 </div>
 </div>
 <footer class="footer">

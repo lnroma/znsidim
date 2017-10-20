@@ -1,67 +1,50 @@
 <a name="blog_{{$_blog->id}}"></a>
 <div class="panel">
     <div class="panel-heading">
-        <div class="text-center">
-            <div class="row">
-                <div class="col-sm-9">
-                    <h3 class="pull-left"><a href="/blogs/read/{{ $_blog->id }}">{{$_blog->name}}</a></h3>
-                </div>
-                <div class="col-sm-3">
-                    <h4 class="pull-right">
-                        <small><em>{!! str_replace(' ', '<br/>', $_blog->created_at) !!}</em></small>
-                    </h4>
+        <div class="row">
+            <div class='col-lg-12 text-muted'>
+                @if(UserHelper::getUserById($_blog->user_id)->isOnline())
+                    <span class="glyphicon glyphicon-user " style="color:green"></span>
+                @else
+                    <span class="glyphicon glyphicon-user " style="color:red"></span>
+                @endif
+                {!!UserHelper::getLinkById($_blog->user_id)   !!},
+                {{$_blog->created_at}},
+                Комментариев: {{ $_blog->comments->count() }},
+                Просмотров: {{ $_blog->viewed }}
+            </div>
+            <div class="col-lg-12">
+                <h3 class="pull-left"><a href="/blogs/read/{{ $_blog->id }}">{{$_blog->name}}</a></h3>
+            </div>
+            <div class='col-lg-12 text-muted'>
+                <div class='row'>
+                    <span class="glyphicon glyphicon-tags"></span>
+                    @if(count($_blog->tags) > 0)
+                        @foreach($_blog->tags as $_tag)
+                            &nbsp;  <a href="/tags/{{ $_tag->url_key }}" class="text-muted">{{ $_tag->title }}</a>,
+                        @endforeach
+                    @else
+                        Нет тегов
+                    @endif
                 </div>
             </div>
-        </div>
     </div>
+</div>
 
-    <div class="panel-body">
-        @if($_blog->main_image)
-            <a href="#" class="thumbnail">
-                <img alt="Image" src="{{ $_blog->main_image }}">
-            </a>
-        @endif
-        @if($_blog->short_description)
-            {!! $_blog->short_description !!}
-        @else
-            {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
-        @endif
-        <a href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
-    </div>
-    <div class="panel-footer">
-        @if(UserHelper::getUserById($_blog->user_id)->isOnline())
-            <span class="glyphicon glyphicon-user " style="color:green"></span>
-        @else
-            <span class="glyphicon glyphicon-user " style="color:red"></span>
-        @endif
-        {!! UserHelper::getLinkById($_blog->user_id)   !!}
-        |
-        <a href="/blogs/read/{{ $_blog->id }}#comments" class="comments">
-            <span class="glyphicon glyphicon-comment"></span>
-            <span class="badge">{{ $_blog->comments->count() }}</span>
-        </a> |
-        <span class="glyphicon-eye-open glyphicon"></span>
-        <span class="badge">{{ $_blog->viewed }}</span> |
-        <a href="/blogs/like/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-sm btn-default"><span
-                    class="glyphicon glyphicon-thumbs-up"></span></a>
-        <span class="badge">{{ $_blog->like }}</span> |
-        <a href="/blogs/dislike/{{$_blog->id}}/{{csrf_token()}}" class="btn btn-sm btn-default"><span
-                    class="glyphicon glyphicon-thumbs-down"></span></a>
-        <span class="badge">{{ $_blog->dislike }}</span>
-        @if(
-                    (!Auth::guest() && Auth::user()->id == $_blog->user_id)
-                    || (!Auth::guest() && Auth::user()->role == 'superadmin')
-                )
-            <a href="/blogs/edit/{{ $_blog->id }}" class="btn btn-sm btn-default"><span
-                        class="glyphicon glyphicon-pencil"></span></a>
-        @endif
-        | <span class="glyphicon glyphicon-tags"></span>
-        @if(count($_blog->tags) > 0)
-            @foreach($_blog->tags as $_tag)
-                <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
-            @endforeach
-        @else
-            Тегов нет
-        @endif
-    </div>
+<div class="panel-body">
+    @if($_blog->main_image)
+        <a href="#" class="thumbnail">
+            <img alt="Image" src="{{ $_blog->main_image }}">
+        </a>
+    @endif
+    @if($_blog->short_description)
+        {!! $_blog->short_description !!}
+    @else
+        {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
+    @endif
+</div>
+<div class="panel-footer ">
+    <a class="btn btn-default pull-right" href="/blogs/read/{{ $_blog->id }}">Читать дальше</a>
+    <div class="clearfix"></div>
+</div>
 </div>
