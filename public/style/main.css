@@ -104,13 +104,6 @@
     background: #2e6da4;
 }
 
-body {
-    max-width: 1500px;
-    margin: auto;
-    font-family: Arial !important;
-    font-size: 17px;
-}
-
 .panel h3#comments {
     padding-left: 15px;
 }

@@ -4,21 +4,48 @@
     {!! Breadcrumbs::render('readblog', $blog) !!}
     @include('layouts.snipets.error')
     <div class="container">
-        <h2>{{$blog->name}}</h2>
-        {!! strip_tags($blog->content, '<br><a><img><blockquote><strike><b><p><i><code>') !!}
+      <div clas='row'>
+         <div class='col-sm-2 text-muted'> 
+          @if(UserHelper::getUserById($blog->user_id)->isOnline())
+                    <span class="glyphicon glyphicon-user " style="color:green"></span>
+                  @else
+                    <span class="glyphicon glyphicon-user " style="color:red"></span>
+                  @endif
+        {!!UserHelper::getLinkById($blog->user_id)   !!}
+        </div>
+        <div class='col-sm-3 text-muted'>
+          {{$blog->created_at}}
+        </div>
+        <div class='col-sm-2 text-muted'>
+         Коментариев: {{ $blog->comments->count() }}
+        </div>
+        <div class='col-sm-3 text-muted'>
+           Просмотров: {{ $blog->viewed }}
+       </div>
+        <div class='col-lg-12'>
+	<div class='clearfix'></div>
+
+        <h2 class='text'>{{$blog->name}}</h2>
+        </div>
+        <div class='col-lg-12 text-muted'>
+          <div class='row'>
+          <span class="glyphicon glyphicon-tags"></span>
+        @if(count($blog->tags) > 0)
+            @foreach($blog->tags as $_tag)
+              &nbsp;  <a href="/tags/{{ $_tag->url_key }}" class="text-muted">{{ $_tag->title }}</a>,
+            @endforeach
+        @else
+            Нет тегов
+        @endif
+          </div>
+        </div>
+
+         <div class='col-lg-12'>&nbsp;</div>	
+	</div>
+         <div class='clearfix'></div>
+        {!! strip_tags($blog->content, '<br><a><img><blockquote><strike><b><p><i><code><p><h2><h3><h1><h4><ul><li><ol>') !!}
     </div>
     <div class="panel-footer">
-        @if(UserHelper::getUserById($blog->user_id)->isOnline())
-            <span class="glyphicon glyphicon-user " style="color:green"></span>
-        @else
-            <span class="glyphicon glyphicon-user " style="color:red"></span>
-        @endif
-        {!!UserHelper::getLinkById($blog->user_id)   !!}
-        |
-        <span class="glyphicon glyphicon-comment"></span>
-        <span class="badge">{{ $blog->comments->count() }}</span> |
-        <span class="glyphicon-eye-open glyphicon"></span>
-        <span class="badge">{{ $blog->viewed }}</span> |
         <a href="/blogs/like/{{$blog->id}}/{{csrf_token()}}" class="btn btn-sm btn-default"><span
                     class="glyphicon glyphicon-thumbs-up"></span></a>
         <span class="badge">{{ $blog->like }}</span> |
@@ -31,14 +58,6 @@
         )
             <a href="/blogs/edit/{{ $blog->id }}" class="btn btn-sm btn-default"><span
                         class="glyphicon glyphicon-pencil"></span></a>
-        @endif
-        | <span class="glyphicon glyphicon-tags"></span>
-        @if(count($blog->tags) > 0)
-            @foreach($blog->tags as $_tag)
-                <a href="/tags/{{ $_tag->url_key }}" class="btn-sm btn-primary">{{ $_tag->title }}</a>
-            @endforeach
-        @else
-            Нет тегов
         @endif
     </div>
     {{--</div>--}}

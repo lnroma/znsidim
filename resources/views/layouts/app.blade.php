@@ -34,7 +34,8 @@
     </style>
 </head>
 <body id="app-layout">
-<nav class="navbar navbar-default sidebar" role="navigation">
+<div class='row'>
+<nav class="navbar navbar-fixed-top navbar-default sidebar" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -64,7 +65,12 @@
         </div>
     </div>
 </nav>
-<div class="container">
+ &nbsp; <br/>
+ &nbsp; <br/>
+ &nbsp; <br/>
+ <div class="clear-fix"></div>
+   <div class='col-md-2'></div>
+   <div class='col-md-8'>
     <div class="row">
         <div class="col-lg-9">
             @if($mail_count)
@@ -147,7 +153,6 @@
             @endif
         </div>
     </div>
-</div>
 @if(!Auth::guest() && Auth::user()->role == 'superadmin')
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -177,6 +182,9 @@
         </div>
     </div>
 @endif
+</div>
+</div>
+</div>
 <footer class="footer">
     @include('layouts.snipets.metrika')
 </footer>
