@@ -68,20 +68,19 @@
     <div class='col-md-1'></div>
     <div class='col-md-10'>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-9 nopadding">
                 @if($mail_count)
                     <div class="alert alert-warning">У вас новое сообщение в <a href="{{ url('/message') }}">почте</a>
                     </div>
                 @endif
                 @yield('content')
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 nopadding">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Меню пользователя
                     </div>
                     <div class="panel-body">
-                        {{--<div class="btn-group btn-group-justified" role="group">--}}
                         <ul class="nav">
                             @if (!Auth::guest())
                                 <li>

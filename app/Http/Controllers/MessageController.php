@@ -39,7 +39,6 @@ class MessageController extends Controller
     {
         /** @var User $user */
         $user = Auth::user();
-
         if($user->getProperty('mail_settings_input_up', 1) == 1) {
             $inputUp[1] = 'active';
             $inputUp[0] = 'notActive';
