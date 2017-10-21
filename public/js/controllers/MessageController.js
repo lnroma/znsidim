@@ -16,6 +16,10 @@ myApp.controller('MessageController', function ($scope, $compile) {
         $('#file_upload_' + id_editor).val('');
     };
 
+    $scope.submitForm = function (form_id) {
+        $('#'+form_id).submit();
+    };
+
     $scope.choose_file = function (id_editor) {
         $.ajax({
             url: '/file/get_uploaded?id_editor=' + id_editor,

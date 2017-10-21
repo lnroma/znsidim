@@ -1,7 +1,3 @@
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#edit_{{$id_editor}}">Редактировать</a></li>
-    <li><a data-toggle="tab" href="#show_{{$id_editor}}">Просмотр</a></li>
-</ul>
 @if($form_container)
     <div class="tab-content" ng-app="myApp" ng-controller="MessageController"
          ng-init="content_{{$id_editor}}=''"
@@ -11,7 +7,7 @@
     @endif
     <div id="edit_{{$id_editor}}" class="tab-pane fade in active" ng-init="picture=''">
         @if($form_container)
-            <form action="{{$action}}" method="post">
+            <form action="{{$action}}" method="post" id="form_{{$id_editor}}">
                 @endif
                 @foreach($hiddens as $_name => $_value)
                     <input type="hidden" name="{{$_name}}" id="{{$_name}}" value="{{$_value}}"/>
@@ -19,25 +15,30 @@
                 <div class="form-group">
                     <div class="panel panel-default " style="margin: 0px; border-radius: 0px">
                         <div class="panel-body " style="padding: 2px">
+                                @if($form_container)
+                                        <a ng-click="submitForm('form_{{$id_editor}}')" class="pull-left btn">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                                        </a>
+                                @endif
                             <div class="btn-group pull-right" role="group" aria-label="Опции редактора"
                                  ng-init="showDetails = false"
                                  ng-init="showSmiles = false"
                             >
-                                <a class="btn btn-nav" ng-click="showDetails_{{$id_editor}} = ! showDetails_{{$id_editor}}"><i
+                                <a class="btn" ng-click="showDetails_{{$id_editor}} = ! showDetails_{{$id_editor}}"><i
                                             class="fa fa-paperclip"
                                             aria-hidden="true"></i></a>
-                                <a class="btn btn-nav" ng-click="showSmiles_{{$id_editor}} = ! showSmiles_{{$id_editor}}">
+                                <a class="btn" ng-click="showSmiles_{{$id_editor}} = ! showSmiles_{{$id_editor}}">
                                     <i class="fa fa-smile-o"></i>
                                 </a>
-                                <a class="btn btn-nav" ng-mousedown="bold('{{ $id_editor }}')"><span
+                                <a class="btn" ng-mousedown="bold('{{ $id_editor }}')"><span
                                             class="glyphicon glyphicon-bold"></span></a>
-                                <a class="btn btn-nav" ng-mousedown="italic('{{ $id_editor }}')"><span
+                                <a class="btn" ng-mousedown="italic('{{ $id_editor }}')"><span
                                             class="glyphicon glyphicon-italic"></span></a>
-                                <a class="btn btn-nav" ng-mousedown="strice('{{ $id_editor }}')"><i
+                                <a class="btn" ng-mousedown="strice('{{ $id_editor }}')"><i
                                             class="fa fa-strikethrough"
                                             aria-hidden="true"></i></a>
 
-                                <a class="btn btn-nav" ng-mousedown="inputTags('<blockquote>', '</blockquote>', null, '{{ $id_editor }}')"><i
+                                <a class="btn" ng-mousedown="inputTags('<blockquote>', '</blockquote>', null, '{{ $id_editor }}')"><i
                                             class="fa fa-quote-right"></i></a>
                             </div>
                         </div>
@@ -103,24 +104,18 @@
                                   ng-init='smiles=<?php echo json_encode($newSmiles) ?>'
                                   id="{{ $id_editor }}"
                                   class="form-control"
-                                  style="margin: 0px; border-radius: 0px"
-                        ></textarea>
+                                  style="z-index:100; margin: 0px; border-radius: 0px"
+                                  required
+                        ><?php echo '{{content_' . $id_editor .'}}' ?></textarea>
+                        <span ng-bind-html="content_{{$id_editor}} | unsafe"></span>
                     </div>
                     {{ csrf_field() }}
-                    @if($form_container)
-                    <div class="form-group ">
-                        <button type="submit" class="pull-right btn btn-success">Отправить</button>
-                    </div>
-                    @endif
                     <input type="hidden" name="{{$name_field}}" id="message_back" value="<?php echo '{{content_' . $id_editor . '}}' ?>"/>
                 </div>
                 @if($form_container)
             </form>
         @endif
     </div>
-                <div id="show_{{$id_editor}}" class="tab-pane fade">
-                    <span ng-bind-html="content_{{$id_editor}} | unsafe"></span>
-                </div>
 @if($form_container)
 </div>
 
