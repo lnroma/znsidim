@@ -25,7 +25,7 @@ if ($user_id != '-1') {
         @endcan
     </div>
     <div class="panel-body">
-        {!! strip_tags($comment->comment, '<br><a><img><blockquote><strike><b><p><i><code>') !!}
+        {!! strip_tags($comment->comment, '<br><a><img><blockquote><strike><b><p><i><code><p><h2><h3><h1><h4><ul><li><ol><pre>') !!}
     </div>
     <div class="panel-footer">
         {!! $aditional !!}

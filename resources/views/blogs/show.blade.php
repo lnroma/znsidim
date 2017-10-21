@@ -37,7 +37,7 @@
             <div class='col-lg-12'>&nbsp;</div>
         </div>
         <div class='clearfix'></div>
-        {!! strip_tags($blog->content, '<br><a><img><blockquote><strike><b><p><i><code><p><h2><h3><h1><h4><ul><li><ol>') !!}
+        {!! strip_tags($blog->content, '<br><a><img><blockquote><strike><b><p><i><code><p><h2><h3><h1><h4><ul><li><ol><pre>') !!}
     </div>
     <div class="panel-footer">
         <a href="/blogs/like/{{$blog->id}}/{{csrf_token()}}" class="btn btn-sm btn-default"><span

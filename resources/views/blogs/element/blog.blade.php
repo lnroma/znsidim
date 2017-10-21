@@ -38,7 +38,7 @@
         </a>
     @endif
     @if($_blog->short_description)
-        {!! $_blog->short_description !!}
+        {!! strip_tags($_blog->short_description, '<br><a><img><blockquote><strike><b><p><i><code><p><h2><h3><h1><h4><ul><li><ol><pre>') !!}
     @else
         {!! \Illuminate\Support\Str::words(strip_tags($_blog->content), 100) !!}
     @endif
